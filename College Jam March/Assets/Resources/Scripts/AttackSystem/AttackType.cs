@@ -4,10 +4,5 @@ using UnityEngine;
 
 namespace AttackSystem
 {
-    public enum AttackType
-    {
-        Melee,
-        Ranged,
-        Area
-    }
+    
 }

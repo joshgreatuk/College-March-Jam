@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using AttackSystem;
-using AttackSystem.AttackCollection;
+using Enemy;
 
 namespace Player
 {
@@ -19,8 +19,13 @@ namespace Player
         public float playerMultiplier = 1;
         public float playerSpeed = 5;
 
-        public Attack mainAttack = new A_Punch();
-        public Attack secondaryAttack = new A_ThrowRock();
+        public AttackList mainSelect;
+        [SerializeReference]
+        private Attack mainAttack;
+
+        public AttackList secondarySelect;
+        [SerializeReference]
+        private Attack secondaryAttack;
 
         public Camera playerCamera;
 
@@ -29,6 +34,12 @@ namespace Player
         private float zDepth;
         private Vector2 moveVector;
         private Vector3 playerMouseOffset;
+
+        private void OnValidate() 
+        {
+            mainAttack = AttackCollection.GetAttack(mainSelect);
+            secondaryAttack = AttackCollection.GetAttack(secondarySelect);
+        }
 
         private void Awake() 
         {
@@ -77,7 +88,15 @@ namespace Player
                 switch (mainAttack.attackType)
                 {
                     case AttackType.Melee:
-                        
+                        RaycastHit hit;
+                        if (Physics.Raycast(transform.position, transform.forward, out hit, mainAttack.attackRange))
+                        {
+                            if (hit.collider.gameObject.tag == "Enemy")
+                            {
+                                EnemyClass enemyClass = hit.collider.gameObject.GetComponent<EnemyClass>();
+                                enemyClass.EnemyHit(mainAttack.attackDamage, mainAttack.attackStun);
+                            }
+                        }
                         break;
                     case AttackType.Ranged:
                         break;
