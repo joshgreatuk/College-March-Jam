@@ -17,15 +17,18 @@ namespace Player
         public int playerXp = 0;
 
         public float playerMultiplier = 1;
+        public float playerCritMultiplier = 1.5f;
         public float playerSpeed = 5;
 
         public AttackList mainSelect;
         [SerializeReference]
         private Attack mainAttack;
+        private bool mainCooldown = false;
 
         public AttackList secondarySelect;
         [SerializeReference]
         private Attack secondaryAttack;
+        private bool secondaryCooldown = false;
 
         public Camera playerCamera;
 
@@ -83,35 +86,70 @@ namespace Player
 
         public void MainAttack(InputAction.CallbackContext context)
         {
-            if (mainAttack != null)
+            if (!mainCooldown && context.performed)
             {
-                switch (mainAttack.attackType)
-                {
-                    case AttackType.Melee:
-                        RaycastHit hit;
-                        if (Physics.Raycast(transform.position, transform.forward, out hit, mainAttack.attackRange))
-                        {
-                            if (hit.collider.gameObject.tag == "Enemy")
-                            {
-                                EnemyClass enemyClass = hit.collider.gameObject.GetComponent<EnemyClass>();
-                                enemyClass.EnemyHit(mainAttack.attackDamage, mainAttack.attackStun);
-                            }
-                        }
-                        break;
-                    case AttackType.Ranged:
-                        break;
-                }
+                FireAttack(mainAttack);
+                StartCoroutine(mainAttackCooldown(mainAttack.attackCooldown));
             }
         }
 
         public void SecondAttack(InputAction.CallbackContext context)
         {
+            if (!secondaryCooldown && context.performed)
+            {
+                FireAttack(secondaryAttack);
+                StartCoroutine(secondAttackCooldown(secondaryAttack.attackCooldown));
+            }
+        }
 
+        public void FireAttack(Attack attack)
+        {
+            switch (mainAttack.attackType)
+            {
+                case AttackType.Melee:
+                    RaycastHit hit;
+                    if (Physics.Raycast(transform.position, transform.forward, out hit, attack.attackRange))
+                    {
+                        if (hit.collider.gameObject.tag == "Enemy")
+                        {
+                            EnemyClass enemyClass = hit.collider.gameObject.GetComponent<EnemyClass>();
+                            if (UnityEngine.Random.Range(0.00f, 1.00f) <= attack.critChance)
+                            {
+                                enemyClass.EnemyHit(Mathf.RoundToInt(attack.attackDamage*playerCritMultiplier), attack.attackStun, true);
+                            }
+                            else
+                            {
+                                enemyClass.EnemyHit(attack.attackDamage, attack.attackStun, false);
+                            }
+                        }
+                    }
+                    break;
+                case AttackType.Ranged:
+                    break;
+            }
+        }
+
+        IEnumerator mainAttackCooldown(float cooldown) 
+        { 
+            mainCooldown = true; 
+            UIRefs.instance.mainCoolBar.transform.localScale = new Vector3 (1, 1, 1);
+            LeanTween.scaleX(UIRefs.instance.mainCoolBar.gameObject, 0f, mainAttack.attackCooldown);
+            yield return new WaitForSeconds(cooldown); 
+            mainCooldown = false; 
+        }
+
+        IEnumerator secondAttackCooldown(float cooldown) 
+        { 
+            secondaryCooldown = true;
+            UIRefs.instance.secCoolBar.transform.localScale = new Vector3 (1, 1, 1);
+            LeanTween.scaleX(UIRefs.instance.secCoolBar.gameObject, 0f, secondaryAttack.attackCooldown);
+            yield return new WaitForSeconds(cooldown); 
+            secondaryCooldown = false; 
         }
 
         public void Interact(InputAction.CallbackContext context)
         {
-
+            
         }
     }
 }

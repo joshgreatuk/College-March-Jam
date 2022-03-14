@@ -7,7 +7,9 @@ namespace AttackSystem
 {
     public enum AttackList
     {
+        None,
         A_Punch,
+        A_StrongPunch,
         A_ThrowRock
     }
 
@@ -24,6 +26,9 @@ namespace AttackSystem
                 case AttackList.A_ThrowRock:
                     attackClass = new A_ThrowRock();
                     break;
+                case AttackList.A_StrongPunch:
+                    attackClass = new A_StrongPunch();
+                    break;
             }
             return attackClass;
         }
@@ -34,10 +39,23 @@ namespace AttackSystem
             {
                 attackName = "Punch";
                 attackType = AttackType.Melee;
-                attackCooldown = 3;
+                attackCooldown = 0.75f;
                 attackDamage = 5;
                 attackRange = 2f;
                 attackStun = 1f;
+            }
+        }
+
+        public class A_StrongPunch : Attack
+        {
+            public  A_StrongPunch()
+            {
+                attackName = "Strong Punch";
+                attackType = AttackType.Melee;
+                attackCooldown = 3f;
+                attackDamage = 20;
+                attackRange = 2f;
+                attackStun = 3f;
             }
         }
 
@@ -47,9 +65,9 @@ namespace AttackSystem
             {
                 attackName = "Throw Rock";
                 attackType = AttackType.Ranged;
-                attackCooldown = 3;
-                attackDamage = 5;
-                attackRange = 10f;
+                attackCooldown = 10;
+                attackDamage = 25;
+                attackRange = 15f;
                 attackStun = 1f;
             }
         }
