@@ -10,7 +10,7 @@ namespace AttackSystem
         //Attack vars
         public string attackName = "Attack";
 
-        public AttackType attackType;
+        public AttackType attackType = AttackType.Melee;
         public int attackDamage = 20;
         public float attackRange = 1f;
 
@@ -23,6 +23,10 @@ namespace AttackSystem
 
         //Projectile Options
         public float projectileArch = 1f;
+        public float projectileSpeed = 1f;
+        public ProjectilePrefabs projectilePrefab = 0;
+        public bool projectileRandomRotation = false;
+        public bool projectileGravity = true;
     }
     
     public enum AttackType

@@ -9,6 +9,7 @@ public class Prefabs : MonoBehaviour
     public Canvas worldCanvas;
     public GameObject damagePopup;
     public GameObject healthBar;
+    public GameObject nameBar;
 
     public static Prefabs instance;
     private void Awake()

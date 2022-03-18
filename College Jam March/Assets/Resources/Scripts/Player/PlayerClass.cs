@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using AttackSystem;
-using Enemy;
+using AI;
 
 namespace Player
 {
@@ -35,9 +35,12 @@ namespace Player
         private Rigidbody playerRb;
         private Camera cameraComp;
         private float zDepth;
+        private float gravity = 9.8f;
         private Vector2 moveVector;
         private Vector3 playerMouseOffset;
+        private Transform throwPoint;
 
+        [ExecuteAlways]
         private void OnValidate() 
         {
             mainAttack = AttackCollection.GetAttack(mainSelect);
@@ -49,6 +52,10 @@ namespace Player
             playerRb = GetComponent<Rigidbody>();   
             cameraComp = playerCamera.GetComponent<Camera>();
             zDepth = cameraComp.WorldToScreenPoint(playerRb.position).z;
+            if (transform.Find("ThrowPoint"))
+            {
+                throwPoint = transform.Find("ThrowPoint");
+            }
         }
 
         private void Update() 
@@ -104,7 +111,7 @@ namespace Player
 
         public void FireAttack(Attack attack)
         {
-            switch (mainAttack.attackType)
+            switch (attack.attackType)
             {
                 case AttackType.Melee:
                     RaycastHit hit;
@@ -125,8 +132,62 @@ namespace Player
                     }
                     break;
                 case AttackType.Ranged:
+                    RaycastHit mouseHit;
+                    if (Physics.Raycast(cameraComp.ScreenPointToRay(Mouse.current.position.ReadValue()), out mouseHit))
+                    {
+                        GameObject newProjectile = Instantiate(ProjectileRefs.instance.GetProjectilePrefab(attack.projectilePrefab));
+                        newProjectile.transform.position = throwPoint.position;
+                        Projectile newProjClass = newProjectile.AddComponent<Projectile>();
+                        newProjClass.projAttack = attack;
+                        newProjClass.projSource = gameObject;
+                        Vector3 target = mouseHit.point;
+                        target.y += 0.5f;
+                        StartCoroutine(fireProjectile(newProjectile.transform, target)); 
+                    }
                     break;
             }
+        }
+
+        IEnumerator fireProjectile(Transform projectile, Vector3 target)
+        {   
+            //Wind up time
+            yield return new WaitForSeconds(0.1f);
+
+            //Get the attack we are using
+            Attack attackToUse = projectile.GetComponent<Projectile>().projAttack;
+
+            //Calculate the distance to the target first
+            float targetDistance =  Vector3.Distance(transform.position, target);
+            if (targetDistance > attackToUse.attackRange)
+            {
+                targetDistance = attackToUse.attackRange;
+            }
+
+            //Rotate projectile towards target
+            projectile.LookAt(target);
+
+            //Calculate angle the projectile should go at
+            Vector3 projectileVector = (projectile.forward+(projectile.up*attackToUse.projectileArch));
+            float projectileAngle = Vector3.Angle(projectile.forward, projectileVector);
+
+            //Calculate velocity to throw the projectile at the desired angle 
+            float projectileVelocity = targetDistance * attackToUse.projectileSpeed / 1.25f;
+            
+            //Get Rigidbody of projectile
+            Rigidbody projectileRB = projectile.GetComponent<Rigidbody>();
+            if (!attackToUse.projectileGravity)
+            { projectileRB.useGravity = false; }
+            projectileRB.AddForce(projectileVector * projectileVelocity, ForceMode.Impulse);
+            
+            //Calculate flight time
+            //float flightDuration = targetDistance / velocityX;
+            //float elapsedTime = 0f;
+            // while (elapsedTime < flightDuration)
+            // {
+            //     projectile.Translate(0, (velocityY - (gravity * elapsedTime)) * Time.deltaTime, velocityX * Time.deltaTime);
+            //     elapsedTime += Time.deltaTime;
+            //     yield return null;
+            // }
         }
 
         IEnumerator mainAttackCooldown(float cooldown) 
