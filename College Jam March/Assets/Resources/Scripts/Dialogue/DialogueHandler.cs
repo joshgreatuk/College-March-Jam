@@ -4,13 +4,6 @@ using UnityEngine;
 
 namespace Dialogue
 {
-    public enum DialogueNodeType
-    {
-        Speech,
-        Choice,
-        Trigger
-    }
-
     public class DialogueHandler
     {
         /* SUMMARY 
