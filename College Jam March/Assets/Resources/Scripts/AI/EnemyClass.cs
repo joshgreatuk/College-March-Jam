@@ -65,7 +65,7 @@ namespace AI
             {
                 damageText.text = damage.ToString();
             }
-            UIEffects.instance.UIPhaseOut(damageText, 1f, Vector3.up, 0, 0, 2);
+            UIEffects.instance.UIPhaseOut(damageText, 1f, Vector3.up, 0, 0, 2, true);
             HealthBarUpdate();
         }
 

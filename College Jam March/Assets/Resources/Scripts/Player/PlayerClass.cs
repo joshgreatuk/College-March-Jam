@@ -20,6 +20,8 @@ namespace Player
         public float playerCritMultiplier = 1.5f;
         public float playerSpeed = 5;
 
+        public bool canMove = true;
+
         public AttackList mainSelect;
         [SerializeReference]
         private Attack mainAttack;
@@ -60,7 +62,10 @@ namespace Player
 
         private void Update() 
         {
-            playerRb.velocity = new Vector3(moveVector.x, 0, moveVector.y) * playerSpeed;
+            if (canMove)
+            {
+                playerRb.velocity = new Vector3(moveVector.x, 0, moveVector.y) * playerSpeed;
+            }   
         }
         
         public void Look(InputAction.CallbackContext context)
@@ -93,7 +98,7 @@ namespace Player
 
         public void MainAttack(InputAction.CallbackContext context)
         {
-            if (!mainCooldown && context.performed)
+            if (!mainCooldown && context.performed && canMove)
             {
                 FireAttack(mainAttack);
                 StartCoroutine(mainAttackCooldown(mainAttack.attackCooldown));
@@ -102,7 +107,7 @@ namespace Player
 
         public void SecondAttack(InputAction.CallbackContext context)
         {
-            if (!secondaryCooldown && context.performed)
+            if (!secondaryCooldown && context.performed && canMove)
             {
                 FireAttack(secondaryAttack);
                 StartCoroutine(secondAttackCooldown(secondaryAttack.attackCooldown));
@@ -208,9 +213,11 @@ namespace Player
             secondaryCooldown = false; 
         }
 
-        public void Interact(InputAction.CallbackContext context)
+        IEnumerator stopMovementSecs(float stopTime)
         {
-            
+            canMove = false;
+            yield return new WaitForSeconds(stopTime);
+            canMove = true;
         }
     }
 }
