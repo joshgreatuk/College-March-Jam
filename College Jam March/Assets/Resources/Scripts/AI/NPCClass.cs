@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Player;
 using TMPro;
+using Dialogue;
 
 namespace AI
 {
@@ -10,6 +11,7 @@ namespace AI
     {
         [Header("NPC AI")]
         public string npcName = "No Name";
+        public DialogueObject npcDialogue;
 
         private TMP_Text nameText;
         

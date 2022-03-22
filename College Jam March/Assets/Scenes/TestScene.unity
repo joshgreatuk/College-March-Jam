@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465785, g: 0.49641252, b: 0.574817, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -673,35 +673,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewDistance: 7.5
-  mainSelect: 1
-  mainAttack:
-    id: 0
-  secondarySelect: 0
-  secondaryAttack:
-    id: 1
-  enemyMaxHealth: 100
-  enemyHealth: 100
-  references:
-    version: 1
-    00000000:
-      type: {class: AttackCollection/A_Punch, ns: AttackSystem, asm: Assembly-CSharp}
-      data:
-        attackName: Punch
-        attackType: 0
-        attackDamage: 5
-        attackRange: 2
-        attackSplashDamage: 10
-        attackSplashRadius: 1
-        attackCooldown: 0.75
-        attackStun: 1
-        critChance: 0.1
-        projectileArch: 1
-        projectileSpeed: 1
-        projectilePrefab: 0
-        projectileRandomRotation: 0
-        projectileGravity: 1
-    00000001:
-      type: {class: , ns: , asm: }
+  enemyType: {fileID: 11400000, guid: 792462bd49afb3e6a82cb71dfaa66583, type: 2}
 --- !u!1 &449211872
 GameObject:
   m_ObjectHideFlags: 0
@@ -1231,49 +1203,9 @@ MonoBehaviour:
   playerCritMultiplier: 1.5
   playerSpeed: 5
   canMove: 1
-  mainSelect: 4
-  mainAttack:
-    id: 0
-  secondarySelect: 3
-  secondaryAttack:
-    id: 1
+  mainAttack: {fileID: 11400000, guid: bc653de1a7255443c8723fdc9a606d7a, type: 2}
+  secondaryAttack: {fileID: 11400000, guid: cd36e7a5dfebf5cd59a85c0955326063, type: 2}
   playerCamera: {fileID: 1213565097}
-  references:
-    version: 1
-    00000000:
-      type: {class: AttackCollection/A_ShootLaser, ns: AttackSystem, asm: Assembly-CSharp}
-      data:
-        attackName: Shoot Laser
-        attackType: 1
-        attackDamage: 15
-        attackRange: 10
-        attackSplashDamage: 10
-        attackSplashRadius: 1
-        attackCooldown: 1
-        attackStun: 1
-        critChance: 0.1
-        projectileArch: 0
-        projectileSpeed: 3
-        projectilePrefab: 2
-        projectileRandomRotation: 0
-        projectileGravity: 0
-    00000001:
-      type: {class: AttackCollection/A_ThrowRock, ns: AttackSystem, asm: Assembly-CSharp}
-      data:
-        attackName: Throw Rock
-        attackType: 1
-        attackDamage: 30
-        attackRange: 10
-        attackSplashDamage: 10
-        attackSplashRadius: 1
-        attackCooldown: 5
-        attackStun: 1
-        critChance: 0.1
-        projectileArch: 1
-        projectileSpeed: 1
-        projectilePrefab: 1
-        projectileRandomRotation: 1
-        projectileGravity: 1
 --- !u!114 &535774177
 MonoBehaviour:
   m_ObjectHideFlags: 0

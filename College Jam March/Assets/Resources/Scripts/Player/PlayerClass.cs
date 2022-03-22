@@ -22,14 +22,10 @@ namespace Player
 
         public bool canMove = true;
 
-        public AttackList mainSelect;
-        [SerializeReference]
-        private Attack mainAttack;
+        public Attack mainAttack;
         private bool mainCooldown = false;
 
-        public AttackList secondarySelect;
-        [SerializeReference]
-        private Attack secondaryAttack;
+        public Attack secondaryAttack;
         private bool secondaryCooldown = false;
 
         public Camera playerCamera;
@@ -41,13 +37,6 @@ namespace Player
         private Vector2 moveVector;
         private Vector3 playerMouseOffset;
         private Transform throwPoint;
-
-        [ExecuteAlways]
-        private void OnValidate() 
-        {
-            mainAttack = AttackCollection.GetAttack(mainSelect);
-            secondaryAttack = AttackCollection.GetAttack(secondarySelect);
-        }
 
         private void Awake() 
         {
@@ -140,7 +129,7 @@ namespace Player
                     RaycastHit mouseHit;
                     if (Physics.Raycast(cameraComp.ScreenPointToRay(Mouse.current.position.ReadValue()), out mouseHit))
                     {
-                        GameObject newProjectile = Instantiate(ProjectileRefs.instance.GetProjectilePrefab(attack.projectilePrefab));
+                        GameObject newProjectile = Instantiate(attack.projectilePrefab);
                         newProjectile.transform.position = throwPoint.position;
                         Projectile newProjClass = newProjectile.AddComponent<Projectile>();
                         newProjClass.projAttack = attack;

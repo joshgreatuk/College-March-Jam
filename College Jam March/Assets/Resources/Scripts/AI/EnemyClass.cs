@@ -16,28 +16,14 @@ namespace AI
     public class EnemyClass : BaseAI
     {
         [Header("Enemy AI")]
-        public AttackList mainSelect;
-        [SerializeReference]
-        private Attack mainAttack;
-        private bool mainCooldown = false;
+        [SerializeField]
+        public EnemyType enemyType;
 
-        public AttackList secondarySelect;
-        [SerializeReference]
-        private Attack secondaryAttack;
+        private bool mainCooldown = false;
         private bool secondaryCooldown = false;
 
         private Image healthBarValue;
         private TMP_Text healthBarText;
-
-        public float enemyMaxHealth = 100;
-        public float enemyHealth = 100;
-
-        [ExecuteAlways]
-        private void OnValidate() 
-        {
-            mainAttack = AttackCollection.GetAttack(mainSelect);
-            secondaryAttack = AttackCollection.GetAttack(secondarySelect);
-        }
 
         private void Start() 
         {
@@ -50,7 +36,7 @@ namespace AI
 
         public void EnemyHit(int damage, float stunLevel, bool crit)
         {
-            enemyHealth -= damage;
+            enemyType.enemyHealth -= damage;
             //Add stun
             GameObject damagePopup = Instantiate(Prefabs.instance.damagePopup);
             damagePopup.transform.position = UIPoint;
@@ -71,13 +57,14 @@ namespace AI
 
         public void HealthBarUpdate()
         {
-            if (enemyHealth <= 0)
+            if (enemyType.enemyHealth <= 0)
             {
-                enemyHealth = 0;
+                enemyType.enemyHealth = 0;
                 //DIE
+                SendMessage("M_KillEnemy", enemyType);
             }
-            LeanTween.scaleX(healthBarValue.gameObject, enemyHealth/enemyMaxHealth, (1f-(enemyHealth/enemyMaxHealth))/2);   
-            healthBarText.text = "HP: " + enemyHealth.ToString() + "/" + enemyMaxHealth.ToString();
+            LeanTween.scaleX(healthBarValue.gameObject, enemyType.enemyHealth/enemyType.enemyMaxHealth, (1f-(enemyType.enemyHealth/enemyType.enemyMaxHealth))/2);   
+            healthBarText.text = "HP: " + enemyType.enemyHealth.ToString() + "/" + enemyType.enemyMaxHealth.ToString();
         }
 
         IEnumerator fireProjectile(Transform projectile, Vector3 target)
@@ -124,7 +111,7 @@ namespace AI
         { 
             mainCooldown = true; 
             UIRefs.instance.mainCoolBar.transform.localScale = new Vector3 (1, 1, 1);
-            LeanTween.scaleX(UIRefs.instance.mainCoolBar.gameObject, 0f, mainAttack.attackCooldown);
+            LeanTween.scaleX(UIRefs.instance.mainCoolBar.gameObject, 0f, enemyType.mainAttack.attackCooldown);
             yield return new WaitForSeconds(cooldown); 
             mainCooldown = false; 
         }
@@ -133,7 +120,7 @@ namespace AI
         { 
             secondaryCooldown = true;
             UIRefs.instance.secCoolBar.transform.localScale = new Vector3 (1, 1, 1);
-            LeanTween.scaleX(UIRefs.instance.secCoolBar.gameObject, 0f, secondaryAttack.attackCooldown);
+            LeanTween.scaleX(UIRefs.instance.secCoolBar.gameObject, 0f, enemyType.secondaryAttack.attackCooldown);
             yield return new WaitForSeconds(cooldown); 
             secondaryCooldown = false; 
         }

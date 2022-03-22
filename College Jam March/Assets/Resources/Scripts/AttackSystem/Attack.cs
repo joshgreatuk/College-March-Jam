@@ -4,12 +4,10 @@ using UnityEngine;
 
 namespace AttackSystem
 {
-    [Serializable]
-    public class Attack
+    [CreateAssetMenu(fileName = "NewAttack", menuName = "Oasis/Attack", order = 1)]
+    public class Attack : ScriptableObject
     {
         //Attack vars
-        public string attackName = "Attack";
-
         public AttackType attackType = AttackType.Melee;
         public int attackDamage = 20;
         public float attackRange = 1f;
@@ -24,7 +22,7 @@ namespace AttackSystem
         //Projectile Options
         public float projectileArch = 1f;
         public float projectileSpeed = 1f;
-        public ProjectilePrefabs projectilePrefab = 0;
+        public GameObject projectilePrefab;
         public bool projectileRandomRotation = false;
         public bool projectileGravity = true;
     }
@@ -33,6 +31,9 @@ namespace AttackSystem
     {
         Melee,
         Ranged,
-        Area
+        //TODO
+        Area,
+        AreaRanged,
+        CompanionAttack
     }
 }

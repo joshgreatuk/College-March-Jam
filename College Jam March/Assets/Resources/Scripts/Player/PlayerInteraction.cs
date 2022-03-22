@@ -41,7 +41,6 @@ namespace Player
         private void OnTriggerEnter(Collider other) 
         {
             //If the player is in an interaction collider, check if it is npc or something else
-            Debug.Log(other.gameObject.name);
             if (other.gameObject.name == "InteractionZone")
             {
                 switch(other.gameObject.tag)

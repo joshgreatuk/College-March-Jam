@@ -13,7 +13,15 @@ MonoBehaviour:
   m_Name: Dialogue
   m_EditorClassIdentifier: 
   nodeList:
-  - nodeType: 0
-    speech: []
+  - speech:
+    - 
+    decisions:
+    - text: 
+      locked: 0
+      hidden: 0
+      decisionPath: {fileID: 11400000}
+    triggers:
+    - type: 0
+  - speech: []
     decisions: []
     triggers: []
