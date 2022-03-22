@@ -6,30 +6,38 @@ using QuestSystem;
 
 namespace Dialogue
 {
+    [Flags]
     public enum DecisionCondition
     {
-        QuestGiven,
-        QuestCompleted
+        None = 0,
+        QuestGiven = 1,
+        QuestCompleted = 2,
+        test1 = 4,
+        test2 = 8
     }
 
     public enum TriggerType
     {
         AddQuest,
-        UpdateQuest
+        SwapDialogue
     }
 
     [Serializable]
     public class DialogueNode
     {
         //Shared
-        public List<string> speech;
+        [Tooltip("Wont affect the game")]
+        [TextArea(1,3)]
+        public string description = "";
+        [TextArea(1,3)]
+        public List<string> speech = new List<string>();
 
         //ChoiceNode
         public bool autoDecision = false;
-        public List<Decision> decisions;
+        public List<Decision> decisions = new List<Decision>();
 
         //TriggerNode
-        public List<Trigger> triggers;
+        public List<Trigger> triggers = new List<Trigger>();
     }
 
     [Serializable]
@@ -37,8 +45,8 @@ namespace Dialogue
     {
         public DecisionCondition decisionCondition;
         public bool conditionNeeded = false;
-        public string text;
-        public bool locked;
+        public Quest questNeeded;
+        public string decisionText;
         public bool hidden;
         public DialogueObject decisionPath;
         public int decisionPathIndex = 0;

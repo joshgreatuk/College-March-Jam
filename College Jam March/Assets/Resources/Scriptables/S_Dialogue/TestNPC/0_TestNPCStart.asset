@@ -14,113 +14,97 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoPlay: 0
   nodeList:
-  - speech: []
+  - description: Controls what the test NPC says, based on the KillTestEnemy quest
+    speech: []
     autoDecision: 1
     decisions:
-    - decisionCondition: 0
+    - decisionCondition: 1
       conditionNeeded: 0
-      text: 
-      locked: 0
+      questNeeded: {fileID: 11400000, guid: c8b6adc54d0c8529ba431bd9eb9ce6f5, type: 2}
+      decisionText: 
       hidden: 0
       decisionPath: {fileID: 11400000}
       decisionPathIndex: 1
       playInstantly: 0
-    - decisionCondition: 0
+    - decisionCondition: 1
       conditionNeeded: 1
-      text: 
-      locked: 0
+      questNeeded: {fileID: 11400000, guid: c8b6adc54d0c8529ba431bd9eb9ce6f5, type: 2}
+      decisionText: 
       hidden: 0
       decisionPath: {fileID: 11400000}
       decisionPathIndex: 2
       playInstantly: 0
-    - decisionCondition: 1
+    - decisionCondition: 2
       conditionNeeded: 1
-      text: 
-      locked: 0
+      questNeeded: {fileID: 11400000, guid: c8b6adc54d0c8529ba431bd9eb9ce6f5, type: 2}
+      decisionText: 
       hidden: 0
       decisionPath: {fileID: 11400000}
       decisionPathIndex: 3
       playInstantly: 0
     triggers: []
-  - speech: []
+  - description: If quest hasnt been given, give it in this conversation
+    speech:
+    - Hey! I need you for something
+    - Go kill 3 test enemies and come back to me and il give you some of that sweet
+      sweet xp
+    autoDecision: 1
+    decisions: []
+    triggers: []
+  - description: If quest has been given but not completed then tell the player to
+      go do it
+    speech: []
     autoDecision: 1
     decisions:
     - decisionCondition: 0
       conditionNeeded: 0
-      text: 
-      locked: 0
+      questNeeded: {fileID: 0}
+      decisionText: 
       hidden: 0
       decisionPath: {fileID: 11400000}
       decisionPathIndex: 0
       playInstantly: 0
     - decisionCondition: 0
       conditionNeeded: 1
-      text: 
-      locked: 0
+      questNeeded: {fileID: 0}
+      decisionText: 
       hidden: 0
       decisionPath: {fileID: 11400000}
       decisionPathIndex: 0
       playInstantly: 0
     - decisionCondition: 1
       conditionNeeded: 1
-      text: 
-      locked: 0
+      questNeeded: {fileID: 0}
+      decisionText: 
       hidden: 0
       decisionPath: {fileID: 11400000}
       decisionPathIndex: 0
       playInstantly: 0
     triggers: []
-  - speech: []
+  - description: When the quest is done move on in the dialogue
+    speech: []
     autoDecision: 1
     decisions:
     - decisionCondition: 0
       conditionNeeded: 0
-      text: 
-      locked: 0
+      questNeeded: {fileID: 0}
+      decisionText: 
       hidden: 0
       decisionPath: {fileID: 11400000}
       decisionPathIndex: 0
       playInstantly: 0
     - decisionCondition: 0
       conditionNeeded: 1
-      text: 
-      locked: 0
+      questNeeded: {fileID: 0}
+      decisionText: 
       hidden: 0
       decisionPath: {fileID: 11400000}
       decisionPathIndex: 0
       playInstantly: 0
     - decisionCondition: 1
       conditionNeeded: 1
-      text: 
-      locked: 0
-      hidden: 0
-      decisionPath: {fileID: 11400000}
-      decisionPathIndex: 0
-      playInstantly: 0
-    triggers: []
-  - speech: []
-    autoDecision: 1
-    decisions:
-    - decisionCondition: 0
-      conditionNeeded: 0
-      text: 
-      locked: 0
-      hidden: 0
-      decisionPath: {fileID: 11400000}
-      decisionPathIndex: 0
-      playInstantly: 0
-    - decisionCondition: 0
-      conditionNeeded: 1
-      text: 
-      locked: 0
-      hidden: 0
-      decisionPath: {fileID: 11400000}
-      decisionPathIndex: 0
-      playInstantly: 0
-    - decisionCondition: 1
-      conditionNeeded: 1
-      text: 
-      locked: 0
+      questNeeded: {fileID: 0}
+      decisionText: 
       hidden: 0
       decisionPath: {fileID: 11400000}
       decisionPathIndex: 0

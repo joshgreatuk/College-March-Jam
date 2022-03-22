@@ -8,7 +8,9 @@ namespace QuestSystem
 {
     public class QuestLog : MonoBehaviour
     {
+        public bool logShown = true;
         public List<Quest> questList = new List<Quest>();
+        public List<Quest> finishedQuets = new List<Quest>();
 
         private void FinishObjective(Quest quest, Objective objective)
         {
