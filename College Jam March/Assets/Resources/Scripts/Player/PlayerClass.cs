@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using AttackSystem;
 using AI;
-using EZCameraShake;
 
 namespace Player
 {
@@ -40,7 +39,8 @@ namespace Player
 
         public float cameraZoomTime = 1f;
 
-        private Transform cameraZoomPoint;
+        [SerializeReference]
+        public Transform cameraZoomPoint;
         private Vector3 preCameraZoomPoint;
         private Vector3 preCameraZoomRotation;
 
@@ -78,7 +78,6 @@ namespace Player
 
         public void CameraZoomToNormal()
         {
-            CameraShaker cameraCompShaker = cameraComp.gameObject.GetComponent<CameraShaker>();
             //Lerp up to where camera was before
             LeanTween.move(cameraComp.gameObject, preCameraZoomPoint, cameraZoomTime);
             LeanTween.rotate(cameraComp.gameObject, preCameraZoomRotation, cameraZoomTime);
@@ -103,7 +102,7 @@ namespace Player
                 //     Vector3 lookPoint = new Vector3(hit.point.x, playerRb.position.y, hit.point.z);
                 //     playerRb.gameObject.transform.LookAt(lookPoint);
                 // }
-                Vector2 mousePos = Mouse.current.position.ReadValue();
+                Vector2 mousePos = context.ReadValue<Vector2>();
                 Vector2 screenRes = new Vector2(Screen.width, Screen.height);
                 Vector2 centreRes = screenRes / 2;
                 Vector2 mouseOffset = mousePos - centreRes;

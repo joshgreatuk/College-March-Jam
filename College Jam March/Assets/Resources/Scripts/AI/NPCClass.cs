@@ -19,16 +19,31 @@ namespace AI
         public string npcName = "No Name";
         public DialogueObject npcDialogue;
         public bool canTalk = true;
+        public bool zoomToNpc = true;
 
+        private GameObject nameBar;
         private TMP_Text nameText;
+        
+        private Vector3 nameBarRotBefore;
         
         private void Start() 
         {
-            GameObject nameBar = Instantiate(Prefabs.instance.nameBar);
+            nameBar = Instantiate(Prefabs.instance.nameBar);
             nameBar.transform.position = UIPoint;
             nameBar.transform.SetParent(Prefabs.instance.worldCanvas.transform);
             nameText = nameBar.transform.Find("NameText").GetComponent<TMP_Text>();
             nameText.text = npcName;
+        }
+
+        public void NameBarToZoom(Vector3 eulers)
+        {
+            nameBarRotBefore = nameBar.transform.eulerAngles;
+            nameBar.transform.eulerAngles = eulers;
+        }
+
+        public void NameBarReset()
+        {
+            nameBar.transform.eulerAngles = nameBarRotBefore;
         }
     }
 }

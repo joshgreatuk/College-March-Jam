@@ -73,8 +73,8 @@ namespace Player
                 Debug.Log(System.Enum.GetName(typeof(InteractionStates),interactionState));
                 if (System.Enum.GetName(typeof(InteractionStates),interactionState) == other.gameObject.tag)
                 {
-                    UIEffects.instance.UIPhaseOut(playerPromptBack, 0.5f, Vector3.zero, 1, 0, 0.75f);
-                    UIEffects.instance.UIPhaseOut(playerPrompt, 0.5f, Vector3.zero, 1, 0, 0.75f);
+                    UIEffects.instance.UIPhaseOut(playerPromptBack, 0.5f, Vector3.zero, 1, 0, 0.8f);
+                    UIEffects.instance.UIPhaseOut(playerPrompt, 0.5f, Vector3.zero, 1, 0, 0.8f);
                 }
                 interactionCollider = null;
             }
@@ -91,9 +91,14 @@ namespace Player
                         {
                             //Start Conversation
                             playerClass.canMove = false;
-                            EventHandler.instance.E_TalkToNPC.Invoke(interactionCollider.transform.parent.gameObject.GetComponent<NPCClass>());
-                            //Make Camera zoom to NPCCameraPoint
-                            playerClass.CameraZoomToNPC();
+                            NPCClass npcClass = interactionCollider.transform.parent.gameObject.GetComponent<NPCClass>();
+                            EventHandler.instance.E_TalkToNPC.Invoke(npcClass);
+                            if (npcClass.zoomToNpc)
+                            {
+                                playerClass.transform.LookAt(npcClass.transform.position);
+                                playerClass.CameraZoomToNPC();
+                                npcClass.NameBarToZoom(playerClass.cameraZoomPoint.eulerAngles);
+                            }
                         }
                         break;
                     case InteractionStates.InteractZone:

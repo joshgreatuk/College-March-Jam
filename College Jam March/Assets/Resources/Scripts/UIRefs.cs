@@ -11,7 +11,12 @@ public class UIRefs : MonoBehaviour
     public Canvas UICanvas;
     public Image mainCoolBar;
     public Image secCoolBar;
-    public TMP_Text playerPrompt;    
+    public TMP_Text playerPrompt;
+
+    [Header("Dialogue UI")]
+    public GameObject dialoguePanel;
+    public GameObject dialogueTextPrefab;
+    public GameObject dialogueDecisionPrefab;
 
     public static UIRefs instance;
     private void Awake()
