@@ -43,12 +43,12 @@ namespace Dialogue
     [Serializable]
     public class Decision
     {
-        public DecisionCondition decisionCondition;
+        public DecisionCondition decisionCondition = 0;
         public bool conditionNeeded = false;
-        public Quest questNeeded;
-        public string decisionText;
-        public bool hidden;
-        public DialogueObject decisionPath;
+        public Quest questNeeded = null;
+        public string decisionText = "";
+        public bool hidden = false;
+        public DialogueObject decisionPath = null;
         public int decisionPathIndex = 0;
         public bool playInstantly = false;
     }
@@ -56,9 +56,9 @@ namespace Dialogue
     [Serializable]
     public class Trigger
     {
-        public TriggerType triggerType;
+        public TriggerType triggerType = 0;
         [ConditionalHide("triggerType", (int)TriggerType.AddQuest)]
-        public Quest questTarget;
-        public string objectiveTarget;
+        public Quest questTarget = null;
+        public string objectiveTarget = "";
     }
 }

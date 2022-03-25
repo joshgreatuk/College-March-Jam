@@ -27,6 +27,11 @@ namespace AI
 
         private void Start() 
         {
+            if (enemyType != null)
+            {
+                enemyType = Instantiate(enemyType); 
+            }   
+
             GameObject healthBar = Instantiate(Prefabs.instance.healthBar);
             healthBar.transform.position = UIPoint;
             healthBar.transform.SetParent(Prefabs.instance.worldCanvas.transform);
@@ -36,23 +41,26 @@ namespace AI
 
         public void EnemyHit(int damage, float stunLevel, bool crit)
         {
-            enemyType.enemyHealth -= damage;
-            //Add stun
-            GameObject damagePopup = Instantiate(Prefabs.instance.damagePopup);
-            damagePopup.transform.position = UIPoint;
-            damagePopup.transform.Translate(Vector3.up, Space.Self);
-            damagePopup.transform.SetParent(Prefabs.instance.worldCanvas.transform);
-            TMP_Text damageText = damagePopup.GetComponent<TMP_Text>();
-            if (crit)
+            if (enemyType.enemyHealth > 0)
             {
-                damageText.text = "Crit!\n" + damage.ToString();
+                enemyType.enemyHealth -= damage;
+                //Add stun
+                GameObject damagePopup = Instantiate(Prefabs.instance.damagePopup);
+                damagePopup.transform.position = UIPoint;
+                damagePopup.transform.Translate(Vector3.up, Space.Self);
+                damagePopup.transform.SetParent(Prefabs.instance.worldCanvas.transform);
+                TMP_Text damageText = damagePopup.GetComponent<TMP_Text>();
+                if (crit)
+                {
+                    damageText.text = "Crit!\n" + damage.ToString();
+                }
+                else
+                {
+                    damageText.text = damage.ToString();
+                }
+                UIEffects.instance.UIPhaseOut(damageText, 1f, Vector3.up, 0, 0, 2, true);
+                HealthBarUpdate();
             }
-            else
-            {
-                damageText.text = damage.ToString();
-            }
-            UIEffects.instance.UIPhaseOut(damageText, 1f, Vector3.up, 0, 0, 2, true);
-            HealthBarUpdate();
         }
 
         public void HealthBarUpdate()
@@ -61,7 +69,7 @@ namespace AI
             {
                 enemyType.enemyHealth = 0;
                 //DIE
-                SendMessage("M_KillEnemy", enemyType);
+                EventHandler.instance.E_KillEnemy.Invoke(enemyType);
             }
             LeanTween.scaleX(healthBarValue.gameObject, enemyType.enemyHealth/enemyType.enemyMaxHealth, (1f-(enemyType.enemyHealth/enemyType.enemyMaxHealth))/2);   
             healthBarText.text = "HP: " + enemyType.enemyHealth.ToString() + "/" + enemyType.enemyMaxHealth.ToString();

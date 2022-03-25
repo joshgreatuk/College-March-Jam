@@ -10,16 +10,20 @@ namespace AI
     {
         [Header("BaseAI")]
         public float viewDistance = 10f;
+        public bool lookAtPlayer = true;
+        public bool lookThroughObjects = true;
+        public bool resetViewAfter = false;
 
         protected Vector3 UIPoint;
         protected GameObject playerObject;
 
+        private Vector3 originalView;
+        private bool viewReset = true;
+
         private void Awake() 
         {
-            if (transform.Find("UIPoint"))
-            {
-                UIPoint = transform.Find("UIPoint").position;
-            }
+            UIPoint = transform.Find("UIPoint").position;
+            originalView = transform.position + transform.forward;
         }
 
         private void FixedUpdate() 
@@ -27,10 +31,46 @@ namespace AI
             if (playerObject == null)
             { playerObject = PlayerRefs.instance.playerObject; }
             
-            if (Vector3.Distance(transform.position, playerObject.transform.position) <= viewDistance)
+            if (lookAtPlayer)
             {
-                transform.LookAt(playerObject.transform.position);
+                if (Vector3.Distance(transform.position, playerObject.transform.position) <= viewDistance)
+                {
+                    viewReset = false;
+                    if (lookThroughObjects)
+                    {
+                        transform.LookAt(playerObject.transform.position);
+                    }
+                    else
+                    {
+                        RaycastHit hit;
+                        Vector3 rayOrigin = transform.position + transform.forward;
+                        Vector3 rayDirection = (playerObject.transform.position - rayOrigin).normalized;
+                        Debug.DrawRay(rayOrigin, rayDirection, Color.red, 1);
+                        if (Physics.Raycast(rayOrigin, rayDirection, out hit, viewDistance))
+                        {
+                            if (hit.collider.gameObject.tag == "Player")
+                            {
+                                transform.LookAt(playerObject.transform.position);
+                            }
+                            else if (resetViewAfter)
+                            {
+                                ResetView();
+                            }
+                        }
+                    }
+                }
+                else if (!viewReset && resetViewAfter)
+                {
+                    ResetView();
+                    viewReset = true;
+                }
             }
+            
         }
+
+        private void ResetView()
+        {
+            transform.LookAt(originalView);
+        } 
     }
 }

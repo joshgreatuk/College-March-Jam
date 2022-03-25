@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using AttackSystem;
 using AI;
+using EZCameraShake;
 
 namespace Player
 {
@@ -14,7 +15,7 @@ namespace Player
         public int playerMaxHealth = 100;
         public int playerHealth;
         public int playerLevel = 1;
-        public int playerXp = 0;
+        public float playerXp = 0;
 
         public float playerMultiplier = 1;
         public float playerCritMultiplier = 1.5f;
@@ -33,10 +34,15 @@ namespace Player
         private Rigidbody playerRb;
         private Camera cameraComp;
         private float zDepth;
-        private float gravity = 9.8f;
         private Vector2 moveVector;
         private Vector3 playerMouseOffset;
         private Transform throwPoint;
+
+        public float cameraZoomTime = 1f;
+
+        private Transform cameraZoomPoint;
+        private Vector3 preCameraZoomPoint;
+        private Vector3 preCameraZoomRotation;
 
         private void Awake() 
         {
@@ -47,6 +53,10 @@ namespace Player
             {
                 throwPoint = transform.Find("ThrowPoint");
             }
+            if (transform.Find("CameraZoomPoint"))
+            {
+                cameraZoomPoint = transform.Find("CameraZoomPoint");
+            }
         }
 
         private void Update() 
@@ -56,10 +66,33 @@ namespace Player
                 playerRb.velocity = new Vector3(moveVector.x, 0, moveVector.y) * playerSpeed;
             }   
         }
+
+        public void CameraZoomToNPC()
+        {
+            //Lerp down to NPCCameraPoint
+            preCameraZoomPoint = cameraComp.transform.position;
+            preCameraZoomRotation = cameraComp.transform.eulerAngles;
+            LeanTween.move(cameraComp.gameObject, cameraZoomPoint.position, cameraZoomTime);
+            LeanTween.rotate(cameraComp.gameObject, cameraZoomPoint.eulerAngles, cameraZoomTime);
+        }
+
+        public void CameraZoomToNormal()
+        {
+            CameraShaker cameraCompShaker = cameraComp.gameObject.GetComponent<CameraShaker>();
+            //Lerp up to where camera was before
+            LeanTween.move(cameraComp.gameObject, preCameraZoomPoint, cameraZoomTime);
+            LeanTween.rotate(cameraComp.gameObject, preCameraZoomRotation, cameraZoomTime);
+        }
+
+        public void AddXP(float xpAmount)
+        {
+            //Add xp and check for level up
+            playerXp += xpAmount;
+        }
         
         public void Look(InputAction.CallbackContext context)
         {
-            if (context.performed)
+            if (context.performed && canMove)
             {
                 // RaycastHit hit;
                 // Vector3 rayPoint = new Vector3(context.ReadValue<Vector2>().x, context.ReadValue<Vector2>().y, zDepth);

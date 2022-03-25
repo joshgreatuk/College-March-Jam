@@ -22,6 +22,17 @@ MonoBehaviour:
     killStatus: 0
     killTarget: 3
     target: {fileID: 11400000, guid: 792462bd49afb3e6a82cb71dfaa66583, type: 2}
+    sceneTarget: {fileID: 0}
+    objectiveComplete: 0
+  - type: 0
+    name: TalkToTestNPC
+    publicName: Talk to the test npc!
+    hidden: 0
+    killStatus: 0
+    killTarget: 0
+    target: {fileID: 0}
+    sceneTarget: {fileID: 0}
+    objectiveComplete: 0
   rewardList:
   - type: 0
     rewardName: XP Reward

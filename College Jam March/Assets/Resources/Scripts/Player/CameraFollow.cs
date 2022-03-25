@@ -39,18 +39,37 @@ namespace Player
                 position += positionOffset;
                 transform.position = position;
                 cameraShaker.RestPositionOffset = position;
+                cameraShaker.RestRotationOffset = transform.eulerAngles;
             }
         }
 
-        public void Look(InputAction.CallbackContext context)
+        public void DoLookCalc(Vector2 mousePos)
         {
             //Move the camera towards the mouse, but to the extent of extendValue
-            Vector2 mousePos = Mouse.current.position.ReadValue();
             Vector2 screenRes = new Vector2(Screen.width, Screen.height);
             Vector2 centreRes = screenRes / 2;
             Vector2 mouseOffset = mousePos - centreRes;
             Vector2 mouseOffsetClamped = mouseOffset / centreRes;
             positionOffset = new Vector3(mouseOffsetClamped.x * extendValue, 0, mouseOffsetClamped.y * extendValue);
+        }
+
+        public void Look(InputAction.CallbackContext context)
+        {
+            if (toFollow.GetComponent<PlayerClass>())
+            {
+                if (toFollow.GetComponent<PlayerClass>().canMove)
+                {
+                    DoLookCalc(context.ReadValue<Vector2>());
+                }
+                else
+                {
+                    positionOffset = Vector3.zero;
+                }
+            }
+            else
+            {
+                DoLookCalc(context.ReadValue<Vector2>());
+            }
         }
     }
 }

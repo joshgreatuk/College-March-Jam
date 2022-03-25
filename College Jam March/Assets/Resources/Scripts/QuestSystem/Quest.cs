@@ -10,7 +10,6 @@ namespace QuestSystem
     {
         public string QuestName;
         public string QuestCategory;
-        [SerializeField]
         public List<Objective> objList = new List<Objective>();
         public List<QuestReward> rewardList = new List<QuestReward>();
     }

@@ -52,6 +52,7 @@ namespace Player
                         UIEffects.instance.UIPhaseIn(playerPromptBack, 0.5f, Vector3.zero, 1, 0, 0.75f);
                         UIEffects.instance.UIPhaseIn(playerPrompt, 0.5f, Vector3.zero, 1, 0, 0.75f);
                         interactionState = InteractionStates.NPCZone;
+                        interactionCollider = other;
                         break;
                     //Show InteractMsg and use interaction class
                     case "InteractZone":
@@ -59,6 +60,7 @@ namespace Player
                         UIEffects.instance.UIPhaseIn(playerPromptBack, 0.5f, Vector3.zero, 1, 0, 0.75f);
                         UIEffects.instance.UIPhaseIn(playerPrompt, 0.5f, Vector3.zero, 1, 0, 0.75f);
                         interactionState = InteractionStates.InteractZone;
+                        interactionCollider = other;
                         break;
                 }
             }
@@ -74,18 +76,29 @@ namespace Player
                     UIEffects.instance.UIPhaseOut(playerPromptBack, 0.5f, Vector3.zero, 1, 0, 0.75f);
                     UIEffects.instance.UIPhaseOut(playerPrompt, 0.5f, Vector3.zero, 1, 0, 0.75f);
                 }
+                interactionCollider = null;
             }
         }
 
         public void InteractButtonPressed(InputAction.CallbackContext context)
         {
-            switch(interactionState)
+            if (context.performed)
             {
-                case InteractionStates.NPCZone:
-                    playerClass.canMove = false;
-                    break;
-                case InteractionStates.InteractZone:
-                    break;
+                switch(interactionState)
+                {
+                    case InteractionStates.NPCZone:
+                        if (interactionCollider.transform.parent.gameObject.GetComponent<NPCClass>().canTalk)
+                        {
+                            //Start Conversation
+                            playerClass.canMove = false;
+                            EventHandler.instance.E_TalkToNPC.Invoke(interactionCollider.transform.parent.gameObject.GetComponent<NPCClass>());
+                            //Make Camera zoom to NPCCameraPoint
+                            playerClass.CameraZoomToNPC();
+                        }
+                        break;
+                    case InteractionStates.InteractZone:
+                        break;
+                }
             }
         }
     }
