@@ -39,13 +39,14 @@ namespace Player
                 position += positionOffset;
                 transform.position = position;
                 cameraShaker.RestPositionOffset = position;
+                cameraShaker.RestRotationOffset = transform.eulerAngles;
             }
         }
 
         public void Look(InputAction.CallbackContext context)
         {
             //Move the camera towards the mouse, but to the extent of extendValue
-            Vector2 mousePos = Mouse.current.position.ReadValue();
+            Vector2 mousePos =  context.ReadValue<Vector2>();
             Vector2 screenRes = new Vector2(Screen.width, Screen.height);
             Vector2 centreRes = screenRes / 2;
             Vector2 mouseOffset = mousePos - centreRes;
