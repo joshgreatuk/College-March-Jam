@@ -29,7 +29,7 @@ namespace AI
         private void Start() 
         {
             nameBar = Instantiate(Prefabs.instance.nameBar);
-            nameBar.transform.position = UIPoint;
+            nameBar.transform.position = UIPoint.position;
             nameBar.transform.SetParent(Prefabs.instance.worldCanvas.transform);
             nameText = nameBar.transform.Find("NameText").GetComponent<TMP_Text>();
             nameText.text = npcName;

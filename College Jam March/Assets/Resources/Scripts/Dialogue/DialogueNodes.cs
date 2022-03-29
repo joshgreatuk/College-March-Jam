@@ -11,9 +11,7 @@ namespace Dialogue
     {
         None = 0,
         QuestGiven = 1,
-        QuestCompleted = 2,
-        test1 = 4,
-        test2 = 8
+        QuestCompleted = 2
     }
 
     public enum TriggerType

@@ -9,12 +9,14 @@ namespace AI
     public class BaseAI : MonoBehaviour
     {
         [Header("BaseAI")]
+        public Logger logger;
+
         public float viewDistance = 10f;
         public bool lookAtPlayer = true;
         public bool lookThroughObjects = true;
         public bool resetViewAfter = false;
 
-        protected Vector3 UIPoint;
+        protected Transform UIPoint;
         protected GameObject playerObject;
 
         private Vector3 originalView;
@@ -22,11 +24,11 @@ namespace AI
 
         private void Awake() 
         {
-            UIPoint = transform.Find("UIPoint").position;
+            UIPoint = transform.Find("UIPoint");
             originalView = transform.position + transform.forward;
         }
 
-        private void FixedUpdate() 
+        protected void FixedUpdate() 
         {
             if (playerObject == null)
             { playerObject = PlayerRefs.instance.playerObject; }

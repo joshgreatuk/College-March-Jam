@@ -10,6 +10,8 @@ namespace Player
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerClass : MonoBehaviour
     {
+        public Logger logger;
+
         //Player variables
         public int playerMaxHealth = 100;
         public int playerHealth;
@@ -86,6 +88,7 @@ namespace Player
         public void AddXP(float xpAmount)
         {
             //Add xp and check for level up
+            logger.Log($"Added {xpAmount.ToString()} xp to player");
             playerXp += xpAmount;
         }
         
@@ -180,7 +183,8 @@ namespace Player
             yield return new WaitForSeconds(0.1f);
 
             //Get the attack we are using
-            Attack attackToUse = projectile.GetComponent<Projectile>().projAttack;
+            Projectile projectileClass = projectile.GetComponent<Projectile>();
+            Attack attackToUse = projectileClass.projAttack;
 
             //Calculate the distance to the target first
             float targetDistance =  Vector3.Distance(transform.position, target);
@@ -201,10 +205,10 @@ namespace Player
             
             //Get Rigidbody of projectile
             Rigidbody projectileRB = projectile.GetComponent<Rigidbody>();
+            projectileVelocity *= projectileRB.mass;
             if (!attackToUse.projectileGravity)
             { projectileRB.useGravity = false; }
             projectileRB.AddForce(projectileVector * projectileVelocity, ForceMode.Impulse);
-            
             //Calculate flight time
             //float flightDuration = targetDistance / velocityX;
             //float elapsedTime = 0f;

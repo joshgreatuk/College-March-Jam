@@ -22,6 +22,7 @@ namespace AI
         private bool mainCooldown = false;
         private bool secondaryCooldown = false;
 
+        private GameObject healthBar;
         private Image healthBarValue;
         private TMP_Text healthBarText;
 
@@ -32,11 +33,18 @@ namespace AI
                 enemyType = Instantiate(enemyType); 
             }   
 
-            GameObject healthBar = Instantiate(Prefabs.instance.healthBar);
-            healthBar.transform.position = UIPoint;
+            healthBar = Instantiate(Prefabs.instance.healthBar);
+            healthBar.transform.position = UIPoint.position;
             healthBar.transform.SetParent(Prefabs.instance.worldCanvas.transform);
             healthBarValue = healthBar.transform.Find("HealthValue").GetComponent<Image>();
             healthBarText = healthBar.transform.Find("HealthText").GetComponent<TMP_Text>();
+            HealthBarUpdate();
+        }
+
+        new protected void FixedUpdate()
+        {
+            base.FixedUpdate();
+            healthBar.transform.position = UIPoint.position;
         }
 
         public void EnemyHit(int damage, float stunLevel, bool crit)
@@ -46,7 +54,7 @@ namespace AI
                 enemyType.enemyHealth -= damage;
                 //Add stun
                 GameObject damagePopup = Instantiate(Prefabs.instance.damagePopup);
-                damagePopup.transform.position = UIPoint;
+                damagePopup.transform.position = UIPoint.position;
                 damagePopup.transform.Translate(Vector3.up, Space.Self);
                 damagePopup.transform.SetParent(Prefabs.instance.worldCanvas.transform);
                 TMP_Text damageText = damagePopup.GetComponent<TMP_Text>();
@@ -69,6 +77,7 @@ namespace AI
             {
                 enemyType.enemyHealth = 0;
                 //DIE
+                logger.Log($"'{enemyType.name}' has died");
                 EventHandler.instance.E_KillEnemy.Invoke(enemyType);
             }
             LeanTween.scaleX(healthBarValue.gameObject, enemyType.enemyHealth/enemyType.enemyMaxHealth, (1f-(enemyType.enemyHealth/enemyType.enemyMaxHealth))/2);   

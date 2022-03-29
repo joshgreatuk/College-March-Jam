@@ -19,6 +19,7 @@ namespace Player
             InteractZone, //On general interaction collider
             Busy, //Busy interacting, no movement
         }
+        public Logger logger;
 
         public string interactionKey = "E"; //IMPLEMENT INTO SETTINGS MENU
 
@@ -53,6 +54,7 @@ namespace Player
                         UIEffects.instance.UIPhaseIn(playerPrompt, 0.5f, Vector3.zero, 1, 0, 0.75f);
                         interactionState = InteractionStates.NPCZone;
                         interactionCollider = other;
+                        logger.Log($"Player in NPCZone '{npcClass.npcName}'");
                         break;
                     //Show InteractMsg and use interaction class
                     case "InteractZone":
@@ -61,6 +63,7 @@ namespace Player
                         UIEffects.instance.UIPhaseIn(playerPrompt, 0.5f, Vector3.zero, 1, 0, 0.75f);
                         interactionState = InteractionStates.InteractZone;
                         interactionCollider = other;
+                        logger.Log($"Player in InteractZone", interactionCollider.gameObject);
                         break;
                 }
             }
@@ -70,12 +73,12 @@ namespace Player
         {
             if (other.gameObject.name == "InteractionZone")
             {
-                Debug.Log(System.Enum.GetName(typeof(InteractionStates),interactionState));
                 if (System.Enum.GetName(typeof(InteractionStates),interactionState) == other.gameObject.tag)
                 {
                     UIEffects.instance.UIPhaseOut(playerPromptBack, 0.5f, Vector3.zero, 1, 0, 0.8f);
                     UIEffects.instance.UIPhaseOut(playerPrompt, 0.5f, Vector3.zero, 1, 0, 0.8f);
                 }
+                logger.Log($"Player left InteractionZone", interactionCollider.gameObject);
                 interactionCollider = null;
             }
         }
@@ -98,7 +101,9 @@ namespace Player
                                 playerClass.transform.LookAt(npcClass.transform.position);
                                 playerClass.CameraZoomToNPC();
                                 npcClass.NameBarToZoom(playerClass.cameraZoomPoint.eulerAngles);
+                                logger.Log($"Zoomed Camera");
                             }
+                            logger.Log($"Player started conversation with '{npcClass.npcName}'");
                         }
                         break;
                     case InteractionStates.InteractZone:

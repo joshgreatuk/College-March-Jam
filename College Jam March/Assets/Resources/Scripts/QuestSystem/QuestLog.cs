@@ -9,6 +9,8 @@ namespace QuestSystem
 {
     public class QuestLog : MonoBehaviour
     {
+        public Logger logger;
+
         public bool logShown = true;
         public List<Quest> questList = new List<Quest>();
         public List<Quest> finishedQuestList = new List<Quest>();
@@ -37,7 +39,7 @@ namespace QuestSystem
 
         private void FinishObjective(Quest quest, Objective objective)
         {
-            Debug.Log($"Objective '{objective}' of quest '{quest}' complete!");
+            logger.Log($"Objective '{objective}' of quest '{quest}' complete!");
             objective.objectiveComplete = true;
             CheckQuestFinish(quest);
         }
@@ -60,7 +62,7 @@ namespace QuestSystem
 
         private void FinishQuest(Quest quest)
         {
-            Debug.Log($"Quest '{quest}' complete!");
+            logger.Log($"Quest '{quest}' complete!");
             questList.Remove(quest);
             finishedQuestList.Add(quest);
 
