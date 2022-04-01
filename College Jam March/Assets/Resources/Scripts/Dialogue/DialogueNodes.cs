@@ -32,6 +32,7 @@ namespace Dialogue
 
         //ChoiceNode
         public bool autoDecision = false;
+        public string decisionSpeech = "";
         public List<Decision> decisions = new List<Decision>();
 
         //TriggerNode
