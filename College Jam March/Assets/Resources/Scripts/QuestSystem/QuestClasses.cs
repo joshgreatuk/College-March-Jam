@@ -30,6 +30,8 @@ namespace QuestSystem
         public ScriptableObject target = null;
         public string npcReference = "";
 
+        public List<Objective> nextObjectives = new List<Objective>();
+
         [SerializeReference]
         public bool objectiveComplete = false;
     }

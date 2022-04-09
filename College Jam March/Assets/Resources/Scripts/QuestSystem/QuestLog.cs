@@ -31,16 +31,57 @@ namespace QuestSystem
             List<Quest> instantQuests = new List<Quest>();
             foreach (Quest quest in questList)
             {
-                instantQuests.Add(Object.Instantiate(quest));
+                instantQuests.Add(Instantiate(quest));
             }
             questList = instantQuests;
             #endif
         }
 
+        public void AddQuest(Quest quest)
+        {
+            logger.Log($"Added quest '{quest.name}'");
+            questList.Add(Instantiate(quest));
+            //Update Quest Log
+        }
+
+        //Is quest in the list
+        public bool QuestListCheck(string questName)
+        {
+            bool result = false;
+            foreach (Quest quest in questList)
+            {
+                if (questName == quest.name.Split('(')[0])
+                {
+                    result = true;
+                }
+            }
+            return result;
+        }
+        
+        public bool FinishedQuestListCheck(string questName)
+        {
+            bool result = false;
+            foreach (Quest quest in finishedQuestList)
+            {
+                if (questName == quest.name.Split('(')[0])
+                {
+                    result = true;
+                }
+            }
+            return result;
+        }
+
         private void FinishObjective(Quest quest, Objective objective)
         {
-            logger.Log($"Objective '{objective}' of quest '{quest}' complete!");
+            logger.Log($"Objective '{objective.name}' of quest '{quest.name}' complete!");
             objective.objectiveComplete = true;
+            //Add any objectives that the objective comes with
+            foreach (Objective obj in objective.nextObjectives)
+            {
+                logger.Log($"Added objective '{obj.name}' to '{quest.name}'");
+                quest.objList.Add(obj);
+            }
+            //Update Quest Log
             CheckQuestFinish(quest);
         }
 
@@ -83,8 +124,9 @@ namespace QuestSystem
             for (int i=0; i < questList.Count; i++)
             {
                 Quest quest = questList[i];
-                foreach (Objective objective in quest.objList)
+                for (int j=0; j < quest.objList.Count; j++)
                 {
+                    Objective objective = quest.objList[j];
                     if (objective.type == ObjectiveType.KillEnemies && objective.target.name + "(Clone)" == enemy.name)
                     {   
                         objective.killStatus += 1;

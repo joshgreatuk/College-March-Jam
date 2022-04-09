@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using QuestSystem;
+using Player;
+using AI;
 
 namespace Dialogue
 {
@@ -22,10 +25,16 @@ namespace Dialogue
         */
 
         public Logger logger;
+        public Logger playerLogger;
         public static DialogueHandler instance;
         
+        public QuestLog questLog;
+        public DialogueConditions dialogueConditions;
+        public NPCClass npcTalkingTo;
+
         public List<DialogueNode> dialogueQueue = new List<DialogueNode>();
 
+        [SerializeReference]
         private DialoguePlayer dialoguePlayer;
         private Coroutine queueLoopCoroutine = null;
 
@@ -45,7 +54,7 @@ namespace Dialogue
 
         public void MouseClicked (InputAction.CallbackContext context)
         {
-            if (context.performed && dialoguePlayer != null)
+            if (context.started && dialoguePlayer != null)
             {
                 dialoguePlayer.MouseClicked();
             }
@@ -57,12 +66,39 @@ namespace Dialogue
             dialogueQueue.Add(nodeToAdd);
         }
 
+        public void AddToQueue(DialogueObject objectToGet, int index)
+        {
+            DialogueNode nodeToAdd = objectToGet.nodeList[index];
+            logger.Log($"Dialogue Node Added '{nodeToAdd.description}'");
+            dialogueQueue.Add(nodeToAdd);
+        }
+
         IEnumerator QueueLoop()
         {
+            UIRefs.instance.dialoguePanel.SetActive(true);
             while (dialogueQueue.Count > 0)
             {
+                if (dialoguePlayer == null)
+                {
+                    logger.Log($"Starting Dialogue {dialogueQueue[0].description}");
+                    dialoguePlayer = new DialoguePlayer(this, dialogueQueue[0], playerLogger);
+                    StartCoroutine(dialoguePlayer.PlayerLoop());
+                }
+                else if (dialoguePlayer != null && !dialoguePlayer.playing)
+                {
+                    logger.Log("Player finished, removing queue 0");
+                    dialogueQueue.RemoveAt(0);
+                    dialoguePlayer = null;
+                }
                 yield return new WaitForFixedUpdate();
             }
+            PlayerRefs.instance.playerClass.CameraZoomToNormal();
+            PlayerRefs.instance.playerClass.canMove = true;
+            npcTalkingTo.NameBarReset();
+            logger.Log($"Reset Camera");
+            UIRefs.instance.dialoguePanel.SetActive(false);
+            logger.Log("Queue Finished");
+            queueLoopCoroutine = null;
         }
     }
 }

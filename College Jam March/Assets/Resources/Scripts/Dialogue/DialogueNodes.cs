@@ -3,21 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using QuestSystem;
+using NaughtyAttributes;
 
 namespace Dialogue
 {
-    [Flags]
     public enum DecisionCondition
     {
-        None = 0,
-        QuestGiven = 1,
-        QuestCompleted = 2
+        QuestGiven = 0,
+        QuestCompleted = 1,
+        ConditionMet = 2
     }
 
     public enum TriggerType
     {
-        AddQuest,
-        SwapDialogue
+        SetCondition = 0,
+        AddQuest = 1,
+        AddDialogue = 2,
+        OpenMenu = 3,
+        UnlockArea = 4
     }
 
     [Serializable]
@@ -25,9 +28,9 @@ namespace Dialogue
     {
         //Shared
         [Tooltip("Wont affect the game")]
-        [TextArea(1,3)]
+        [TextArea(1,2)]
         public string description = "";
-        [TextArea(1,3)]
+        [TextArea(1,5)]
         public List<string> speech = new List<string>();
 
         //ChoiceNode
@@ -42,9 +45,7 @@ namespace Dialogue
     [Serializable]
     public class Decision
     {
-        public DecisionCondition decisionCondition = 0;
-        public bool conditionNeeded = false;
-        public Quest questNeeded = null;
+        public List<DecisionConditionClass> conditions = new List<DecisionConditionClass>();
         public string decisionText = "";
         public bool hidden = false;
         public DialogueObject decisionPath = null;
@@ -53,11 +54,25 @@ namespace Dialogue
     }
 
     [Serializable]
+    public class DecisionConditionClass
+    {
+        public DecisionCondition decisionCondition = 0;
+        [AllowNesting] [ShowIf("decisionCondition", DecisionCondition.ConditionMet)] public bool conditionNeeded = false;
+        [AllowNesting] [ShowIf("decisionCondition", DecisionCondition.ConditionMet)] public string conditionName = "";
+        [AllowNesting] [ShowIf("decisionCondition", DecisionCondition.QuestGiven)] public Quest questGivenNeeded = null;
+        [AllowNesting] [ShowIf("decisionCondition", DecisionCondition.QuestCompleted)] public Quest questCompleteNeeded = null;
+    }
+
+    [Serializable]
     public class Trigger
     {
         public TriggerType triggerType = 0;
-        [ConditionalHide("triggerType", (int)TriggerType.AddQuest)]
-        public Quest questTarget = null;
-        public string objectiveTarget = "";
+        [AllowNesting] [ShowIf("triggerType", TriggerType.AddQuest)] public Quest questTarget = null;
+        [AllowNesting] [ShowIf("triggerType", TriggerType.AddDialogue)] public DialogueObject dialogueObject = null;
+        [AllowNesting] [ShowIf("triggerType", TriggerType.AddDialogue)] public int dialogueIndex = 0;
+        [AllowNesting] [ShowIf("triggerType", TriggerType.OpenMenu)] public GameObject menuPrefab = null;
+        [AllowNesting] [ShowIf("triggerType", TriggerType.UnlockArea)] public GameObject areaObject = null;
+        [AllowNesting] [ShowIf("triggerType", TriggerType.SetCondition)] public string conditionName = "";
+        [AllowNesting] [ShowIf("triggerType", TriggerType.SetCondition)] public bool conditionState = false;
     }
 }

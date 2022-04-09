@@ -17,31 +17,38 @@ MonoBehaviour:
   - description: Controls what the test NPC says, based on the KillTestEnemy quest
     speech: []
     autoDecision: 1
+    decisionSpeech: 
     decisions:
-    - decisionCondition: 1
-      conditionNeeded: 0
-      questNeeded: {fileID: 11400000, guid: c8b6adc54d0c8529ba431bd9eb9ce6f5, type: 2}
+    - conditions:
+      - decisionCondition: 0
+        conditionNeeded: 0
+        questNeeded: {fileID: 11400000, guid: c8b6adc54d0c8529ba431bd9eb9ce6f5, type: 2}
       decisionText: 
       hidden: 0
       decisionPath: {fileID: 11400000}
       decisionPathIndex: 1
-      playInstantly: 0
-    - decisionCondition: 1
-      conditionNeeded: 1
-      questNeeded: {fileID: 11400000, guid: c8b6adc54d0c8529ba431bd9eb9ce6f5, type: 2}
+      playInstantly: 1
+    - conditions:
+      - decisionCondition: 0
+        conditionNeeded: 1
+        questNeeded: {fileID: 11400000, guid: c8b6adc54d0c8529ba431bd9eb9ce6f5, type: 2}
+      - decisionCondition: 1
+        conditionNeeded: 0
+        questNeeded: {fileID: 11400000, guid: c8b6adc54d0c8529ba431bd9eb9ce6f5, type: 2}
       decisionText: 
       hidden: 0
       decisionPath: {fileID: 11400000}
       decisionPathIndex: 2
-      playInstantly: 0
-    - decisionCondition: 2
-      conditionNeeded: 1
-      questNeeded: {fileID: 11400000, guid: c8b6adc54d0c8529ba431bd9eb9ce6f5, type: 2}
+      playInstantly: 1
+    - conditions:
+      - decisionCondition: 1
+        conditionNeeded: 1
+        questNeeded: {fileID: 11400000, guid: c8b6adc54d0c8529ba431bd9eb9ce6f5, type: 2}
       decisionText: 
       hidden: 0
       decisionPath: {fileID: 11400000}
       decisionPathIndex: 3
-      playInstantly: 0
+      playInstantly: 1
     triggers: []
   - description: If quest hasnt been given, give it in this conversation
     speech:
@@ -49,32 +56,28 @@ MonoBehaviour:
     - Go kill 3 test enemies and come back to me and il give you some of that sweet
       sweet xp
     autoDecision: 1
+    decisionSpeech: 
     decisions: []
     triggers: []
   - description: If quest has been given but not completed then tell the player to
       go do it
     speech: []
     autoDecision: 1
+    decisionSpeech: 
     decisions:
-    - decisionCondition: 0
-      conditionNeeded: 0
-      questNeeded: {fileID: 0}
+    - conditions: []
       decisionText: 
       hidden: 0
       decisionPath: {fileID: 11400000}
       decisionPathIndex: 0
       playInstantly: 0
-    - decisionCondition: 0
-      conditionNeeded: 1
-      questNeeded: {fileID: 0}
+    - conditions: []
       decisionText: 
       hidden: 0
       decisionPath: {fileID: 11400000}
       decisionPathIndex: 0
       playInstantly: 0
-    - decisionCondition: 1
-      conditionNeeded: 1
-      questNeeded: {fileID: 0}
+    - conditions: []
       decisionText: 
       hidden: 0
       decisionPath: {fileID: 11400000}
@@ -82,28 +85,25 @@ MonoBehaviour:
       playInstantly: 0
     triggers: []
   - description: When the quest is done move on in the dialogue
-    speech: []
+    speech:
+    - Hey!
+    - Thanks for killing those things for me, have a good day!
     autoDecision: 1
+    decisionSpeech: 
     decisions:
-    - decisionCondition: 0
-      conditionNeeded: 0
-      questNeeded: {fileID: 0}
+    - conditions: []
       decisionText: 
       hidden: 0
       decisionPath: {fileID: 11400000}
       decisionPathIndex: 0
       playInstantly: 0
-    - decisionCondition: 0
-      conditionNeeded: 1
-      questNeeded: {fileID: 0}
+    - conditions: []
       decisionText: 
       hidden: 0
       decisionPath: {fileID: 11400000}
       decisionPathIndex: 0
       playInstantly: 0
-    - decisionCondition: 1
-      conditionNeeded: 1
-      questNeeded: {fileID: 0}
+    - conditions: []
       decisionText: 
       hidden: 0
       decisionPath: {fileID: 11400000}

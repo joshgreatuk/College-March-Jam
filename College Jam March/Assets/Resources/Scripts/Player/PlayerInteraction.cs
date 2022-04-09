@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using AI;
 using Effects;
+using Dialogue;
 
 namespace Player
 {
@@ -79,6 +80,7 @@ namespace Player
                     UIEffects.instance.UIPhaseOut(playerPrompt, 0.5f, Vector3.zero, 1, 0, 0.8f);
                 }
                 logger.Log($"Player left InteractionZone", interactionCollider.gameObject);
+                interactionState = InteractionStates.Idle;
                 interactionCollider = null;
             }
         }
@@ -103,7 +105,9 @@ namespace Player
                                 npcClass.NameBarToZoom(playerClass.cameraZoomPoint.eulerAngles);
                                 logger.Log($"Zoomed Camera");
                             }
-                            logger.Log($"Player started conversation with '{npcClass.npcName}'");
+                            DialogueHandler.instance.npcTalkingTo = npcClass;
+                            DialogueHandler.instance.AddToQueue(npcClass.npcDialogue.nodeList[0]);
+                            logger.Log($"Started conversation with '{npcClass.npcName}'");
                         }
                         break;
                     case InteractionStates.InteractZone:

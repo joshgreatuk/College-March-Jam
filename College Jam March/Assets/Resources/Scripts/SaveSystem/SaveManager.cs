@@ -8,4 +8,5 @@ namespace SaveSystem
     //-QuestLog (current and finished quests)
     //-Player Stats (health, level, attributes)
     //-Player Inventory
+    //-Dialogue Conditions
 }

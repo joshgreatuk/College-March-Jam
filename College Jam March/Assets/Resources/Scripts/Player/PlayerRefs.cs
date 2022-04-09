@@ -9,6 +9,7 @@ namespace Player
     public class PlayerRefs : MonoBehaviour
     {
         public GameObject playerObject;
+        public PlayerClass playerClass;
 
         public static PlayerRefs instance;
         [ExecuteAlways]
