@@ -1,0 +1,203 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aef7a9b8c6bde12479ef9201d660de5d, type: 3}
+  m_Name: FullTestDialogue
+  m_EditorClassIdentifier: 
+  autoPlay: 0
+  nodeList:
+  - description: 0Check if player has been asked before or has quest
+    speech: []
+    autoDecision: 1
+    decisionSpeech: 
+    decisions:
+    - conditions:
+      - decisionCondition: 2
+        conditionNeeded: 0
+        conditionName: PlayerAskedAboutAnimals
+        questNeeded: {fileID: 0}
+      - decisionCondition: 0
+        conditionNeeded: 0
+        conditionName: 
+        questNeeded: {fileID: 11400000, guid: c8b6adc54d0c8529ba431bd9eb9ce6f5, type: 2}
+      decisionText: 
+      hidden: 0
+      decisionPath: {fileID: 11400000}
+      decisionPathIndex: 1
+      playInstantly: 0
+    - conditions:
+      - decisionCondition: 2
+        conditionNeeded: 1
+        conditionName: PlayerAskedAboutAnimals
+        questNeeded: {fileID: 0}
+      - decisionCondition: 0
+        conditionNeeded: 0
+        conditionName: 
+        questNeeded: {fileID: 11400000, guid: c8b6adc54d0c8529ba431bd9eb9ce6f5, type: 2}
+      decisionText: 
+      hidden: 0
+      decisionPath: {fileID: 11400000}
+      decisionPathIndex: 4
+      playInstantly: 0
+    - conditions:
+      - decisionCondition: 0
+        conditionNeeded: 1
+        conditionName: 
+        questNeeded: {fileID: 11400000, guid: c8b6adc54d0c8529ba431bd9eb9ce6f5, type: 2}
+      decisionText: 
+      hidden: 0
+      decisionPath: {fileID: 11400000}
+      decisionPathIndex: 7
+      playInstantly: 0
+    triggers: []
+  - description: 1Ask if cats or dogs are better
+    speech:
+    - Yo dude, havent seen you round here in a while.
+    - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ac mauris ut
+      nisi sagittis laoreet. Aenean vel pellente.gnissim, elementum leo ac, placerat
+      ipsum. Praesent lectus enim, vulputate eget erat quis, auctor porttitor lectus.
+      Sed varius sem at diam vulputate pharetra. Aenean id viverra massa.
+    autoDecision: 0
+    decisionSpeech: Anyway! need your help! cats or dogs?
+    decisions:
+    - conditions: []
+      decisionText: Cats for sure!
+      hidden: 0
+      decisionPath: {fileID: 11400000}
+      decisionPathIndex: 2
+      playInstantly: 0
+    - conditions: []
+      decisionText: Dogs are way better!
+      hidden: 0
+      decisionPath: {fileID: 11400000}
+      decisionPathIndex: 3
+      playInstantly: 0
+    triggers:
+    - triggerType: 0
+      questTarget: {fileID: 0}
+      dialogueObject: {fileID: 0}
+      dialogueIndex: 0
+      menuPrefab: {fileID: 0}
+      areaObject: {fileID: 0}
+      conditionName: PlayerAskedAboutAnimals
+      conditionState: 1
+  - description: 2The correct answer
+    speech:
+    - Brooo, damn right! Cats are great.
+    autoDecision: 0
+    decisionSpeech: 
+    decisions: []
+    triggers:
+    - triggerType: 2
+      questTarget: {fileID: 0}
+      dialogueObject: {fileID: 11400000}
+      dialogueIndex: 4
+      menuPrefab: {fileID: 0}
+      areaObject: {fileID: 0}
+      conditionName: 
+      conditionState: 0
+  - description: 3The debatable answer
+    speech:
+    - Hmmm, alright. You do you pal.
+    autoDecision: 0
+    decisionSpeech: 
+    decisions: []
+    triggers:
+    - triggerType: 2
+      questTarget: {fileID: 0}
+      dialogueObject: {fileID: 11400000}
+      dialogueIndex: 4
+      menuPrefab: {fileID: 0}
+      areaObject: {fileID: 0}
+      conditionName: 
+      conditionState: 0
+  - description: 4Quest decision
+    speech: []
+    autoDecision: 0
+    decisionSpeech: 'Anyways! I need 3 test enemies killed, i can trust you for that
+      right? '
+    decisions:
+    - conditions: []
+      decisionText: Yeah, course
+      hidden: 0
+      decisionPath: {fileID: 11400000}
+      decisionPathIndex: 5
+      playInstantly: 0
+    - conditions: []
+      decisionText: Naa, sorry
+      hidden: 0
+      decisionPath: {fileID: 11400000}
+      decisionPathIndex: 6
+      playInstantly: 0
+    triggers: []
+  - description: 5Player takes the quest
+    speech:
+    - Very good! return to me once its done
+    autoDecision: 0
+    decisionSpeech: 
+    decisions: []
+    triggers:
+    - triggerType: 1
+      questTarget: {fileID: 11400000, guid: c8b6adc54d0c8529ba431bd9eb9ce6f5, type: 2}
+      dialogueObject: {fileID: 0}
+      dialogueIndex: 0
+      menuPrefab: {fileID: 0}
+      areaObject: {fileID: 0}
+      conditionName: 
+      conditionState: 0
+  - description: 6Player doesnt take the quest
+    speech:
+    - Ahh, let me know if you change your mind
+    autoDecision: 0
+    decisionSpeech: 
+    decisions: []
+    triggers: []
+  - description: 7Check if the player has completed the quest or not
+    speech: []
+    autoDecision: 1
+    decisionSpeech: 
+    decisions:
+    - conditions:
+      - decisionCondition: 1
+        conditionNeeded: 0
+        conditionName: 
+        questNeeded: {fileID: 11400000, guid: c8b6adc54d0c8529ba431bd9eb9ce6f5, type: 2}
+      decisionText: yes
+      hidden: 0
+      decisionPath: {fileID: 11400000}
+      decisionPathIndex: 8
+      playInstantly: 0
+    - conditions:
+      - decisionCondition: 1
+        conditionNeeded: 1
+        conditionName: 
+        questNeeded: {fileID: 11400000, guid: c8b6adc54d0c8529ba431bd9eb9ce6f5, type: 2}
+      decisionText: no
+      hidden: 0
+      decisionPath: {fileID: 11400000}
+      decisionPathIndex: 9
+      playInstantly: 0
+    triggers: []
+  - description: 8Player returns while quest is given but not completed
+    speech:
+    - You killed those things yet?
+    - Return to me once you have.
+    autoDecision: 0
+    decisionSpeech: 
+    decisions: []
+    triggers: []
+  - description: 9Player returns when quest is complete
+    speech:
+    - Thanks! I needed that done, enjoy the xp my man!
+    autoDecision: 0
+    decisionSpeech: 
+    decisions: []
+    triggers: []

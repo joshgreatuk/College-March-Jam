@@ -12,16 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aef7a9b8c6bde12479ef9201d660de5d, type: 3}
   m_Name: Dialogue
   m_EditorClassIdentifier: 
+  autoPlay: 0
   nodeList:
-  - speech:
+  - description: Dialogue Test 1
+    speech:
     - 
+    autoDecision: 0
+    decisionSpeech: 
     decisions:
-    - text: 
-      locked: 0
+    - conditions: []
+      decisionText: 
       hidden: 0
       decisionPath: {fileID: 11400000}
+      decisionPathIndex: 0
+      playInstantly: 0
     triggers:
-    - type: 0
-  - speech: []
+    - triggerType: 0
+      questTarget: {fileID: 0}
+      dialogueObject: {fileID: 0}
+      dialogueIndex: 0
+      menuPrefab: {fileID: 0}
+      areaObject: {fileID: 0}
+      conditionName: 
+      conditionState: 0
+  - description: Dialogue Test 2
+    speech: []
+    autoDecision: 0
+    decisionSpeech: 
     decisions: []
     triggers: []

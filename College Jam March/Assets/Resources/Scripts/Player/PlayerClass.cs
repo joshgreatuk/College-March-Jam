@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using AttackSystem;
 using AI;
+using NaughtyAttributes;
 
 namespace Player
 {
@@ -14,6 +15,7 @@ namespace Player
 
         //Player variables
         public int playerMaxHealth = 100;
+        [ProgressBar("Health", 100, EColor.Red)]
         public int playerHealth;
         public int playerLevel = 1;
         public float playerXp = 0;

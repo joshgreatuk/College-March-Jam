@@ -15,6 +15,7 @@ namespace AI
         public bool lookAtPlayer = true;
         public bool lookThroughObjects = true;
         public bool resetViewAfter = false;
+        public bool aiDead = false;
 
         protected Transform UIPoint;
         protected GameObject playerObject;
@@ -33,7 +34,7 @@ namespace AI
             if (playerObject == null)
             { playerObject = PlayerRefs.instance.playerObject; }
             
-            if (lookAtPlayer)
+            if (lookAtPlayer && !aiDead)
             {
                 if (Vector3.Distance(transform.position, playerObject.transform.position) <= viewDistance)
                 {

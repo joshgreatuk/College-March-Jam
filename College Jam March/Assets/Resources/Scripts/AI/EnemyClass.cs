@@ -79,6 +79,9 @@ namespace AI
                 //DIE
                 logger.Log($"'{enemyType.name}' has died");
                 EventHandler.instance.E_KillEnemy.Invoke(enemyType);
+                Rigidbody enemyRB = GetComponent<Rigidbody>();
+                enemyRB.constraints = RigidbodyConstraints.None;
+                enemyRB.AddForce(-transform.forward*3, ForceMode.Impulse);
             }
             LeanTween.scaleX(healthBarValue.gameObject, enemyType.enemyHealth/enemyType.enemyMaxHealth, (1f-(enemyType.enemyHealth/enemyType.enemyMaxHealth))/2);   
             healthBarText.text = "HP: " + enemyType.enemyHealth.ToString() + "/" + enemyType.enemyMaxHealth.ToString();
