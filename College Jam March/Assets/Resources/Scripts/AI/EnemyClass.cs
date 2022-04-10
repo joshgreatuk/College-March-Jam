@@ -77,6 +77,7 @@ namespace AI
             {
                 enemyType.enemyHealth = 0;
                 //DIE
+                aiDead = true;
                 logger.Log($"'{enemyType.name}' has died");
                 EventHandler.instance.E_KillEnemy.Invoke(enemyType);
                 Rigidbody enemyRB = GetComponent<Rigidbody>();

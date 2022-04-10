@@ -95,7 +95,7 @@ namespace Player
                         if (interactionCollider.transform.parent.gameObject.GetComponent<NPCClass>().canTalk)
                         {
                             //Start Conversation
-                            playerClass.canMove = false;
+                            playerClass.LockMovement();
                             NPCClass npcClass = interactionCollider.transform.parent.gameObject.GetComponent<NPCClass>();
                             EventHandler.instance.E_TalkToNPC.Invoke(npcClass);
                             if (npcClass.zoomToNpc)

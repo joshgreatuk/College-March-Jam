@@ -11,6 +11,15 @@ namespace QuestSystem
     {
         public Logger logger;
 
+        public GameObject categoryPrefab;
+        public GameObject questPrefab;
+        public GameObject objectivePrefab;
+
+        public GameObject questLog;
+        public List<LogCategory> questLogObjects = new List<LogCategory>();
+        public GameObject fullQuestLog;
+        public List<LogCategory> fullQuestLogObjects = new List<LogCategory>();
+
         public bool logShown = true;
         public List<Quest> questList = new List<Quest>();
         public List<Quest> finishedQuestList = new List<Quest>();
@@ -37,11 +46,47 @@ namespace QuestSystem
             #endif
         }
 
+        public void ClearFullLogObjects()
+        {
+            for (int i=0; i < fullQuestLogObjects.Count; i++)
+            {
+                Destroy(fullQuestLogObjects[i]);
+            }
+            fullQuestLogObjects = new List<LogCategory>();
+        }
+
         public void AddQuest(Quest quest)
         {
             logger.Log($"Added quest '{quest.name}'");
+            PlayerMessages.instance.messageQueue.Add(new PlayerMessage($"{quest.name.Split('(')[0]}", "New quest"));
             questList.Add(Instantiate(quest));
-            //Update Quest Log
+            UpdateMiniLog();
+        }
+
+        public void ToggleQuestLog()
+        {
+            if (questLog.activeInHierarchy)
+            {
+                player.UnlockMovement();
+                questLog.SetActive(false);
+            }
+            else
+            {
+                player.LockMovement();
+                questLog.SetActive(true);
+                ClearFullLogObjects();
+                PopulateFullLog();
+            }
+        }
+
+        public void PopulateFullLog()
+        {
+
+        }
+
+        public void UpdateMiniLog()
+        {
+            
         }
 
         //Is quest in the list
@@ -74,14 +119,16 @@ namespace QuestSystem
         private void FinishObjective(Quest quest, Objective objective)
         {
             logger.Log($"Objective '{objective.name}' of quest '{quest.name}' complete!");
+            PlayerMessages.instance.messageQueue.Add(new PlayerMessage($"{quest.name}", $"Objective Complete '{objective.publicName}'"));
             objective.objectiveComplete = true;
             //Add any objectives that the objective comes with
             foreach (Objective obj in objective.nextObjectives)
             {
                 logger.Log($"Added objective '{obj.name}' to '{quest.name}'");
+                PlayerMessages.instance.messageQueue.Add(new PlayerMessage($"{quest.name}", $"New objective '{obj.publicName}'"));
                 quest.objList.Add(obj);
             }
-            //Update Quest Log
+            UpdateMiniLog();
             CheckQuestFinish(quest);
         }
 
@@ -104,6 +151,7 @@ namespace QuestSystem
         private void FinishQuest(Quest quest)
         {
             logger.Log($"Quest '{quest}' complete!");
+            PlayerMessages.instance.messageQueue.Add(new PlayerMessage($"{quest.name}", $"Quest Completed"));
             questList.Remove(quest);
             finishedQuestList.Add(quest);
 
@@ -117,6 +165,8 @@ namespace QuestSystem
                         break;
                 }
             }
+
+            UpdateMiniLog();
         }
 
         public void M_KillEnemy(EnemyType enemy)
@@ -127,7 +177,7 @@ namespace QuestSystem
                 for (int j=0; j < quest.objList.Count; j++)
                 {
                     Objective objective = quest.objList[j];
-                    if (objective.type == ObjectiveType.KillEnemies && objective.target.name + "(Clone)" == enemy.name)
+                    if (objective.type == ObjectiveType.KillEnemies && objective.enemyTypeTarget.name + "(Clone)" == enemy.name)
                     {   
                         objective.killStatus += 1;
                         if (objective.killStatus >= objective.killTarget)

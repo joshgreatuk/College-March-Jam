@@ -93,7 +93,7 @@ namespace Dialogue
                 yield return new WaitForFixedUpdate();
             }
             PlayerRefs.instance.playerClass.CameraZoomToNormal();
-            PlayerRefs.instance.playerClass.canMove = true;
+            PlayerRefs.instance.playerClass.UnlockMovement();
             npcTalkingTo.NameBarReset();
             logger.Log($"Reset Camera");
             UIRefs.instance.dialoguePanel.SetActive(false);

@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AI;
+using NaughtyAttributes;
 
 namespace QuestSystem
 {
@@ -25,15 +27,14 @@ namespace QuestSystem
         public string name = "";
         public string publicName = "";
         public bool hidden = false;
-        public int killStatus = 0;
-        public int killTarget = 3;
-        public ScriptableObject target = null;
-        public string npcReference = "";
+        [AllowNesting] [ShowIf("type", ObjectiveType.KillEnemies)] public int killStatus = 0;
+        [AllowNesting] [ShowIf("type", ObjectiveType.KillEnemies)] public int killTarget = 3;
+        [AllowNesting] [ShowIf("type", ObjectiveType.KillEnemies)] public EnemyType enemyTypeTarget = null;
+        [AllowNesting] [ShowIf("type", ObjectiveType.TalkToNPC)] public string npcReference = "";
 
-        public List<Objective> nextObjectives = new List<Objective>();
+        [AllowNesting] [ReadOnly]  public bool objectiveComplete = false;
 
-        [SerializeReference]
-        public bool objectiveComplete = false;
+        public List<Objective> nextObjectives = new List<Objective>();       
     }
 
     [Serializable]

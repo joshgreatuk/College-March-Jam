@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NaughtyAttributes;
 
 namespace QuestSystem
 {
@@ -12,5 +13,7 @@ namespace QuestSystem
         public string QuestCategory;
         public List<Objective> objList = new List<Objective>();
         public List<QuestReward> rewardList = new List<QuestReward>();
+
+        [ReadOnly] public List<LogCategory> categoryObjectList = new List<LogCategory>();
     }
 }

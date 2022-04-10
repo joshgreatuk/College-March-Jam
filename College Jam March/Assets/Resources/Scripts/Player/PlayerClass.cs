@@ -71,6 +71,18 @@ namespace Player
             }   
         }
 
+        public void UnlockMovement()
+        {
+            canMove = true;
+            PlayerMessages.instance.canPlay = true;
+        }
+
+        public void LockMovement()
+        {
+            canMove = false;
+            PlayerMessages.instance.canPlay = false;
+        }
+
         public void CameraZoomToNPC()
         {
             //Lerp down to NPCCameraPoint
@@ -172,7 +184,7 @@ namespace Player
                         newProjClass.projAttack = attack;
                         newProjClass.projSource = gameObject;
                         Vector3 target = mouseHit.point;
-                        target.y += 0.5f;
+                        target.y = transform.position.y;
                         StartCoroutine(fireProjectile(newProjectile.transform, target)); 
                     }
                     break;

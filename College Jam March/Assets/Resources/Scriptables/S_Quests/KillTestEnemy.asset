@@ -21,8 +21,9 @@ MonoBehaviour:
     hidden: 0
     killStatus: 0
     killTarget: 3
-    target: {fileID: 11400000, guid: 792462bd49afb3e6a82cb71dfaa66583, type: 2}
+    enemyTypeTarget: {fileID: 11400000, guid: 792462bd49afb3e6a82cb71dfaa66583, type: 2}
     npcReference: 
+    objectiveComplete: 0
     nextObjectives:
     - type: 0
       name: TalkToNoName
@@ -30,11 +31,10 @@ MonoBehaviour:
       hidden: 0
       killStatus: 0
       killTarget: 0
-      target: {fileID: 0}
+      enemyTypeTarget: {fileID: 0}
       npcReference: TestNPC
-      nextObjectives: []
       objectiveComplete: 0
-    objectiveComplete: 0
+      nextObjectives: []
   rewardList:
   - type: 0
     rewardName: XP Reward

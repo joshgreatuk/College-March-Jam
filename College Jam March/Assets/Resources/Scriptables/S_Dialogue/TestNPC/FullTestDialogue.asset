@@ -23,11 +23,13 @@ MonoBehaviour:
       - decisionCondition: 2
         conditionNeeded: 0
         conditionName: PlayerAskedAboutAnimals
-        questNeeded: {fileID: 0}
+        questGivenNeeded: {fileID: 0}
+        questCompleteNeeded: {fileID: 0}
       - decisionCondition: 0
         conditionNeeded: 0
         conditionName: 
-        questNeeded: {fileID: 11400000, guid: c8b6adc54d0c8529ba431bd9eb9ce6f5, type: 2}
+        questGivenNeeded: {fileID: 11400000, guid: c8b6adc54d0c8529ba431bd9eb9ce6f5, type: 2}
+        questCompleteNeeded: {fileID: 0}
       decisionText: 
       hidden: 0
       decisionPath: {fileID: 11400000}
@@ -37,11 +39,13 @@ MonoBehaviour:
       - decisionCondition: 2
         conditionNeeded: 1
         conditionName: PlayerAskedAboutAnimals
-        questNeeded: {fileID: 0}
+        questGivenNeeded: {fileID: 0}
+        questCompleteNeeded: {fileID: 0}
       - decisionCondition: 0
         conditionNeeded: 0
         conditionName: 
-        questNeeded: {fileID: 11400000, guid: c8b6adc54d0c8529ba431bd9eb9ce6f5, type: 2}
+        questGivenNeeded: {fileID: 11400000, guid: c8b6adc54d0c8529ba431bd9eb9ce6f5, type: 2}
+        questCompleteNeeded: {fileID: 0}
       decisionText: 
       hidden: 0
       decisionPath: {fileID: 11400000}
@@ -51,7 +55,8 @@ MonoBehaviour:
       - decisionCondition: 0
         conditionNeeded: 1
         conditionName: 
-        questNeeded: {fileID: 11400000, guid: c8b6adc54d0c8529ba431bd9eb9ce6f5, type: 2}
+        questGivenNeeded: {fileID: 11400000, guid: c8b6adc54d0c8529ba431bd9eb9ce6f5, type: 2}
+        questCompleteNeeded: {fileID: 0}
       decisionText: 
       hidden: 0
       decisionPath: {fileID: 11400000}
@@ -169,7 +174,8 @@ MonoBehaviour:
       - decisionCondition: 1
         conditionNeeded: 0
         conditionName: 
-        questNeeded: {fileID: 11400000, guid: c8b6adc54d0c8529ba431bd9eb9ce6f5, type: 2}
+        questGivenNeeded: {fileID: 0}
+        questCompleteNeeded: {fileID: 11400000, guid: c8b6adc54d0c8529ba431bd9eb9ce6f5, type: 2}
       decisionText: yes
       hidden: 0
       decisionPath: {fileID: 11400000}
@@ -179,7 +185,8 @@ MonoBehaviour:
       - decisionCondition: 1
         conditionNeeded: 1
         conditionName: 
-        questNeeded: {fileID: 11400000, guid: c8b6adc54d0c8529ba431bd9eb9ce6f5, type: 2}
+        questGivenNeeded: {fileID: 0}
+        questCompleteNeeded: {fileID: 11400000, guid: c8b6adc54d0c8529ba431bd9eb9ce6f5, type: 2}
       decisionText: no
       hidden: 0
       decisionPath: {fileID: 11400000}
