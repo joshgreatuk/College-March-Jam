@@ -12,6 +12,7 @@ namespace QuestSystem
         public string QuestName;
         public string QuestCategory;
         [TextArea(1,7)] public string QuestDescription;
+        public Sprite questIcon = null;
         public List<Objective> objList = new List<Objective>();
         public List<QuestReward> rewardList = new List<QuestReward>();
 

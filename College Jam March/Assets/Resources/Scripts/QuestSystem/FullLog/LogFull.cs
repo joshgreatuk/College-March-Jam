@@ -77,6 +77,7 @@ namespace QuestSystem
                 category.logQuestList.Add(logQuest);
                 logQuest.questName.text = quest.QuestName;
                 logQuest.objectiveText.text =  $"Objectives: {GetObjectivesComplete(quest)}/{quest.objList.Count}";
+                if (quest.questIcon != null) logQuest.questIcon.sprite = quest.questIcon;
                 if (quest.questGiver != null) logQuest.questGiver.text = quest.questGiver.npcName;
                 else logQuest.questGiver.text = "";
                 int x = i;

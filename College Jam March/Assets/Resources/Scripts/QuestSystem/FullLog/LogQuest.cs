@@ -14,5 +14,6 @@ namespace QuestSystem
         public TMP_Text objectiveText;
         public TMP_Text questGiver;
         public Button questButton;
+        public Image questIcon;
     }
 }
