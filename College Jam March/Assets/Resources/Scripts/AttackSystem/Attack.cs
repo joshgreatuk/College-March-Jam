@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using NaughtyAttributes;
 
 namespace AttackSystem
 {
@@ -20,11 +21,11 @@ namespace AttackSystem
         public float critChance = 0.1f;
 
         //Projectile Options
-        public float projectileArch = 1f;
-        public float projectileSpeed = 1f;
-        public GameObject projectilePrefab;
-        public bool projectileRandomRotation = false;
-        public bool projectileGravity = true;
+        [AllowNesting] [ShowIf("attackType", AttackType.Ranged)] public float projectileArch = 1f;
+        [AllowNesting] [ShowIf("attackType", AttackType.Ranged)] public float projectileSpeed = 1f;
+        [AllowNesting] [ShowIf("attackType", AttackType.Ranged)] public GameObject projectilePrefab;
+        [AllowNesting] [ShowIf("attackType", AttackType.Ranged)] public bool projectileRandomRotation = false;
+        [AllowNesting] [ShowIf("attackType", AttackType.Ranged)] public bool projectileGravity = true;
     }
     
     public enum AttackType
