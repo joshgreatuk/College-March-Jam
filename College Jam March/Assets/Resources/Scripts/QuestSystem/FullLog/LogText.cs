@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 namespace QuestSystem
 {
-    public class LogFull : MonoBehaviour 
+    //Quest Info Item
+    public class LogText : MonoBehaviour 
     {
         //For references on the prefab
-        public List<GameObject> logFullObjects = new List<GameObject>();
-
-        
+        public TMP_Text textField;
     }
 }

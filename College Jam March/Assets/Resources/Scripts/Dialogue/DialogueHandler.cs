@@ -99,6 +99,7 @@ namespace Dialogue
             UIRefs.instance.dialoguePanel.SetActive(false);
             logger.Log("Queue Finished");
             queueLoopCoroutine = null;
+            QuestLog.instance.UpdateMiniLog();
         }
     }
 }

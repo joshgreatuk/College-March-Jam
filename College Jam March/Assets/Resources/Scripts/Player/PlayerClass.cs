@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using TMPro;
 using AttackSystem;
 using AI;
+using QuestSystem;
 using NaughtyAttributes;
 
 namespace Player
@@ -14,6 +17,7 @@ namespace Player
         public Logger logger;
 
         //Player variables
+        [Header("Player Stats")]
         public int playerMaxHealth = 100;
         [ProgressBar("Health", 100, EColor.Red)]
         public int playerHealth;
@@ -24,15 +28,21 @@ namespace Player
         public float playerCritMultiplier = 1.5f;
         public float playerSpeed = 5;
 
-        public bool canMove = true;
+        [ReadOnly] public bool canMove = true;
 
+        [Header("Player Attacks")]
         public Attack mainAttack;
         private bool mainCooldown = false;
 
         public Attack secondaryAttack;
         private bool secondaryCooldown = false;
 
+        [Header("Player References")]
         public Camera playerCamera;
+        public GameObject mainAttackPanel;
+        public GameObject secAttackPanel;
+        public TMP_Text playerPrompt;
+        public Image playerPromptBack;
 
         private Rigidbody playerRb;
         private Camera cameraComp;
@@ -43,8 +53,7 @@ namespace Player
 
         public float cameraZoomTime = 1f;
 
-        [SerializeReference]
-        public Transform cameraZoomPoint;
+        [ReadOnly] public Transform cameraZoomPoint;
         private Vector3 preCameraZoomPoint;
         private Vector3 preCameraZoomRotation;
 
@@ -75,12 +84,25 @@ namespace Player
         {
             canMove = true;
             PlayerMessages.instance.canPlay = true;
+            QuestLog.instance.questLog.SetActive(true);
+            mainAttackPanel.SetActive(true);
+            secAttackPanel.SetActive(true);
+            playerPrompt.gameObject.SetActive(true);
+            playerPromptBack.gameObject.SetActive(true);
         }
 
-        public void LockMovement()
+        public void LockMovement(bool removeUI=false)
         {
             canMove = false;
             PlayerMessages.instance.canPlay = false;
+            if (removeUI)
+            {
+                QuestLog.instance.questLog.SetActive(false);
+                mainAttackPanel.SetActive(false);
+                secAttackPanel.SetActive(false);
+                playerPrompt.gameObject.SetActive(false);
+                playerPromptBack.gameObject.SetActive(false);
+            }
         }
 
         public void CameraZoomToNPC()

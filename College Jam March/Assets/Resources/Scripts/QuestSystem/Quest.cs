@@ -11,9 +11,11 @@ namespace QuestSystem
     {
         public string QuestName;
         public string QuestCategory;
+        [TextArea(1,7)] public string QuestDescription;
         public List<Objective> objList = new List<Objective>();
         public List<QuestReward> rewardList = new List<QuestReward>();
 
-        [ReadOnly] public List<LogCategory> categoryObjectList = new List<LogCategory>();
+        [ReadOnly] public AI.NPCClass questGiver = null;
+        [ReadOnly] public MiniLogQuest logQuest = null;
     }
 }

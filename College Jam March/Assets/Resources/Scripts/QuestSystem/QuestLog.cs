@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using AI;
 using QuestSystem;
 using Player;
@@ -9,6 +10,8 @@ namespace QuestSystem
 {
     public class QuestLog : MonoBehaviour
     {
+        public static QuestLog instance;
+
         public Logger logger;
 
         public GameObject categoryPrefab;
@@ -16,18 +19,21 @@ namespace QuestSystem
         public GameObject objectivePrefab;
 
         public GameObject questLog;
-        public List<LogCategory> questLogObjects = new List<LogCategory>();
+        public List<MiniLogCategory> questLogObjects = new List<MiniLogCategory>();
         public GameObject fullQuestLog;
-        public List<LogCategory> fullQuestLogObjects = new List<LogCategory>();
+        public LogFull logFull;
 
-        public bool logShown = true;
+        public bool logShown = false;
         public List<Quest> questList = new List<Quest>();
         public List<Quest> finishedQuestList = new List<Quest>();
         
         private PlayerClass player;
+        private bool addedLogListener = false;
         
-        private void Awake() 
+        private void Awake()
         {
+            instance = this;
+
             //Subscribe to events
             EventHandler.instance.E_KillEnemy.AddListener(M_KillEnemy);
             EventHandler.instance.E_GatherItem.AddListener(M_GatherItem);
@@ -43,16 +49,8 @@ namespace QuestSystem
                 instantQuests.Add(Instantiate(quest));
             }
             questList = instantQuests;
+            UpdateMiniLog();
             #endif
-        }
-
-        public void ClearFullLogObjects()
-        {
-            for (int i=0; i < fullQuestLogObjects.Count; i++)
-            {
-                Destroy(fullQuestLogObjects[i]);
-            }
-            fullQuestLogObjects = new List<LogCategory>();
         }
 
         public void AddQuest(Quest quest)
@@ -63,30 +61,162 @@ namespace QuestSystem
             UpdateMiniLog();
         }
 
+        public void AddQuest(Quest quest, NPCClass questGiver)
+        {
+            logger.Log($"Added quest '{quest.name}'");
+            PlayerMessages.instance.messageQueue.Add(new PlayerMessage($"{quest.name.Split('(')[0]}", "New quest"));
+            Quest newQuest = Instantiate(quest);
+            newQuest.questGiver = questGiver;
+            questList.Add(newQuest);
+            UpdateMiniLog();
+        }
+
         public void ToggleQuestLog()
         {
-            if (questLog.activeInHierarchy)
+            if (fullQuestLog.activeInHierarchy)
             {
                 player.UnlockMovement();
-                questLog.SetActive(false);
+                fullQuestLog.SetActive(false);
             }
             else
             {
                 player.LockMovement();
-                questLog.SetActive(true);
-                ClearFullLogObjects();
-                PopulateFullLog();
+                fullQuestLog.SetActive(true);
+                if (!addedLogListener)
+                {
+                    logFull.tabManager.E_ChangeTab.AddListener(UpdateFullLog);
+                    addedLogListener = true;
+                }
+                UpdateFullLog(logFull.tabManager.currentTab);
             }
         }
 
-        public void PopulateFullLog()
+        public void UpdateFullLog(int tab)
         {
-
+            switch (tab)
+            {
+                case 0:
+                    logFull.UpdateFullLog(questList);
+                    break;
+                case 1:
+                    logFull.UpdateFullLog(finishedQuestList);
+                    break;
+            }
         }
 
         public void UpdateMiniLog()
         {
-            
+            //Update Stages
+            //Loop through questList
+            //Check if it has an object, if not create it
+            //Check if its objectives have objects, if not create them, if they are completed then tick them and strikethrough the text
+            //After checking all quest objects through, loop through questLogObjects
+            //If QuestListCheck(quest object name) returns false destroy the quest object
+            //After destroying missing quests loop through categories and destroy empty categories
+
+            foreach (Quest quest in questList)
+            {
+                if (quest.logQuest == null)
+                {
+                    //If category doesnt exist, create it
+                    MiniLogCategory newCat = GetMiniLogCategory(quest.QuestCategory);
+                    if (newCat == null)
+                    {
+                        newCat = Instantiate(categoryPrefab, questLog.transform).GetComponent<MiniLogCategory>();
+                        newCat.catName.text = quest.QuestCategory;
+                        questLogObjects.Add(newCat);
+                    }
+
+                    //Create Quest Object
+                    MiniLogQuest newQuest = Instantiate(questPrefab, newCat.transform).GetComponent<MiniLogQuest>();
+                    quest.logQuest = newQuest;
+                    newCat.logQuestList.Add(newQuest);
+                    newQuest.questName.text = quest.QuestName;
+                    
+                    //Iterate through objectives and create their objects
+                    foreach (Objective objective in quest.objList)
+                    {
+                        MiniLogObjective newObjective = Instantiate(objectivePrefab, newQuest.objectiveListTransform).GetComponent<MiniLogObjective>();
+                        objective.logObjective = newObjective;
+                        newQuest.logObjectiveList.Add(newObjective);
+                        newObjective.objText.text = objective.publicName;
+                        UpdateLogObjective(quest, objective);
+                    }
+
+                    //Update objective text
+                    newQuest.objText.text = $"Objectives {GetObjectivesComplete(quest)}/{quest.objList.Count}";
+                }
+                else
+                {
+                    //Update objectives and add missing ones
+                    foreach (Objective objective in quest.objList)
+                    {
+                        if (objective.logObjective == null)
+                        {
+                            MiniLogObjective newObjective = Instantiate(objectivePrefab, quest.logQuest.objectiveListTransform).GetComponent<MiniLogObjective>();
+                            objective.logObjective = newObjective;
+                            quest.logQuest.logObjectiveList.Add(newObjective);
+                            newObjective.objText.text = objective.publicName;
+                            UpdateLogObjective(quest, objective);
+                        }
+                        else
+                        {
+                            UpdateLogObjective(quest, objective);
+                        }
+                    }
+                }
+            }
+
+            //Now look empty categories
+            foreach (MiniLogCategory category in questLogObjects)
+            {
+                if (category.logQuestList.Count < 1)
+                {
+                    Destroy(category.gameObject);
+                }
+            }
+            LayoutRebuilder.ForceRebuildLayoutImmediate(questLog.GetComponent<RectTransform>());
+        }
+
+        public void UpdateLogObjective(Quest quest, Objective logObjective)
+        {
+            if (logObjective.type == ObjectiveType.KillEnemies)
+            {
+                logObjective.logObjective.objStatus.text = $"{logObjective.killStatus}/{logObjective.killTarget}";
+            }
+            else
+            {
+                logObjective.logObjective.objStatus.text = "";
+            }
+            logObjective.logObjective.objTick.isOn = logObjective.objectiveComplete;
+            if (logObjective.objectiveComplete) logObjective.logObjective.objText.fontStyle = TMPro.FontStyles.Strikethrough;
+            quest.logQuest.objText.text = $"Objectives {GetObjectivesComplete(quest)}/{quest.objList.Count}";
+            LayoutRebuilder.ForceRebuildLayoutImmediate(questLog.GetComponent<RectTransform>());
+        }
+
+        //Get amount of objectives complete
+        public int GetObjectivesComplete(Quest quest)
+        {
+            int result = 0;
+            foreach (Objective obj in quest.objList)
+            {
+                if (obj.objectiveComplete) result++;
+            }
+            return result;
+        }
+
+        //Is category object made
+        public MiniLogCategory GetMiniLogCategory(string catName)
+        {
+            MiniLogCategory result = null;
+            foreach (MiniLogCategory category in questLogObjects)
+            {
+                if (category.catName.text == catName)
+                {
+                    result = category;
+                }
+            }
+            return result;
         }
 
         //Is quest in the list
@@ -118,13 +248,13 @@ namespace QuestSystem
 
         private void FinishObjective(Quest quest, Objective objective)
         {
-            logger.Log($"Objective '{objective.name}' of quest '{quest.name}' complete!");
+            logger.Log($"Objective '{objective.publicName}' of quest '{quest.name}' complete!");
             PlayerMessages.instance.messageQueue.Add(new PlayerMessage($"{quest.name}", $"Objective Complete '{objective.publicName}'"));
             objective.objectiveComplete = true;
             //Add any objectives that the objective comes with
             foreach (Objective obj in objective.nextObjectives)
             {
-                logger.Log($"Added objective '{obj.name}' to '{quest.name}'");
+                logger.Log($"Added objective '{obj.publicName}' to '{quest.name}'");
                 PlayerMessages.instance.messageQueue.Add(new PlayerMessage($"{quest.name}", $"New objective '{obj.publicName}'"));
                 quest.objList.Add(obj);
             }
@@ -166,6 +296,18 @@ namespace QuestSystem
                 }
             }
 
+            MiniLogCategory miniLogCategory = GetMiniLogCategory(quest.QuestCategory);
+            if (miniLogCategory != null && quest.logQuest != null)
+            {
+                miniLogCategory.logQuestList.Remove(quest.logQuest);
+                Destroy(quest.logQuest.gameObject);
+            }
+            StartCoroutine(DelayMiniLogUpdate());
+        }
+
+        IEnumerator DelayMiniLogUpdate()
+        {
+            yield return new WaitForSeconds(0.1f);
             UpdateMiniLog();
         }
 
@@ -177,13 +319,17 @@ namespace QuestSystem
                 for (int j=0; j < quest.objList.Count; j++)
                 {
                     Objective objective = quest.objList[j];
-                    if (objective.type == ObjectiveType.KillEnemies && objective.enemyTypeTarget.name + "(Clone)" == enemy.name)
+                    if (objective.type == ObjectiveType.KillEnemies && objective.enemyTypeTarget.name + "(Clone)" == enemy.name && !objective.objectiveComplete)
                     {   
                         objective.killStatus += 1;
                         if (objective.killStatus >= objective.killTarget)
                         {
                             //Finish objective
                             FinishObjective(quest, objective);
+                        }
+                        else
+                        {
+                            UpdateLogObjective(quest, objective);
                         }
                     }
                 }

@@ -318,7 +318,7 @@ namespace Dialogue
             switch (trigger.triggerType)
             {
                 case TriggerType.AddQuest:
-                    dialogueHandler.questLog.AddQuest(trigger.questTarget);
+                    dialogueHandler.questLog.AddQuest(trigger.questTarget, dialogueHandler.npcTalkingTo);
                     break;
                 case TriggerType.AddDialogue:
                     dialogueHandler.AddToQueue(trigger.dialogueObject.nodeList[trigger.dialogueIndex]);

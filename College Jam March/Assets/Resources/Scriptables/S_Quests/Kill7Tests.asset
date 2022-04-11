@@ -10,38 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f648dafe6eb6ed00b47c9a171814d4b, type: 3}
-  m_Name: KillTestEnemy
+  m_Name: Kill7Tests
   m_EditorClassIdentifier: 
-  QuestName: May the games begin. . .
-  QuestCategory: TestCategory
-  QuestDescription: 
+  QuestName: Kill 7 Test Enemies!
+  QuestCategory: TestCategory2
+  QuestDescription: 7 of them this time!
   objList:
   - type: 1
-    publicName: Kill 3 Test Enemies for No Name
-    description: 
+    publicName: Kill 7 Test Enemies
+    description: KILLLLLLLLLLLLLLLLLLLLLLLLLLLLL
     hidden: 0
     killStatus: 0
-    killTarget: 3
+    killTarget: 7
     enemyTypeTarget: {fileID: 11400000, guid: 792462bd49afb3e6a82cb71dfaa66583, type: 2}
     npcReference: 
     objectiveComplete: 0
     logObjective: {fileID: 0}
-    nextObjectives:
-    - type: 0
-      publicName: Go talk to No Name again!
-      description: 
-      hidden: 0
-      killStatus: 0
-      killTarget: 0
-      enemyTypeTarget: {fileID: 0}
-      npcReference: TestNPC
-      objectiveComplete: 0
-      logObjective: {fileID: 0}
-      nextObjectives: []
+    nextObjectives: []
   rewardList:
   - type: 0
     rewardName: XP Reward
-    rewardAmount: 100
+    rewardAmount: 300
     hidden: 0
   questGiver: {fileID: 0}
   logQuest: {fileID: 0}
