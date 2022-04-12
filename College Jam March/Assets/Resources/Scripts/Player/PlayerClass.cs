@@ -8,6 +8,7 @@ using AttackSystem;
 using AI;
 using QuestSystem;
 using NaughtyAttributes;
+using Inventory;
 
 namespace Player
 {
@@ -43,6 +44,7 @@ namespace Player
         public GameObject secAttackPanel;
         public TMP_Text playerPrompt;
         public Image playerPromptBack;
+        public InventoryManager playerInventory;
 
         private Rigidbody playerRb;
         private Camera cameraComp;
