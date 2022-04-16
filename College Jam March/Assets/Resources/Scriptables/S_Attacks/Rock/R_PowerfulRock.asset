@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: R_PowerfulRock
   m_EditorClassIdentifier: 
   attackType: 1
+  publicName: Powerful Rock Throw
   attackDamage: 50
   attackRange: 20
   attackSplashDamage: 10
   attackSplashRadius: 1
+  attackKnockback: 1
   attackCooldown: 1
   attackStun: 1
   critChance: 0.1

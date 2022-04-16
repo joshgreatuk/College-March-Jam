@@ -11,6 +11,7 @@ public class Prefabs : MonoBehaviour
     public GameObject healthBar;
     public GameObject nameBar;
 
+
     public static Prefabs instance;
     private void Awake()
     {

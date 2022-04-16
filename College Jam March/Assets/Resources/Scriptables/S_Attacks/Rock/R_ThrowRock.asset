@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: R_ThrowRock
   m_EditorClassIdentifier: 
   attackType: 1
+  publicName: Throw Rock
   attackDamage: 30
   attackRange: 10
   attackSplashDamage: 10
   attackSplashRadius: 1
+  attackKnockback: 1
   attackCooldown: 5
   attackStun: 1
   critChance: 0.1
