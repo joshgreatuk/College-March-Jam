@@ -12,6 +12,7 @@ namespace Inventory
         [TextArea(1,5)] public string itemDescription = "";
         public Sprite itemIcon = null;
         public int quantity = 1;
+        public bool hidden = false;
         [ReadOnly] public InventoryCategories category = 0;
     }
 }

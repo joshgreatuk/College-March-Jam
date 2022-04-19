@@ -10,15 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0db88cb11e5263798a74fdc9fa9986f, type: 3}
-  m_Name: M_StrongPunch
+  m_Name: M_Punch
   m_EditorClassIdentifier: 
   attackType: 0
-  attackDamage: 20
+  publicName: Punch
+  attackDamage: 5
   attackRange: 2
   attackSplashDamage: 10
   attackSplashRadius: 1
-  attackCooldown: 3
-  attackStun: 3
+  attackKnockback: 1
+  attackCooldown: 0.75
+  attackStun: 1
   critChance: 0.1
   projectileArch: 1
   projectileSpeed: 1

@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c8ab975842158f64ea24577c85ea3499, type: 3}
-  m_Name: TestWeapon
+  m_Name: Fists
   m_EditorClassIdentifier: 
-  publicName: Test Weapon
-  itemDescription: A Meaty Test Weapon :)
-  itemIcon: {fileID: 21300000, guid: e977e121717532f498ba60a3fceea091, type: 3}
+  publicName: Fists
+  itemDescription: Fisticuffs
+  itemIcon: {fileID: 0}
   quantity: 1
+  hidden: 1
   category: 1
   damageModifier: 1
   knockbackModifier: 1
@@ -24,3 +25,4 @@ MonoBehaviour:
   critModifier: 1
   attackList:
   - {fileID: 11400000, guid: d403f44aeaf60c449b3df508638f36d1, type: 2}
+  - {fileID: 11400000, guid: 8f9773ce8560e7fe4bf80a7a1afa46f7, type: 2}

@@ -7,8 +7,11 @@ namespace Inventory
     [System.Flags]
     public enum InventoryCategories
     {
+        All = 0,
         Weapon = 1,
         Component = 2,
+        Armour = 4,
+        Consumables = 8
     }
 
     public class InventoryManager : MonoBehaviour 
@@ -18,8 +21,14 @@ namespace Inventory
         public GameObject pickupUIPrefab;
         public Canvas worldCanvas;
         [Space(10)]
+        public GameObject categoryPrefab;
+        public GameObject itemPrefab;
+        public GameObject itemTooltipPrefab;
+        [Space(10)]
+        public InvFull inventoryMenu;
         public InventoryCategories categories;
         public List<InventoryItem> inventory = new List<InventoryItem>();
+        
 
         private void Awake() 
         {
@@ -27,8 +36,30 @@ namespace Inventory
             for (int i=0; i < inventory.Count; i++)
             {
                 inventory[i] = Instantiate(inventory[i]);
-            }    
+            }
+
+            //DEBUG
+            inventoryMenu.UpdateMenu(inventory);
         }
+
+        //Inventory Menu Methods
+
+        public void B_ToggleInv()
+        {
+            if (inventoryMenu.gameObject.activeInHierarchy)
+            {
+                inventoryMenu.transform.parent.gameObject.SetActive(false);
+                Player.PlayerRefs.instance.playerClass.UnlockMovement();
+            }
+            else
+            {
+                inventoryMenu.transform.parent.gameObject.SetActive(true);
+                Player.PlayerRefs.instance.playerClass.LockMovement();
+                inventoryMenu.UpdateMenu(inventory);
+            }
+        }
+
+        //Inventory Methods
 
         public void AddItem(InventoryItem item)
         {

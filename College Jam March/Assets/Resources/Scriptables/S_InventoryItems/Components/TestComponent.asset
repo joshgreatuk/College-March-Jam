@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbd7e21260cd9eb4b823f15fe682163f, type: 3}
   m_Name: TestComponent
   m_EditorClassIdentifier: 
-  publicName: 
-  itemIcon: {fileID: 0}
+  publicName: Test Component
+  itemDescription: This is a test component :P
+  itemIcon: {fileID: 21300000, guid: 06c9fd0c1bcb09844923ec42e104cc0d, type: 3}
+  quantity: 5
   category: 2
