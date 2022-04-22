@@ -5,6 +5,7 @@ using UnityEngine;
 using AI;
 using NaughtyAttributes;
 using Inventory;
+using Areas;
 
 namespace QuestSystem
 {
@@ -19,7 +20,8 @@ namespace QuestSystem
     public enum RewardType
     {
         XPReward,
-        ItemReward
+        ItemReward,
+        UnlockAreaReward
     }
 
     [Serializable]
@@ -37,6 +39,8 @@ namespace QuestSystem
 
         [AllowNesting] [ShowIf("type", ObjectiveType.GatherItems)] public InventoryItem targetItem;
 
+        [AllowNesting] [ShowIf("type", ObjectiveType.VisitArea)] public string targetArea = "";
+
         [AllowNesting] [ReadOnly] public bool objectiveComplete = false;
         [AllowNesting] [ReadOnly] public MiniLogObjective logObjective = null;
 
@@ -49,7 +53,8 @@ namespace QuestSystem
         public RewardType type = 0;
         public string rewardName = "";
         public float rewardAmount = 1;
-        [ShowIf ("type", RewardType.ItemReward)] public InventoryItem targetItem;
+        [AllowNesting] [ShowIf ("type", RewardType.ItemReward)] public InventoryItem targetItem = null;
+        [AllowNesting] [ShowIf ("type", RewardType.UnlockAreaReward)] public string targetArea = "";
         public bool hidden = false;
     }
 }

@@ -15,6 +15,7 @@ namespace Player
         public bool mouseExtend = true;
         public float extendValue = 1f;
         public Vector3 followOffset;
+        public bool manualUpdate = false;
 
         private float yPosition;
         [HideInInspector] public Vector3 positionOffset;
@@ -32,33 +33,24 @@ namespace Player
         {
             //Follow toFollow Object
             Vector3 followPos = toFollow.transform.position + followOffset;
-            // if (transform.position != followPos || manualUpdate)
-            // {
-            //     float interpolation = speed * Time.deltaTime;
-            //     Vector3 position = transform.position;
-            //     position.x = Mathf.Lerp(transform.position.x, followPos.x, interpolation);
-            //     position.z = Mathf.Lerp(transform.position.z, followPos.z, interpolation);
-            //     position.y = yPosition;
-            //     position += positionOffset;
-            //     transform.position = position;
-            //     cameraShaker.RestPositionOffset = position;
-            //     cameraShaker.RestRotationOffset = transform.eulerAngles;
-            //     manualUpdate = false;
-            // }
-            // else
-            // {
-            //     cameraShaker.RestPositionOffset = transform.position;
-            //     cameraShaker.RestRotationOffset = transform.eulerAngles;
-            // }
-            float interpolation = speed * Time.deltaTime;
-            Vector3 position = transform.position;
-            position.x = Mathf.Lerp(transform.position.x, followPos.x, interpolation);
-            position.z = Mathf.Lerp(transform.position.z, followPos.z, interpolation);
-            position.y = yPosition;
-            position += positionOffset;
-            transform.position = position;
-            cameraShaker.RestPositionOffset = position;
-            cameraShaker.RestRotationOffset = transform.eulerAngles;
+            if (transform.position != followPos && playerClass.canMove || manualUpdate)
+            {
+                float interpolation = speed * Time.deltaTime;
+                Vector3 position = transform.position;
+                position.x = Mathf.Lerp(transform.position.x, followPos.x, interpolation);
+                position.z = Mathf.Lerp(transform.position.z, followPos.z, interpolation);
+                position.y = yPosition;
+                position += positionOffset;
+                transform.position = position;
+                cameraShaker.RestPositionOffset = position;
+                cameraShaker.RestRotationOffset = transform.eulerAngles;
+                manualUpdate = false;
+            }
+            else
+            {
+                cameraShaker.RestPositionOffset = transform.position;
+                cameraShaker.RestRotationOffset = transform.eulerAngles;
+            }
         }
 
         public void DoLookCalc(Vector2 mousePos)

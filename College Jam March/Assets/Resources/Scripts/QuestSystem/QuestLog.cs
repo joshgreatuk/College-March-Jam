@@ -6,6 +6,7 @@ using AI;
 using QuestSystem;
 using Player;
 using Inventory;
+using Areas;
 
 namespace QuestSystem
 {
@@ -297,6 +298,9 @@ namespace QuestSystem
                     case RewardType.ItemReward:
                         player.playerInventory.AddItem(Instantiate(reward.targetItem));
                         break;
+                    case RewardType.UnlockAreaReward:
+                        AreaController.instance.UnlockArea(reward.targetArea);
+                        break;
                 }
             }
 
@@ -356,9 +360,19 @@ namespace QuestSystem
             }
         }
 
-        public void M_VisitArea()
+        public void M_VisitArea(Area area)
         {
-
+            for (int i=0; i < questList.Count; i++)
+            {
+                Quest quest = questList[i];
+                foreach (Objective objective in quest.objList)
+                {
+                    if (objective.type == ObjectiveType.VisitArea && objective.targetArea == area.areaName && !objective.objectiveComplete)
+                    {   
+                        FinishObjective(quest, objective);
+                    }
+                }
+            }
         }
 
         public void M_TalkToNPC(NPCClass NPC)
@@ -368,7 +382,7 @@ namespace QuestSystem
                 Quest quest = questList[i];
                 foreach (Objective objective in quest.objList)
                 {
-                    if (objective.type == ObjectiveType.TalkToNPC && objective.npcReference == NPC.npcReference)
+                    if (objective.type == ObjectiveType.TalkToNPC && objective.npcReference == NPC.npcReference && !objective.objectiveComplete)
                     {   
                         FinishObjective(quest, objective);
                     }

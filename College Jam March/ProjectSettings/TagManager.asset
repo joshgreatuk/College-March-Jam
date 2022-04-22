@@ -8,6 +8,8 @@ TagManager:
   - NPC
   - NPCZone
   - InteractZone
+  - Area
+  - AreaZone
   layers:
   - Default
   - TransparentFX

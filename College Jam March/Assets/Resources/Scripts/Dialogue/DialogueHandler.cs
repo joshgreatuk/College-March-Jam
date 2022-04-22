@@ -92,10 +92,15 @@ namespace Dialogue
                 }
                 yield return new WaitForFixedUpdate();
             }
-            PlayerRefs.instance.playerClass.CameraZoomToNormal();
+            
+            if (npcTalkingTo.zoomToNpc)
+            {
+                PlayerRefs.instance.playerClass.CameraZoomToNormal();
+                npcTalkingTo.NameBarReset();
+                logger.Log($"Reset Camera");
+            }
+            
             PlayerRefs.instance.playerClass.UnlockMovement();
-            npcTalkingTo.NameBarReset();
-            logger.Log($"Reset Camera");
             UIRefs.instance.dialoguePanel.SetActive(false);
             logger.Log("Queue Finished");
             queueLoopCoroutine = null;

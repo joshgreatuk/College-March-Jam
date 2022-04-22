@@ -350,7 +350,7 @@ MonoBehaviour:
   objectiveText: {fileID: 4593793937890559554}
   questGiver: {fileID: 6759009371300222633}
   questButton: {fileID: 1768294977663888901}
-  questIcon: {fileID: 0}
+  questIcon: {fileID: 1691763916962443713}
 --- !u!1 &7211721747663799021
 GameObject:
   m_ObjectHideFlags: 0

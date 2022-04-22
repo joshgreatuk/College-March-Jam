@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using QuestSystem;
+using Areas;
 
 namespace Dialogue
 {
@@ -328,6 +329,9 @@ namespace Dialogue
                     break;
                 case TriggerType.SetCondition:
                     dialogueHandler.dialogueConditions.SetConditionState(trigger.conditionName, trigger.conditionState);
+                    break;
+                case TriggerType.UnlockArea:
+                    AreaController.instance.UnlockArea(trigger.areaTarget);
                     break;
             }
         }

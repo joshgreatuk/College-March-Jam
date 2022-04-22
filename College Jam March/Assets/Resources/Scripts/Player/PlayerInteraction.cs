@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using AI;
 using Dialogue;
+using Areas;
 
 namespace Player
 {
@@ -18,6 +19,7 @@ namespace Player
             NPCZone, //On NPC interaction collider
             InteractZone, //On general interaction collider
             OnPickup, //On an item pickup
+            AreaZone, //On an area transition
             Busy, //Busy interacting, no movement
         }
         public Logger logger;
@@ -65,6 +67,21 @@ namespace Player
                         interactionState = InteractionStates.InteractZone;
                         interactionCollider = other;
                         logger.Log($"Player in InteractZone", interactionCollider.gameObject);
+                        break;
+                    case "AreaZone":
+                        Area area = other.gameObject.transform.parent.gameObject.GetComponent<Area>();
+                        bool areaUnlocked = false;
+                        if (area.GetType().ToString() == "Areas.AreaWorld") { AreaWorld areaWorld = (AreaWorld)area; areaUnlocked = areaWorld.targetArea.unlocked; }
+                        if (areaUnlocked)
+                        { 
+                            playerPrompt.text = $"Press {interactionKey} to move to {area.destinationName}";
+                            interactionState = InteractionStates.AreaZone;
+                            interactionCollider = other;
+                            logger.Log($"Player in AreaZone", interactionCollider.gameObject);
+                        }
+                        else playerPrompt.text = area.lockedText;
+                        UIEffects.instance.UIPhaseIn(playerPromptBack, 0.5f, Vector3.zero, 1, 0, 0.75f);
+                        UIEffects.instance.UIPhaseIn(playerPrompt, 0.5f, Vector3.zero, 1, 0, 0.75f);
                         break;
                 }
             }
@@ -139,8 +156,41 @@ namespace Player
                         }
                         interactionState = InteractionStates.Idle;
                         break;
+                    case InteractionStates.AreaZone:
+                        Area area = interactionCollider.transform.parent.gameObject.GetComponent<Area>();
+                        if (area.GetType().ToString() == "Areas.AreaWorld")
+                        {
+                            AreaWorld areaWorld = (AreaWorld)area;
+                            Image loadScreen = UIRefs.instance.loadingScreen.GetComponent<Image>();
+                            UIEffects.instance.UIPhaseIn(loadScreen, 2f, Vector3.zero);
+                            StartCoroutine(PhaseOutAfter(3f, loadScreen, 2f));
+                            StartCoroutine(TeleportPlayerAfter(2f, areaWorld.targetArea.spawnPoint.position, areaWorld.targetArea));
+                        }
+                        else if (area.GetType().ToString() == "Areas.AreaScene")
+                        {
+
+                        }
+                        interactionCollider = null;
+                        interactionState = InteractionStates.Idle;
+                        break;
                 }
             }
+        }
+        
+        public IEnumerator TeleportPlayerAfter(float seconds, Vector3 position, Area area)
+        {
+            yield return new WaitForSeconds(seconds);
+            playerClass.transform.position = position;
+            position.y = playerClass.playerCamera.transform.position.y;
+            playerClass.playerCamera.transform.position = position;
+            EventHandler.instance.E_VisitArea.Invoke(area);
+            logger.Log("Player and Camera teleported");
+        }
+
+        public IEnumerator PhaseOutAfter(float seconds, Image image, float phaseTime)
+        {
+            yield return new WaitForSeconds(seconds);
+            UIEffects.instance.UIPhaseOut(image, phaseTime, Vector3.zero);
         }
     }
 }

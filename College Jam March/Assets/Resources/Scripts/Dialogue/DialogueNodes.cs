@@ -71,7 +71,7 @@ namespace Dialogue
         [AllowNesting] [ShowIf("triggerType", TriggerType.AddDialogue)] public DialogueObject dialogueObject = null;
         [AllowNesting] [ShowIf("triggerType", TriggerType.AddDialogue)] public int dialogueIndex = 0;
         [AllowNesting] [ShowIf("triggerType", TriggerType.OpenMenu)] public GameObject menuPrefab = null;
-        [AllowNesting] [ShowIf("triggerType", TriggerType.UnlockArea)] public GameObject areaObject = null;
+        [AllowNesting] [ShowIf("triggerType", TriggerType.UnlockArea)] public string areaTarget = "";
         [AllowNesting] [ShowIf("triggerType", TriggerType.SetCondition)] public string conditionName = "";
         [AllowNesting] [ShowIf("triggerType", TriggerType.SetCondition)] public bool conditionState = false;
     }

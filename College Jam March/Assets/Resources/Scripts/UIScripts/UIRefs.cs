@@ -20,6 +20,9 @@ public class UIRefs : MonoBehaviour
     public GameObject dialogueTextPrefab;
     public GameObject dialogueDecisionPrefab;
 
+    [Header("Scene Stuff")]
+    public GameObject loadingScreen;
+
     public static UIRefs instance;
     private void Awake()
     {
