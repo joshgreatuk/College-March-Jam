@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 using UnityEngine.UI;
 using TMPro;
 using AttackSystem;
@@ -20,10 +21,10 @@ namespace Player
         //Player variables
         [Header("Player Stats")]
         public int playerMaxHealth = 100;
-        [ProgressBar("Health", 100, EColor.Red)]
-        public int playerHealth;
+        public int playerHealth = 100;
         public int playerLevel = 1;
         public float playerXp = 0;
+        public float nextLevelXp = 300;
 
         public float playerMultiplier = 1;
         public float playerCritMultiplier = 1.5f;
@@ -32,19 +33,18 @@ namespace Player
         [ReadOnly] public bool canMove = true;
 
         [Header("Player Attacks")]
-        public Attack mainAttack;
         private bool mainCooldown = false;
 
-        public Attack secondaryAttack;
         private bool secondaryCooldown = false;
 
         [Header("Player References")]
         public Camera playerCamera;
-        public GameObject mainAttackPanel;
-        public GameObject secAttackPanel;
         public TMP_Text playerPrompt;
         public Image playerPromptBack;
         public InventoryManager playerInventory;
+        public PlayerPanel playerPanel;
+        public PlayerAssignment playerAssignment;
+        public PlayerInteraction playerInteraction;
 
         private Rigidbody playerRb;
         private Camera cameraComp;
@@ -54,6 +54,9 @@ namespace Player
         private Transform throwPoint;
 
         public float cameraZoomTime = 1f;
+
+        [ReadOnly] public ItemPickup itemPickup = null;
+        [ReadOnly] public bool itemPromptShown = false;
 
         [ReadOnly] public Transform cameraZoomPoint;
         private Vector3 preCameraZoomPoint;
@@ -72,6 +75,7 @@ namespace Player
             {
                 cameraZoomPoint = transform.Find("CameraZoomPoint");
             }
+            UpdatePlayerPanel();
         }
 
         private void Update() 
@@ -82,13 +86,28 @@ namespace Player
             }   
         }
 
+        private void FixedUpdate() 
+        {
+            if (itemPickup != null)
+            {
+                if (itemPromptShown && Vector3.Distance(transform.position, itemPickup.transform.position) > 3f)
+                {
+                    playerInteraction.OnPickupTooltipDestroyed();
+                    itemPromptShown = false;
+                }
+                else if (!itemPromptShown && Vector3.Distance(transform.position, itemPickup.transform.position) <= 3f)
+                {
+                    playerInteraction.OnPickupTooltip(itemPickup.item);
+                    itemPromptShown = true;
+                }
+            }    
+        }
+
         public void UnlockMovement()
         {
             canMove = true;
             PlayerMessages.instance.canPlay = true;
             QuestLog.instance.questLog.SetActive(true);
-            mainAttackPanel.SetActive(true);
-            secAttackPanel.SetActive(true);
             playerPrompt.gameObject.SetActive(true);
             playerPromptBack.gameObject.SetActive(true);
         }
@@ -100,8 +119,6 @@ namespace Player
             if (removeUI)
             {
                 QuestLog.instance.questLog.SetActive(false);
-                mainAttackPanel.SetActive(false);
-                secAttackPanel.SetActive(false);
                 playerPrompt.gameObject.SetActive(false);
                 playerPromptBack.gameObject.SetActive(false);
             }
@@ -128,6 +145,39 @@ namespace Player
             //Add xp and check for level up
             logger.Log($"Added {xpAmount.ToString()} xp to player");
             playerXp += xpAmount;
+
+            //Add check for level up here
+            if (playerXp >= nextLevelXp)
+            {
+                float xpOverlap = playerXp - nextLevelXp;
+                nextLevelXp *= 1.5f;
+                playerLevel += 1;
+                playerXp = xpOverlap;
+                GameObject damagePopup = Instantiate(Prefabs.instance.uiPopup, playerPanel.transform);
+                damagePopup.transform.position = playerPanel.levelText.transform.position;
+                damagePopup.transform.Translate(Vector3.up*50, Space.Self);
+                TMP_Text damageText = damagePopup.GetComponent<TMP_Text>();
+                damageText.text = "Level Up!";
+                UIEffects.instance.UIPhaseOut(damageText, 5f, Vector3.up*50, 0, 0, 2, true);
+                AddXP(0);
+            }
+            UpdatePlayerPanel();
+        }
+
+        public void PlayerHit(int damage)
+        {
+            UpdatePlayerPanel();
+        }
+
+        public void UpdatePlayerPanel()
+        {
+            playerPanel.levelText.text = $"Level {playerLevel}";
+
+            playerPanel.xpText.text = $"XP ({playerXp}/{nextLevelXp})";
+            playerPanel.xpBarValue.fillAmount = playerXp/nextLevelXp;
+
+            playerPanel.hpText.text = $"HP ({playerHealth}/{playerMaxHealth})";
+            playerPanel.hpBarValue.fillAmount = (float)playerHealth/(float)playerMaxHealth;
         }
         
         public void Look(InputAction.CallbackContext context)
@@ -162,8 +212,25 @@ namespace Player
         {
             if (!mainCooldown && context.performed && canMove)
             {
-                FireAttack(mainAttack);
-                StartCoroutine(mainAttackCooldown(mainAttack.attackCooldown));
+                WeaponItem item = (WeaponItem)playerAssignment.leftHandItem;
+                if (context.interaction is HoldInteraction && item.attackList.Count >= 2)
+                {
+                    Attack attack = item.attackList[1];
+                    FireAttack(attack);
+                    StartCoroutine(mainAttackCooldown(attack.attackCooldown));
+                }
+                else if (context.interaction is TapInteraction && item.attackList.Count >= 1)
+                {
+                    Attack attack = item.attackList[0];
+                    FireAttack(attack);
+                    StartCoroutine(mainAttackCooldown(attack.attackCooldown));
+                }
+                else if (context.interaction is MultiTapInteraction && item.attackList.Count >= 3)
+                {
+                    Attack attack = item.attackList[2];
+                    FireAttack(attack);
+                    StartCoroutine(mainAttackCooldown(attack.attackCooldown));
+                }
             }
         }
 
@@ -171,8 +238,25 @@ namespace Player
         {
             if (!secondaryCooldown && context.performed && canMove)
             {
-                FireAttack(secondaryAttack);
-                StartCoroutine(secondAttackCooldown(secondaryAttack.attackCooldown));
+                WeaponItem item = (WeaponItem)playerAssignment.rightHandItem;
+                if (context.interaction is HoldInteraction && item.attackList.Count >= 2)
+                {
+                    Attack attack = item.attackList[1];
+                    FireAttack(attack);
+                    StartCoroutine(secondAttackCooldown(attack.attackCooldown));
+                }
+                else if (context.interaction is TapInteraction && item.attackList.Count >= 1)
+                {
+                    Attack attack = item.attackList[0];
+                    FireAttack(attack);
+                    StartCoroutine(secondAttackCooldown(attack.attackCooldown));
+                }
+                else if (context.interaction is MultiTapInteraction && item.attackList.Count >= 3)
+                {
+                    Attack attack = item.attackList[2];
+                    FireAttack(attack);
+                    StartCoroutine(secondAttackCooldown(attack.attackCooldown));
+                }
             }
         }
 
@@ -261,8 +345,11 @@ namespace Player
         IEnumerator mainAttackCooldown(float cooldown) 
         { 
             mainCooldown = true; 
-            UIRefs.instance.mainCoolBar.transform.localScale = new Vector3 (1, 1, 1);
-            LeanTween.scaleX(UIRefs.instance.mainCoolBar.gameObject, 0f, mainAttack.attackCooldown);
+            //UIRefs.instance.mainCoolBar.transform.localScale = new Vector3 (1, 1, 1);
+            //LeanTween.scaleX(UIRefs.instance.mainCoolBar.gameObject, 0f, mainAttack.attackCooldown);
+            UIRefs.instance.mainCoolBar.fillAmount = 1;
+            LeanTween.value(UIRefs.instance.mainCoolBar.gameObject, 1, 0, cooldown).setOnUpdate
+                ( (float val)=>{ UIRefs.instance.mainCoolBar.fillAmount = val; } );
             yield return new WaitForSeconds(cooldown); 
             mainCooldown = false; 
         }
@@ -270,8 +357,11 @@ namespace Player
         IEnumerator secondAttackCooldown(float cooldown) 
         { 
             secondaryCooldown = true;
-            UIRefs.instance.secCoolBar.transform.localScale = new Vector3 (1, 1, 1);
-            LeanTween.scaleX(UIRefs.instance.secCoolBar.gameObject, 0f, secondaryAttack.attackCooldown);
+            //UIRefs.instance.secCoolBar.transform.localScale = new Vector3 (1, 1, 1);
+            //LeanTween.scaleX(UIRefs.instance.secCoolBar.gameObject, 0f, secondaryAttack.attackCooldown);
+            UIRefs.instance.secCoolBar.fillAmount = 1;
+            LeanTween.value(UIRefs.instance.secCoolBar.gameObject, 1, 0, cooldown).setOnUpdate
+                ( (float val)=>{ UIRefs.instance.secCoolBar.fillAmount = val; } );
             yield return new WaitForSeconds(cooldown); 
             secondaryCooldown = false; 
         }

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using AI;
 using QuestSystem;
 using Player;
+using Inventory;
 
 namespace QuestSystem
 {
@@ -293,6 +294,9 @@ namespace QuestSystem
                     case RewardType.XPReward:
                         player.AddXP(reward.rewardAmount);
                         break;
+                    case RewardType.ItemReward:
+                        player.playerInventory.AddItem(Instantiate(reward.targetItem));
+                        break;
                 }
             }
 
@@ -336,9 +340,20 @@ namespace QuestSystem
             }
         }
 
-        public void M_GatherItem()
+        public void M_GatherItem(InventoryItem item)
         {
-
+            for (int i=0; i < questList.Count; i++)
+            {
+                Quest quest = questList[i];
+                for (int j=0; j < quest.objList.Count; j++)
+                {
+                    Objective objective = quest.objList[j];
+                    if (objective.type == ObjectiveType.GatherItems && objective.targetItem.publicName == item.publicName && !objective.objectiveComplete)
+                    {
+                        FinishObjective(quest, objective);
+                    }
+                }
+            }
         }
 
         public void M_VisitArea()

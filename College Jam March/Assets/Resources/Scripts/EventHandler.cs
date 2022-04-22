@@ -4,9 +4,10 @@ using UnityEngine;
 using UnityEngine.Events;
 using QuestSystem;
 using AI;
+using Inventory;
 
 public class M_KillEnemy : UnityEvent<EnemyType>{}
-public class M_GatherItem : UnityEvent{}
+public class M_GatherItem : UnityEvent<InventoryItem>{}
 public class M_VisitArea : UnityEvent{}
 public class M_TalkToNPC : UnityEvent<NPCClass>{}
 

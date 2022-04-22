@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using AI;
 using NaughtyAttributes;
+using Inventory;
 
 namespace QuestSystem
 {
@@ -17,7 +18,8 @@ namespace QuestSystem
 
     public enum RewardType
     {
-        XPReward
+        XPReward,
+        ItemReward
     }
 
     [Serializable]
@@ -30,12 +32,15 @@ namespace QuestSystem
         [AllowNesting] [ReadOnly] [ShowIf("type", ObjectiveType.KillEnemies)] public int killStatus = 0;
         [AllowNesting] [ShowIf("type", ObjectiveType.KillEnemies)] public int killTarget = 3;
         [AllowNesting] [ShowIf("type", ObjectiveType.KillEnemies)] public EnemyType enemyTypeTarget = null;
+
         [AllowNesting] [ShowIf("type", ObjectiveType.TalkToNPC)] public string npcReference = "";
+
+        [AllowNesting] [ShowIf("type", ObjectiveType.GatherItems)] public InventoryItem targetItem;
 
         [AllowNesting] [ReadOnly] public bool objectiveComplete = false;
         [AllowNesting] [ReadOnly] public MiniLogObjective logObjective = null;
 
-        public List<Objective> nextObjectives = new List<Objective>();       
+        public List<Objective> nextObjectives = new List<Objective>();
     }
 
     [Serializable]
@@ -44,6 +49,7 @@ namespace QuestSystem
         public RewardType type = 0;
         public string rewardName = "";
         public float rewardAmount = 1;
+        [ShowIf ("type", RewardType.ItemReward)] public InventoryItem targetItem;
         public bool hidden = false;
     }
 }

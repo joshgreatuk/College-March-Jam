@@ -16,6 +16,8 @@ MonoBehaviour:
   itemDescription: Its just a rock.
   itemIcon: {fileID: 21300000, guid: e977e121717532f498ba60a3fceea091, type: 3}
   quantity: 1
+  hidden: 0
+  itemPrefab: {fileID: 6666574522368311059, guid: 50946e172dbeda5a7b14914d15cafe95, type: 3}
   category: 1
   damageModifier: 1
   knockbackModifier: 1

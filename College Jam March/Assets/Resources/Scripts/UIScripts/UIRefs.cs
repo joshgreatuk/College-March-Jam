@@ -9,9 +9,11 @@ public class UIRefs : MonoBehaviour
 {
     //Prefab References
     public Canvas UICanvas;
+    public Canvas WorldCanvas;
     public Image mainCoolBar;
     public Image secCoolBar;
     public TMP_Text playerPrompt;
+    public Transform itemPickupTransform;
 
     [Header("Dialogue UI")]
     public GameObject dialoguePanel;

@@ -2261,7 +2261,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4767234405899534791}
+      - m_Target: {fileID: 7027878785316284446}
         m_TargetAssemblyTypeName: TabManager, Oasis.scripts
         m_MethodName: SwapTab
         m_Mode: 3
@@ -2476,7 +2476,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4767234405899534790}
-  - component: {fileID: 4767234405899534791}
+  - component: {fileID: 7027878785316284446}
   m_Layer: 5
   m_Name: TopTabs
   m_TagString: Untagged
@@ -2505,7 +2505,7 @@ RectTransform:
   m_AnchoredPosition: {x: -245, y: 177.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4767234405899534791
+--- !u!114 &7027878785316284446
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2514,7 +2514,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4767234405899534809}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5411ac706680cf94ab7707f30cbe3ca3, type: 3}
+  m_Script: {fileID: 11500000, guid: cf1de367469883f4b90d8938ee63587e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   tabObjects:
@@ -2748,7 +2748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49b59d7c33f6b7e48aace5899e7b46a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tabManager: {fileID: 4767234405899534791}
+  tabManager: {fileID: 7027878785316284446}
   questPage: {fileID: 1289462043353213460}
   finishedQuestPage: {fileID: 5094285575513104196}
   categoryPrefab: {fileID: 2998422027685473664, guid: f4ce069db91484c4dadbfbec9eba6903, type: 3}
@@ -2880,7 +2880,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4767234405899534791}
+      - m_Target: {fileID: 7027878785316284446}
         m_TargetAssemblyTypeName: TabManager, Oasis.scripts
         m_MethodName: SwapTab
         m_Mode: 3

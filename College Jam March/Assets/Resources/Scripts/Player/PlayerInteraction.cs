@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
 using AI;
-using Effects;
 using Dialogue;
 
 namespace Player
@@ -18,6 +17,7 @@ namespace Player
             Idle, //Not in interaction collider
             NPCZone, //On NPC interaction collider
             InteractZone, //On general interaction collider
+            OnPickup, //On an item pickup
             Busy, //Busy interacting, no movement
         }
         public Logger logger;
@@ -85,6 +85,21 @@ namespace Player
             }
         }
 
+        public void OnPickupTooltip(Inventory.InventoryItem item)
+        {
+            playerPrompt.text = $"Press {interactionKey} to pick up with {item.publicName} ({item.quantity})";
+            UIEffects.instance.UIPhaseIn(playerPromptBack, 0.5f, Vector3.zero, 1, 0, 0.75f);
+            UIEffects.instance.UIPhaseIn(playerPrompt, 0.5f, Vector3.zero, 1, 0, 0.75f);
+            interactionState = InteractionStates.OnPickup;
+        }
+
+        public void OnPickupTooltipDestroyed()
+        {
+            UIEffects.instance.UIPhaseOut(playerPromptBack, 0.5f, Vector3.zero, 1, 0, 0.8f);
+            UIEffects.instance.UIPhaseOut(playerPrompt, 0.5f, Vector3.zero, 1, 0, 0.8f);
+            interactionState = InteractionStates.Idle;
+        }
+
         public void InteractButtonPressed(InputAction.CallbackContext context)
         {
             if (context.performed)
@@ -111,6 +126,18 @@ namespace Player
                         }
                         break;
                     case InteractionStates.InteractZone:
+                        break;
+                    case InteractionStates.OnPickup:
+                        if (playerClass.itemPickup != null && playerClass.itemPromptShown)
+                        {
+                            playerClass.playerInventory.AddItem(playerClass.itemPickup.item);
+                            EventHandler.instance.E_GatherItem.Invoke(playerClass.itemPickup.item);
+                            Destroy(playerClass.itemPickup.pickupUI);
+                            Destroy(playerClass.itemPickup.gameObject);
+                            playerClass.itemPickup = null;
+                            OnPickupTooltipDestroyed();
+                        }
+                        interactionState = InteractionStates.Idle;
                         break;
                 }
             }

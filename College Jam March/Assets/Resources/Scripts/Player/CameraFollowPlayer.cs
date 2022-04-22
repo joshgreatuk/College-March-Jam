@@ -17,7 +17,7 @@ namespace Player
         public Vector3 followOffset;
 
         private float yPosition;
-        private Vector3 positionOffset;
+        [HideInInspector] public Vector3 positionOffset;
         private CameraShaker cameraShaker;
         private PlayerClass playerClass;
 
@@ -32,23 +32,33 @@ namespace Player
         {
             //Follow toFollow Object
             Vector3 followPos = toFollow.transform.position + followOffset;
-            if (transform.position != followPos && playerClass.canMove)
-            {
-                float interpolation = speed * Time.deltaTime;
-                Vector3 position = transform.position;
-                position.x = Mathf.Lerp(transform.position.x, followPos.x, interpolation);
-                position.z = Mathf.Lerp(transform.position.z, followPos.z, interpolation);
-                position.y = yPosition;
-                position += positionOffset;
-                transform.position = position;
-                cameraShaker.RestPositionOffset = position;
-                cameraShaker.RestRotationOffset = transform.eulerAngles;
-            }
-            else if (!playerClass.canMove)
-            {
-                cameraShaker.RestPositionOffset = transform.position;
-                cameraShaker.RestRotationOffset = transform.eulerAngles;
-            }
+            // if (transform.position != followPos || manualUpdate)
+            // {
+            //     float interpolation = speed * Time.deltaTime;
+            //     Vector3 position = transform.position;
+            //     position.x = Mathf.Lerp(transform.position.x, followPos.x, interpolation);
+            //     position.z = Mathf.Lerp(transform.position.z, followPos.z, interpolation);
+            //     position.y = yPosition;
+            //     position += positionOffset;
+            //     transform.position = position;
+            //     cameraShaker.RestPositionOffset = position;
+            //     cameraShaker.RestRotationOffset = transform.eulerAngles;
+            //     manualUpdate = false;
+            // }
+            // else
+            // {
+            //     cameraShaker.RestPositionOffset = transform.position;
+            //     cameraShaker.RestRotationOffset = transform.eulerAngles;
+            // }
+            float interpolation = speed * Time.deltaTime;
+            Vector3 position = transform.position;
+            position.x = Mathf.Lerp(transform.position.x, followPos.x, interpolation);
+            position.z = Mathf.Lerp(transform.position.z, followPos.z, interpolation);
+            position.y = yPosition;
+            position += positionOffset;
+            transform.position = position;
+            cameraShaker.RestPositionOffset = position;
+            cameraShaker.RestRotationOffset = transform.eulerAngles;
         }
 
         public void DoLookCalc(Vector2 mousePos)
@@ -63,9 +73,9 @@ namespace Player
 
         public void Look(InputAction.CallbackContext context)
         {
-            if (toFollow.GetComponent<PlayerClass>())
+            if (playerClass != null)
             {
-                if (toFollow.GetComponent<PlayerClass>().canMove)
+                if (playerClass.canMove)
                 {
                     DoLookCalc(context.ReadValue<Vector2>());
                 }

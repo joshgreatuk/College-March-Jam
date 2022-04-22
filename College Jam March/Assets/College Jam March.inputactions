@@ -27,7 +27,7 @@
                     "id": "5534005c-b875-4afd-aef5-4056993748ac",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Tap(duration=0.4),MultiTap,Hold"
                 },
                 {
                     "name": "Secondary",
@@ -35,7 +35,7 @@
                     "id": "a90fcde5-3f17-42b0-93ba-6a76940bea91",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Tap,MultiTap,Hold"
                 },
                 {
                     "name": "Interact",

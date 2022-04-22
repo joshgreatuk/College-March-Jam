@@ -9,12 +9,12 @@ namespace Inventory
     {
         public InventoryItem item;
         public int quantity = 1;
-        private GameObject pickupUI = null;
+        [HideInInspector] public GameObject pickupUI = null;
         private PickupUI pickup;
         private int attackIndex = 0;
         private bool pointerOver = false;
 
-        private void Awake() 
+        private void Start() 
         {
             item = Instantiate(item);
             item.quantity = quantity;    
@@ -39,7 +39,9 @@ namespace Inventory
                 pickup.quantity.text = $"({quantity.ToString()})";
                 pickup.nextAttack.onClick.AddListener(NextAttack);
                 pickup.lastAttack.onClick.AddListener(LastAttack);
-                UpdateStats();   
+                UpdateStats();
+                Player.PlayerRefs.instance.playerClass.itemPickup = this;
+                Player.PlayerRefs.instance.playerClass.itemPromptShown = false;
             }
         }
 
@@ -92,6 +94,8 @@ namespace Inventory
             if (pickupUI != null && !pickup.pointerOver && !pointerOver)
             {
                 Destroy(pickupUI);
+                Player.PlayerRefs.instance.playerClass.itemPickup = null;
+                Player.PlayerRefs.instance.playerClass.playerInteraction.OnPickupTooltipDestroyed();
             }
         }
     }

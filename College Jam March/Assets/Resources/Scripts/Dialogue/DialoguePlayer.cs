@@ -324,6 +324,7 @@ namespace Dialogue
                     dialogueHandler.AddToQueue(trigger.dialogueObject.nodeList[trigger.dialogueIndex]);
                     break;
                 case TriggerType.OpenMenu:
+                    MonoBehaviour.Instantiate(trigger.menuPrefab, UIRefs.instance.UICanvas.transform);
                     break;
                 case TriggerType.SetCondition:
                     dialogueHandler.dialogueConditions.SetConditionState(trigger.conditionName, trigger.conditionState);

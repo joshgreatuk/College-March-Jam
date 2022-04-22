@@ -28,7 +28,6 @@ namespace Inventory
         public InvFull inventoryMenu;
         public InventoryCategories categories;
         public List<InventoryItem> inventory = new List<InventoryItem>();
-        
 
         private void Awake() 
         {
@@ -63,7 +62,7 @@ namespace Inventory
 
         public void AddItem(InventoryItem item)
         {
-            InventoryItem findItem = GetItem(item.name);
+            InventoryItem findItem = GetItem(item.name.Split('(')[0]);
             if (findItem != null)
             {
                 findItem.quantity += item.quantity;
@@ -87,12 +86,24 @@ namespace Inventory
             }
         }
 
+        public void UpdateItem(string itemName, int newQuantity)
+        {
+            if (newQuantity == 0)
+            {
+                RemoveItem(itemName);
+            }
+            else
+            {
+                GetItem(itemName).quantity = newQuantity;
+            }
+        }
+
         public InventoryItem GetItem(string itemName)
         {
             InventoryItem result = null;
             foreach (InventoryItem item in inventory)
             {
-                if (item.name == itemName)
+                if (item.name.Split('(')[0] == itemName)
                 {
                     result = item;
                 }

@@ -109,6 +109,7 @@ namespace Inventory
             newItem.itemQuantity.text = item.quantity.ToString();
             int x = itemList.Count - 1;
             newItem.itemButton.onClick.AddListener(() => { B_SelectItem(x); });
+            newItem.tooltipScript.passItem = item;
         }
 
         public void RemoveItem(int index)

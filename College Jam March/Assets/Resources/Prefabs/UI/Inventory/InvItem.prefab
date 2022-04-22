@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6100786654574436264}
   - component: {fileID: 1144041962547014034}
   - component: {fileID: 6520246441275093827}
+  - component: {fileID: 6368060968655945387}
   m_Layer: 5
   m_Name: InvItem
   m_TagString: Untagged
@@ -140,6 +141,24 @@ MonoBehaviour:
   itemIcon: {fileID: 7201127752381909529}
   itemName: {fileID: 911191737596826247}
   itemQuantity: {fileID: 3171602208958115563}
+  item: {fileID: 0}
+  tooltipScript: {fileID: 6368060968655945387}
+--- !u!114 &6368060968655945387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 70212418423711246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c23031e7bf1ea1e4c8b2da080f98a68a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltipPrefab: {fileID: 14733775532956026, guid: fa6fb9b7d4b696e4a9752dda54fb26fb, type: 3}
+  type: 3
+  yOffset: 10
+  passItem: {fileID: 0}
 --- !u!1 &1946030344996653126
 GameObject:
   m_ObjectHideFlags: 0

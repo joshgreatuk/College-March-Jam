@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using AttackSystem;
-using Effects;
 using TMPro;
 using Player;
+using Inventory;
 
 namespace AI
 {
@@ -83,6 +83,19 @@ namespace AI
                 Rigidbody enemyRB = GetComponent<Rigidbody>();
                 enemyRB.constraints = RigidbodyConstraints.None;
                 enemyRB.AddForce(-transform.forward*3, ForceMode.Impulse);
+                foreach (Inventory.InventoryItem item in enemyType.dropItems)
+                {
+                    if (item.itemPrefab != null)
+                    {
+                        GameObject newObject = Instantiate(item.itemPrefab, UIRefs.instance.itemPickupTransform);
+                        newObject.transform.position = transform.position;
+                        newObject.layer = LayerMask.NameToLayer("ItemPickup");
+                        ItemPickup pickup = newObject.AddComponent<ItemPickup>();
+                        pickup.item = Instantiate(item);
+                        pickup.quantity = item.quantity;
+                    }
+                }
+                gameObject.layer = LayerMask.NameToLayer("Body");
             }
             LeanTween.scaleX(healthBarValue.gameObject, enemyType.enemyHealth/enemyType.enemyMaxHealth, (1f-(enemyType.enemyHealth/enemyType.enemyMaxHealth))/2);   
             healthBarText.text = "HP: " + enemyType.enemyHealth.ToString() + "/" + enemyType.enemyMaxHealth.ToString();

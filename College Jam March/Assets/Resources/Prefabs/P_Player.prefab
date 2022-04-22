@@ -125,8 +125,9 @@ GameObject:
   - component: {fileID: 5970392062226159055}
   - component: {fileID: 5970392062226159092}
   - component: {fileID: 5970392062226159094}
+  - component: {fileID: 9101507306192512934}
   - component: {fileID: 5970392062226159051}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: P_Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -231,16 +232,19 @@ MonoBehaviour:
   playerHealth: 0
   playerLevel: 1
   playerXp: 0
+  nextLevelXp: 300
   playerMultiplier: 1
   playerCritMultiplier: 1.5
   playerSpeed: 5
   canMove: 1
-  mainAttack: {fileID: 11400000, guid: 8f9773ce8560e7fe4bf80a7a1afa46f7, type: 2}
-  secondaryAttack: {fileID: 11400000, guid: cafabc5aa1c651848aea1f1b0f91da6b, type: 2}
   playerCamera: {fileID: 0}
-  mainAttackPanel: {fileID: 0}
-  secAttackPanel: {fileID: 0}
+  playerPrompt: {fileID: 0}
+  playerPromptBack: {fileID: 0}
+  playerInventory: {fileID: 0}
+  playerPanel: {fileID: 0}
+  playerAssignment: {fileID: 0}
   cameraZoomTime: 0.5
+  itemPickup: {fileID: 0}
   cameraZoomPoint: {fileID: 0}
 --- !u!114 &5970392062226159094
 MonoBehaviour:
@@ -258,6 +262,21 @@ MonoBehaviour:
   interactionKey: F
   interactionState: 0
   interactionCollider: {fileID: 0}
+--- !u!114 &9101507306192512934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5970392062226159054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 427e6edc9fe23a8439395246b1d36713, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultHandItem: {fileID: 0}
+  leftHandItem: {fileID: 0}
+  rightHandItem: {fileID: 0}
 --- !u!54 &5970392062226159051
 Rigidbody:
   m_ObjectHideFlags: 0

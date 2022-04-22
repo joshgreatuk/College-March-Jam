@@ -14,5 +14,7 @@ namespace Inventory
         public TMP_Text itemQuantity;
 
         public InventoryItem item;
+
+        public TooltipOnHover tooltipScript;
     }
 }

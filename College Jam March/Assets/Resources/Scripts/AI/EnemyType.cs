@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using AttackSystem;
+using Inventory;
 
 namespace AI
 {
@@ -13,5 +14,7 @@ namespace AI
         public Attack secondaryAttack;
         public float enemyMaxHealth = 100;
         public float enemyHealth = 100;
+
+        public List<InventoryItem> dropItems = new List<InventoryItem>();
     }
 }

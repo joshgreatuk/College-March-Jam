@@ -16,3 +16,6 @@ MonoBehaviour:
   secondaryAttack: {fileID: 0}
   enemyMaxHealth: 200
   enemyHealth: 200
+  dropItems:
+  - {fileID: 11400000, guid: 28d9810dfaf5f0c4ebb19056891c5ffb, type: 2}
+  - {fileID: 11400000, guid: 949b7ce9931c0384091b3aa454ed4090, type: 2}

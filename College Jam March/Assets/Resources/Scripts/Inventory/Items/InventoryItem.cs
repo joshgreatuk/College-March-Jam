@@ -13,6 +13,7 @@ namespace Inventory
         public Sprite itemIcon = null;
         public int quantity = 1;
         public bool hidden = false;
+        public GameObject itemPrefab = null;
         [ReadOnly] public InventoryCategories category = 0;
     }
 }
