@@ -16,6 +16,8 @@ MonoBehaviour:
   QuestCategory: Stalkers
   QuestDescription: Im gonna need you to kill that damn Desert Stalker thats been
     terrorising the neighbours.
+  questLocked: 0
+  questIcon: {fileID: 0}
   objList:
   - type: 1
     publicName: Kill a Desert Stalker
@@ -25,6 +27,8 @@ MonoBehaviour:
     killTarget: 1
     enemyTypeTarget: {fileID: 11400000, guid: 6d792ffe873f4271dba378e863f16977, type: 2}
     npcReference: 
+    targetItem: {fileID: 0}
+    targetArea: 
     objectiveComplete: 0
     logObjective: {fileID: 0}
     nextObjectives: []
@@ -32,6 +36,8 @@ MonoBehaviour:
   - type: 0
     rewardName: XP Rewards
     rewardAmount: 500
+    targetItem: {fileID: 0}
+    targetArea: 
     hidden: 0
   questGiver: {fileID: 0}
   logQuest: {fileID: 0}

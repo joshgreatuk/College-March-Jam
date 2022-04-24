@@ -55,6 +55,8 @@ namespace Player
 
         public float cameraZoomTime = 1f;
 
+        public bool debugMode = false;
+
         [ReadOnly] public ItemPickup itemPickup = null;
         [ReadOnly] public bool itemPromptShown = false;
 
@@ -75,14 +77,22 @@ namespace Player
             {
                 cameraZoomPoint = transform.Find("CameraZoomPoint");
             }
+            FreezePlayer();
             UpdatePlayerPanel();
+        }
+
+        private void Start() 
+        {
+            if (debugMode) { SpawnPlayer(); }
         }
 
         private void Update() 
         {
             if (canMove)
             {
-                playerRb.velocity = new Vector3(moveVector.x, 0, moveVector.y) * playerSpeed;
+                Vector3 newVelocity = new Vector3(moveVector.x, 0, moveVector.y) * playerSpeed;
+                newVelocity.y = playerRb.velocity.y;
+                playerRb.velocity = newVelocity;
             }   
         }
 
@@ -101,6 +111,25 @@ namespace Player
                     itemPromptShown = true;
                 }
             }    
+        }
+
+        public void FreezePlayer()
+        {
+            playerRb.constraints = RigidbodyConstraints.FreezeAll;
+        }
+
+        public void SpawnPlayer()
+        {
+            Vector3 position = Areas.AreaController.instance.spawnPoint.position;
+            transform.position = position;
+            position.y = playerCamera.transform.position.y;
+            playerCamera.transform.position = position;
+            UnfreezePlayer();
+        }
+
+        public void UnfreezePlayer()
+        {
+            playerRb.constraints = RigidbodyConstraints.FreezeRotation;
         }
 
         public void UnlockMovement()

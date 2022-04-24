@@ -17,5 +17,11 @@ MonoBehaviour:
   enemyMaxHealth: 200
   enemyHealth: 200
   dropItems:
-  - {fileID: 11400000, guid: 28d9810dfaf5f0c4ebb19056891c5ffb, type: 2}
-  - {fileID: 11400000, guid: 949b7ce9931c0384091b3aa454ed4090, type: 2}
+  - item: {fileID: 11400000, guid: 949b7ce9931c0384091b3aa454ed4090, type: 2}
+    dropChance: 0.25
+    minimumDropped: 1
+    maximumDropped: 3
+  - item: {fileID: 11400000, guid: 28d9810dfaf5f0c4ebb19056891c5ffb, type: 2}
+    dropChance: 1
+    minimumDropped: 1
+    maximumDropped: 2

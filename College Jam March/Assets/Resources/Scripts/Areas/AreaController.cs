@@ -7,7 +7,8 @@ namespace Areas
 {
     public class AreaController : MonoBehaviour 
     {
-        public List<AreaWorld> worldAreaList = new List<AreaWorld>();
+        public List<Area> areaList = new List<Area>();
+        public Transform spawnPoint;
 
         public static AreaController instance;
         public void Awake() { instance = this; UpdateAreaList(); }
@@ -16,9 +17,9 @@ namespace Areas
         {
             foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Area"))
             {
-                if (!worldAreaList.Contains(obj.GetComponent<AreaWorld>()))
+                if (!areaList.Contains(obj.GetComponent<AreaWorld>()))
                 {
-                    worldAreaList.Add(obj.GetComponent<AreaWorld>());
+                    areaList.Add(obj.GetComponent<AreaWorld>());
                 }
             }
         }
@@ -38,7 +39,7 @@ namespace Areas
         public Area GetArea(string area)
         {
             Area result = null;
-            foreach (Area current in worldAreaList)
+            foreach (Area current in areaList)
             {
                 if (current.areaName == area)
                 {

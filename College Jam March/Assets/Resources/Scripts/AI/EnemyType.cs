@@ -15,6 +15,15 @@ namespace AI
         public float enemyMaxHealth = 100;
         public float enemyHealth = 100;
 
-        public List<InventoryItem> dropItems = new List<InventoryItem>();
+        public List<EnemyDrop> dropItems = new List<EnemyDrop>();
+    }
+
+    [Serializable]
+    public class EnemyDrop
+    {
+        public InventoryItem item;
+        [Range(0,1)] public float dropChance = 0.25f;
+        public int minimumDropped = 1;
+        public int maximumDropped = 1;
     }
 }

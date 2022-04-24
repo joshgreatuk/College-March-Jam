@@ -99,7 +99,7 @@ namespace QuestSystem
             LogQuestInfo questInfo = Instantiate(questInfoPrefab, selectedPage.questInfo).GetComponent<LogQuestInfo>();
             questInfo.questDescription.text = quest.QuestDescription;
             if (quest.questGiver != null) questInfo.questGiver.text = $"Quest Giver ({quest.questGiver.npcName})";
-            else questInfo.questGiver.text = $"Quest Giver (Unknown)";
+            else questInfo.questGiver.text = $"Quest Giver (Quest Board)";
             selectedPage.logInfoObjects.Add(questInfo.gameObject);
 
             selectedPage.logInfoObjects.Add(Instantiate(dividerPrefab, selectedPage.questInfo));

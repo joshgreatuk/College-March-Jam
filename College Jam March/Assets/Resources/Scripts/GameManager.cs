@@ -17,6 +17,14 @@ public class GameManager : MonoBehaviour
 
     List<AsyncOperation> scenesLoading = new List<AsyncOperation>();
 
+    public void LoadTest()
+    {
+        scenesLoading.Add(SceneManager.UnloadSceneAsync((int)GameScene.MAINMENU));
+        scenesLoading.Add(SceneManager.LoadSceneAsync((int)GameScene.PLAYERSCENE, LoadSceneMode.Additive));
+        scenesLoading.Add(SceneManager.LoadSceneAsync((int)GameScene.TESTWORLD, LoadSceneMode.Additive));
+        StartCoroutine(GetSceneLoadProgress());
+    }
+
     public void LoadAlpha()
     {
         scenesLoading.Add(SceneManager.UnloadSceneAsync((int)GameScene.MAINMENU));
@@ -62,7 +70,8 @@ public class GameManager : MonoBehaviour
         }
 
         loadScreen.LeanAlpha(0, 1f);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1f);
         loadScreen.SetActive(false);
+        if (Player.PlayerRefs.instance != null) Player.PlayerRefs.instance.playerClass.SpawnPlayer();
     } 
 }

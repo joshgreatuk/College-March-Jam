@@ -83,16 +83,17 @@ namespace AI
                 Rigidbody enemyRB = GetComponent<Rigidbody>();
                 enemyRB.constraints = RigidbodyConstraints.None;
                 enemyRB.AddForce(-transform.forward*3, ForceMode.Impulse);
-                foreach (Inventory.InventoryItem item in enemyType.dropItems)
+                foreach (EnemyDrop drop in enemyType.dropItems)
                 {
-                    if (item.itemPrefab != null)
+                    float dropChance = UnityEngine.Random.Range(0, 100) / 100f;
+                    if (drop.item.itemPrefab != null && dropChance < drop.dropChance)
                     {
-                        GameObject newObject = Instantiate(item.itemPrefab, UIRefs.instance.itemPickupTransform);
+                        GameObject newObject = Instantiate(drop.item.itemPrefab, UIRefs.instance.itemPickupTransform);
                         newObject.transform.position = transform.position;
                         newObject.layer = LayerMask.NameToLayer("ItemPickup");
                         ItemPickup pickup = newObject.AddComponent<ItemPickup>();
-                        pickup.item = Instantiate(item);
-                        pickup.quantity = item.quantity;
+                        pickup.item = Instantiate(drop.item);
+                        pickup.quantity = UnityEngine.Random.Range(drop.minimumDropped, drop.maximumDropped);
                     }
                 }
                 gameObject.layer = LayerMask.NameToLayer("Body");

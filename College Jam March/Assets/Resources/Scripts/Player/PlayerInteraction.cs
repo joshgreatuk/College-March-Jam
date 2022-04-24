@@ -72,6 +72,7 @@ namespace Player
                         Area area = other.gameObject.transform.parent.gameObject.GetComponent<Area>();
                         bool areaUnlocked = false;
                         if (area.GetType().ToString() == "Areas.AreaWorld") { AreaWorld areaWorld = (AreaWorld)area; areaUnlocked = areaWorld.targetArea.unlocked; }
+                        if (area.GetType().ToString() == "Areas.AreaScene") { AreaScene areaWorld = (AreaScene)area; areaUnlocked = areaWorld.unlocked; }
                         if (areaUnlocked)
                         { 
                             playerPrompt.text = $"Press {interactionKey} to move to {area.destinationName}";
@@ -96,7 +97,7 @@ namespace Player
                     UIEffects.instance.UIPhaseOut(playerPromptBack, 0.5f, Vector3.zero, 1, 0, 0.8f);
                     UIEffects.instance.UIPhaseOut(playerPrompt, 0.5f, Vector3.zero, 1, 0, 0.8f);
                 }
-                logger.Log($"Player left InteractionZone", interactionCollider.gameObject);
+                logger.Log($"Player left InteractionZone", other.gameObject);
                 interactionState = InteractionStates.Idle;
                 interactionCollider = null;
             }
@@ -168,7 +169,15 @@ namespace Player
                         }
                         else if (area.GetType().ToString() == "Areas.AreaScene")
                         {
+                            AreaScene areaScene = (AreaScene)area;
+                            GameManager.instance.LoadLevel((int)areaScene.targetArea, areaScene.GetScene());
+                            playerClass.FreezePlayer();
+                            StartCoroutine(TeleportPlayerAfter(1f, areaScene.spawnPoint, areaScene));
 
+                            foreach (Transform child in UIRefs.instance.itemPickupTransform)
+                            {
+                                Destroy(child.gameObject);
+                            }
                         }
                         interactionCollider = null;
                         interactionState = InteractionStates.Idle;

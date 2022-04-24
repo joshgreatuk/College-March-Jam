@@ -9,5 +9,6 @@ public enum GameScene
     PLAYERSCENE = 2,
     ALPHATUTORIAL = 3,
     ALPHATOWN = 4,
-    ALPHADESERT = 5
+    ALPHADESERT = 5,
+    TESTWORLD = 6
 }

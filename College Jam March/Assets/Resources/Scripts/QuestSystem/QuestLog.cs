@@ -248,6 +248,14 @@ namespace QuestSystem
             return result;
         }
 
+        public bool CheckForQuest(string questName)
+        {
+            bool result = false;
+            result = QuestListCheck(questName);
+            if (!result) result = FinishedQuestListCheck(questName);
+            return result;
+        }
+
         private void FinishObjective(Quest quest, Objective objective)
         {
             logger.Log($"Objective '{objective.publicName}' of quest '{quest.name}' complete!");

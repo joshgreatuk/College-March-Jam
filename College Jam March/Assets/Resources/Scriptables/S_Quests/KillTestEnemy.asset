@@ -15,6 +15,8 @@ MonoBehaviour:
   QuestName: May the games begin. . .
   QuestCategory: TestCategory
   QuestDescription: 
+  questLocked: 0
+  questIcon: {fileID: 0}
   objList:
   - type: 1
     publicName: Kill 3 Test Enemies for No Name
@@ -24,6 +26,8 @@ MonoBehaviour:
     killTarget: 3
     enemyTypeTarget: {fileID: 11400000, guid: 792462bd49afb3e6a82cb71dfaa66583, type: 2}
     npcReference: 
+    targetItem: {fileID: 0}
+    targetArea: 
     objectiveComplete: 0
     logObjective: {fileID: 0}
     nextObjectives:
@@ -35,6 +39,8 @@ MonoBehaviour:
       killTarget: 0
       enemyTypeTarget: {fileID: 11400000, guid: 792462bd49afb3e6a82cb71dfaa66583, type: 2}
       npcReference: TestNPC
+      targetItem: {fileID: 0}
+      targetArea: 
       objectiveComplete: 0
       logObjective: {fileID: 0}
       nextObjectives: []
@@ -42,6 +48,8 @@ MonoBehaviour:
   - type: 0
     rewardName: XP Reward
     rewardAmount: 100
+    targetItem: {fileID: 0}
+    targetArea: 
     hidden: 0
   questGiver: {fileID: 0}
   logQuest: {fileID: 0}

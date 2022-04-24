@@ -4,6 +4,27 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/GameManager.unity
+    guid: facceae5510c6c6449011d8a1f2e6ce4
+  - enabled: 1
+    path: Assets/Scenes/Main Menu.unity
+    guid: 6c1609b8829eae14eb6dcb996e62243d
+  - enabled: 1
+    path: Assets/Scenes/PlayerScene.unity
+    guid: 54f818004c6f7204099baef14ebe6803
+  - enabled: 1
+    path: Assets/Scenes/Alpha/Alpha Tutorial.unity
+    guid: 5e76740d5b7a662418c6391b0a8c235a
+  - enabled: 1
+    path: Assets/Scenes/Alpha/Alpha Town.unity
+    guid: 759233cc4b65e634895d21de7191a9cb
+  - enabled: 1
+    path: Assets/Scenes/Alpha/Alpha Desert.unity
+    guid: 55ce6e60baa5d974ab8d59c8c7cab09b
+  - enabled: 1
+    path: Assets/Scenes/TestScene.unity
+    guid: 2e189c04983a3d06f8fad68faebf8e46
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: d6c1702f8a5f44d4b9335573e6da786f, type: 2}

@@ -1,12 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Areas
 {
-    //Added to a singleton list of scene areas, so that they can find each other
     public class AreaScene : Area 
     {
         public GameScene targetArea;
+        public Vector3 spawnPoint;
+
+        public Scene GetScene()
+        {
+            return SceneManager.GetActiveScene();
+        }
     }
 }

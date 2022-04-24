@@ -15,6 +15,7 @@ MonoBehaviour:
   QuestName: Visit area 2!
   QuestCategory: TestCategory
   QuestDescription: Please it needs visitors
+  questLocked: 0
   questIcon: {fileID: 0}
   objList:
   - type: 3
