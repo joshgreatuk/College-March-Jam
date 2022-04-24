@@ -20,5 +20,8 @@ namespace Inventory
 
         public Button lastButton;
         public Button nextButton;
+
+        public Button leftAssignButton;
+        public Button rightAssignButton;
     }
 }

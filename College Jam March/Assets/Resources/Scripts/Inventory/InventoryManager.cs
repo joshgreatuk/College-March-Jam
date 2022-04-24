@@ -26,6 +26,7 @@ namespace Inventory
         public GameObject itemTooltipPrefab;
         [Space(10)]
         public InvFull inventoryMenu;
+        public Assignment assignmentMenu;
         public InventoryCategories categories;
         public List<InventoryItem> inventory = new List<InventoryItem>();
 

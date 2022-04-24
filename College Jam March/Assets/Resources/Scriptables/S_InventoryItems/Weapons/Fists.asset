@@ -15,8 +15,9 @@ MonoBehaviour:
   publicName: Fists
   itemDescription: Fisticuffs
   itemIcon: {fileID: 0}
-  quantity: 1
+  quantity: 2
   hidden: 1
+  itemPrefab: {fileID: 0}
   category: 1
   damageModifier: 1
   knockbackModifier: 1

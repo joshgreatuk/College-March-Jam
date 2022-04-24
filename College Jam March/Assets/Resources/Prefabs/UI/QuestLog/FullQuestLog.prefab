@@ -2758,6 +2758,7 @@ MonoBehaviour:
   rewardPrefab: {fileID: 8530475580641704269, guid: d034de15c638f704baa72abe62f0bf33, type: 3}
   textPrefab: {fileID: 595899045575165486, guid: 244ef63090523a24691e613c549050fd, type: 3}
   dividerPrefab: {fileID: 5623532929820804509, guid: 77091745aea0ad941a678a3cae828a7c, type: 3}
+  AssignmentPrefab: {fileID: 0}
   questListCached: []
 --- !u!1 &4767234406617154661
 GameObject:

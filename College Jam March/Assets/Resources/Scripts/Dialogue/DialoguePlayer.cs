@@ -333,6 +333,9 @@ namespace Dialogue
                 case TriggerType.UnlockArea:
                     AreaController.instance.UnlockArea(trigger.areaTarget);
                     break;
+                case TriggerType.UnlockQuest:
+                    QuestLog.instance.UnlockQuest(trigger.questTarget);
+                    break;
             }
         }
     }

@@ -28,6 +28,8 @@ namespace QuestSystem
         public bool logShown = false;
         public List<Quest> questList = new List<Quest>();
         public List<Quest> finishedQuestList = new List<Quest>();
+
+        public List<Quest> unlockedQuests = new List<Quest>();
         
         private PlayerClass player;
         private bool addedLogListener = false;
@@ -71,6 +73,11 @@ namespace QuestSystem
             newQuest.questGiver = questGiver;
             questList.Add(newQuest);
             UpdateMiniLog();
+        }
+
+        public void UnlockQuest(Quest quest)
+        {
+            unlockedQuests.Add(quest);
         }
 
         public void ToggleQuestLog()
@@ -174,6 +181,7 @@ namespace QuestSystem
             {
                 if (category.logQuestList.Count < 1)
                 {
+                    questLogObjects.Remove(category);
                     Destroy(category.gameObject);
                 }
             }
@@ -308,6 +316,9 @@ namespace QuestSystem
                         break;
                     case RewardType.UnlockAreaReward:
                         AreaController.instance.UnlockArea(reward.targetArea);
+                        break;
+                    case RewardType.UnlockQuestReward:
+                        UnlockQuest(reward.questTarget);
                         break;
                 }
             }

@@ -137,6 +137,8 @@ namespace Inventory
             {
                 itemInfo.itemObject.SetActive(false);
                 itemInfo.attackObject.SetActive(false);
+                itemInfo.leftAssignButton.gameObject.SetActive(false);
+                itemInfo.rightAssignButton.gameObject.SetActive(false);
                 return;
             }
 
@@ -150,11 +152,15 @@ namespace Inventory
             if (currentItem.category == InventoryCategories.Weapon)
             {
                 itemInfo.attackObject.SetActive(true);
+                itemInfo.leftAssignButton.gameObject.SetActive(true);
+                itemInfo.rightAssignButton.gameObject.SetActive(true);
                 UpdateAttack();
             }
             else
             {
                 itemInfo.attackObject.SetActive(false);
+                itemInfo.leftAssignButton.gameObject.SetActive(false);
+                itemInfo.rightAssignButton.gameObject.SetActive(false);
             }
             itemInfo.lastButton.onClick.RemoveAllListeners();
             itemInfo.lastButton.onClick.AddListener(B_LastAttack);
@@ -198,6 +204,16 @@ namespace Inventory
             WeaponItem itemWeapon = (WeaponItem)itemList[selectedItem].item;
             if (attackIndex <= -1) attackIndex = itemWeapon.attackList.Count-1;
             UpdateAttack();
+        }
+
+        public void B_AssignLeft()
+        {
+            InventoryManager.instance.assignmentMenu.AssignLeft((WeaponItem)itemList[selectedItem].item);
+        }
+
+        public void B_AssignRight()
+        {
+            InventoryManager.instance.assignmentMenu.AssignRight((WeaponItem)itemList[selectedItem].item);
         }
     }
 }

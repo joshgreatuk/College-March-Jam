@@ -21,7 +21,8 @@ namespace QuestSystem
     {
         XPReward,
         ItemReward,
-        UnlockAreaReward
+        UnlockAreaReward,
+        UnlockQuestReward
     }
 
     [Serializable]
@@ -55,6 +56,7 @@ namespace QuestSystem
         public float rewardAmount = 1;
         [AllowNesting] [ShowIf ("type", RewardType.ItemReward)] public InventoryItem targetItem = null;
         [AllowNesting] [ShowIf ("type", RewardType.UnlockAreaReward)] public string targetArea = "";
+        [AllowNesting] [ShowIf("type", RewardType.UnlockQuestReward)] public Quest questTarget = null;
         public bool hidden = false;
     }
 }

@@ -20,7 +20,8 @@ namespace Dialogue
         AddQuest = 1,
         AddDialogue = 2,
         OpenMenu = 3,
-        UnlockArea = 4
+        UnlockArea = 4,
+        UnlockQuest = 5,
     }
 
     [Serializable]
@@ -74,5 +75,6 @@ namespace Dialogue
         [AllowNesting] [ShowIf("triggerType", TriggerType.UnlockArea)] public string areaTarget = "";
         [AllowNesting] [ShowIf("triggerType", TriggerType.SetCondition)] public string conditionName = "";
         [AllowNesting] [ShowIf("triggerType", TriggerType.SetCondition)] public bool conditionState = false;
+        [AllowNesting] [ShowIf("triggerType", TriggerType.UnlockQuest)] public Quest targetQuest;
     }
 }

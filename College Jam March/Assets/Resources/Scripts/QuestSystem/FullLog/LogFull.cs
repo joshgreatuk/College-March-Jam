@@ -20,6 +20,7 @@ namespace QuestSystem
         public GameObject rewardPrefab;
         public GameObject textPrefab;
         public GameObject dividerPrefab;
+        
 
         LogPage selectedPage;
         public List<Quest> questListCached = new List<Quest>();

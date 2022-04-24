@@ -44,7 +44,7 @@ namespace QuestSystem
             unlockedQuestList = new List<Quest>();
             foreach (Quest quest in boardQuestList)
             {
-                if (!quest.questLocked && !QuestLog.instance.CheckForQuest(quest.name))
+                if ((QuestLog.instance.unlockedQuests.Contains(quest) || !quest.questLocked) && !QuestLog.instance.CheckForQuest(quest.name))
                 {
                     unlockedQuestList.Add(quest);
                 }
