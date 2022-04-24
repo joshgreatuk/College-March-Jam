@@ -10,7 +10,7 @@ namespace Areas
         public List<AreaWorld> worldAreaList = new List<AreaWorld>();
 
         public static AreaController instance;
-        public void Awake() { UpdateAreaList(); instance = this; }
+        public void Awake() { instance = this; UpdateAreaList(); }
 
         public void UpdateAreaList()
         {
