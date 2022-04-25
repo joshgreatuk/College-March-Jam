@@ -177,8 +177,9 @@ namespace QuestSystem
             }
 
             //Now look empty categories
-            foreach (MiniLogCategory category in questLogObjects)
+            for (int i=0; i < questLogObjects.Count; i++)
             {
+                MiniLogCategory category = questLogObjects[i];
                 if (category.logQuestList.Count < 1)
                 {
                     questLogObjects.Remove(category);

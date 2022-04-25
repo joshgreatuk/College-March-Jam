@@ -58,7 +58,7 @@ namespace Dialogue
     public class DecisionConditionClass
     {
         public DecisionCondition decisionCondition = 0;
-        [AllowNesting] [ShowIf("decisionCondition", DecisionCondition.ConditionMet)] public bool conditionNeeded = false;
+        public bool conditionNeeded = false;
         [AllowNesting] [ShowIf("decisionCondition", DecisionCondition.ConditionMet)] public string conditionName = "";
         [AllowNesting] [ShowIf("decisionCondition", DecisionCondition.QuestGiven)] public Quest questGivenNeeded = null;
         [AllowNesting] [ShowIf("decisionCondition", DecisionCondition.QuestCompleted)] public Quest questCompleteNeeded = null;

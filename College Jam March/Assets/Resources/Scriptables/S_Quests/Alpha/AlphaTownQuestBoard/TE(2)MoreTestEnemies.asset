@@ -10,28 +10,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f648dafe6eb6ed00b47c9a171814d4b, type: 3}
-  m_Name: KillMoreTestEnemies
+  m_Name: TE(2)MoreTestEnemies
   m_EditorClassIdentifier: 
   QuestName: Kill More Test Enemies
-  QuestCategory: TestCategory
-  QuestDescription: We need more of these fuckers killed!
+  QuestCategory: Test Enemies
+  QuestDescription: Kill more test enemies!
+  questLocked: 1
+  questIcon: {fileID: 0}
   objList:
   - type: 1
-    name: Kill5TestEnemies
-    publicName: Kill Test Enemies
-    description: KILL KILL KILL
+    publicName: Kill More Enemies
+    description: 
     hidden: 0
     killStatus: 0
     killTarget: 5
     enemyTypeTarget: {fileID: 11400000, guid: 792462bd49afb3e6a82cb71dfaa66583, type: 2}
     npcReference: 
+    targetItem: {fileID: 0}
+    targetArea: 
     objectiveComplete: 0
     logObjective: {fileID: 0}
     nextObjectives: []
   rewardList:
   - type: 0
-    rewardName: XP Rewads
-    rewardAmount: 200
+    rewardName: XP Reward
+    rewardAmount: 300
+    targetItem: {fileID: 0}
+    targetArea: 
+    questTarget: {fileID: 0}
     hidden: 0
   questGiver: {fileID: 0}
   logQuest: {fileID: 0}

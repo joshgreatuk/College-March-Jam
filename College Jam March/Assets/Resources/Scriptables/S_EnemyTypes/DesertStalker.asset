@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb4034dccce66c2fb9f48b593ef4a076, type: 3}
   m_Name: DesertStalker
   m_EditorClassIdentifier: 
+  publicName: Desert Stalker
   mainAttack: {fileID: 0}
   secondaryAttack: {fileID: 0}
   enemyMaxHealth: 200

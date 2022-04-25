@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f648dafe6eb6ed00b47c9a171814d4b, type: 3}
+  m_Name: (4)Kill Stalkers
+  m_EditorClassIdentifier: 
+  QuestName: Kill Stalkers
+  QuestCategory: The Stalkers
+  QuestDescription: Go kill a few stalkers and collect their claws! I have someone
+    youd like to meet.
+  questLocked: 1
+  questIcon: {fileID: 0}
+  objList:
+  - type: 1
+    publicName: Kill Stalkers
+    description: 
+    hidden: 0
+    killStatus: 0
+    killTarget: 3
+    enemyTypeTarget: {fileID: 11400000, guid: 6d792ffe873f4271dba378e863f16977, type: 2}
+    npcReference: 
+    targetItem: {fileID: 0}
+    targetArea: 
+    objectiveComplete: 0
+    logObjective: {fileID: 0}
+    nextObjectives: []
+  - type: 2
+    publicName: Pick up Stalker Claws
+    description: You may need a few
+    hidden: 0
+    killStatus: 0
+    killTarget: 3
+    enemyTypeTarget: {fileID: 11400000, guid: 6d792ffe873f4271dba378e863f16977, type: 2}
+    npcReference: 
+    targetItem: {fileID: 11400000, guid: 28d9810dfaf5f0c4ebb19056891c5ffb, type: 2}
+    targetArea: 
+    objectiveComplete: 0
+    logObjective: {fileID: 0}
+    nextObjectives:
+    - type: 0
+      publicName: Go Talk To Stalker Guy
+      description: He will be in the same place
+      hidden: 0
+      killStatus: 0
+      killTarget: 0
+      enemyTypeTarget: {fileID: 0}
+      npcReference: StalkerGuy
+      targetItem: {fileID: 0}
+      targetArea: 
+      objectiveComplete: 0
+      logObjective: {fileID: 0}
+      nextObjectives: []
+  rewardList:
+  - type: 3
+    rewardName: Quest Reward
+    rewardAmount: 0
+    targetItem: {fileID: 0}
+    targetArea: 
+    questTarget: {fileID: 11400000, guid: a0888e44a2291c899a6b3763ac87c8ba, type: 2}
+    hidden: 0
+  - type: 0
+    rewardName: XP Reward
+    rewardAmount: 300
+    targetItem: {fileID: 0}
+    targetArea: 
+    questTarget: {fileID: 11400000, guid: a0888e44a2291c899a6b3763ac87c8ba, type: 2}
+    hidden: 0
+  questGiver: {fileID: 0}
+  logQuest: {fileID: 0}

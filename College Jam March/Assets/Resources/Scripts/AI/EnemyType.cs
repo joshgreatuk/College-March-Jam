@@ -10,6 +10,7 @@ namespace AI
     [CreateAssetMenu(fileName = "NewEnemy", menuName = "Oasis/Enemy", order = 1)]
     public class EnemyType : ScriptableObject
     {
+        public string publicName;
         public Attack mainAttack;
         public Attack secondaryAttack;
         public float enemyMaxHealth = 100;

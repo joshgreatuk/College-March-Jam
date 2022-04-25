@@ -670,7 +670,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   areaList: []
-  spawnPoint: {fileID: 1275223667}
+  spawnPoints:
+  - {fileID: 1275223667}
 --- !u!4 &1836760561
 Transform:
   m_ObjectHideFlags: 0

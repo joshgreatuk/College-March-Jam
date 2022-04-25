@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f648dafe6eb6ed00b47c9a171814d4b, type: 3}
+  m_Name: (3)New Stalkers
+  m_EditorClassIdentifier: 
+  QuestName: New Stalkers
+  QuestCategory: The Stalkers
+  QuestDescription: Theres been a new Stalker Spotted east of the last ones!
+  questLocked: 1
+  questIcon: {fileID: 0}
+  objList:
+  - type: 1
+    publicName: Kill a rock throwing stalker
+    description: They should be east of the standard ones
+    hidden: 0
+    killStatus: 0
+    killTarget: 1
+    enemyTypeTarget: {fileID: 11400000, guid: ea82452fd688d5ed1b2d3d4de60111f9, type: 2}
+    npcReference: 
+    targetItem: {fileID: 0}
+    targetArea: 
+    objectiveComplete: 0
+    logObjective: {fileID: 0}
+    nextObjectives: []
+  rewardList:
+  - type: 0
+    rewardName: XP Reward
+    rewardAmount: 200
+    targetItem: {fileID: 0}
+    targetArea: 
+    questTarget: {fileID: 0}
+    hidden: 0
+  - type: 3
+    rewardName: Unlock Quest
+    rewardAmount: 1
+    targetItem: {fileID: 0}
+    targetArea: 
+    questTarget: {fileID: 11400000, guid: 3cdfb519f2b7c76c491fb526d3055c1d, type: 2}
+    hidden: 1
+  questGiver: {fileID: 0}
+  logQuest: {fileID: 0}

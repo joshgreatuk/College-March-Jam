@@ -8,7 +8,7 @@ namespace Areas
     public class AreaController : MonoBehaviour 
     {
         public List<Area> areaList = new List<Area>();
-        public Transform spawnPoint;
+        public List<Transform> spawnPoints = new List<Transform>();
 
         public static AreaController instance;
         public void Awake() { instance = this; UpdateAreaList(); }

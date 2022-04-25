@@ -1,0 +1,338 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aef7a9b8c6bde12479ef9201d660de5d, type: 3}
+  m_Name: StalkerGuyDialogue
+  m_EditorClassIdentifier: 
+  autoPlay: 0
+  nodeList:
+  - description: (0)SwitchBoard
+    speech: []
+    autoDecision: 1
+    decisionSpeech: 
+    decisions:
+    - conditions:
+      - decisionCondition: 0
+        conditionNeeded: 0
+        conditionName: 
+        questGivenNeeded: {fileID: 11400000, guid: 65b0805ac5fd8da84b0460af58918057, type: 2}
+        questCompleteNeeded: {fileID: 0}
+      decisionText: Quest1
+      hidden: 0
+      decisionPath: {fileID: 11400000}
+      decisionPathIndex: 1
+      playInstantly: 0
+    - conditions:
+      - decisionCondition: 0
+        conditionNeeded: 1
+        conditionName: 
+        questGivenNeeded: {fileID: 11400000, guid: 65b0805ac5fd8da84b0460af58918057, type: 2}
+        questCompleteNeeded: {fileID: 11400000, guid: 65b0805ac5fd8da84b0460af58918057, type: 2}
+      - decisionCondition: 1
+        conditionNeeded: 0
+        conditionName: 
+        questGivenNeeded: {fileID: 11400000, guid: 65b0805ac5fd8da84b0460af58918057, type: 2}
+        questCompleteNeeded: {fileID: 11400000, guid: 65b0805ac5fd8da84b0460af58918057, type: 2}
+      decisionText: Quest1Still
+      hidden: 0
+      decisionPath: {fileID: 11400000}
+      decisionPathIndex: 2
+      playInstantly: 0
+    - conditions:
+      - decisionCondition: 1
+        conditionNeeded: 1
+        conditionName: 
+        questGivenNeeded: {fileID: 11400000, guid: e00699ff84b9e42dda1a3a618da43375, type: 2}
+        questCompleteNeeded: {fileID: 11400000, guid: 65b0805ac5fd8da84b0460af58918057, type: 2}
+      - decisionCondition: 0
+        conditionNeeded: 0
+        conditionName: 
+        questGivenNeeded: {fileID: 11400000, guid: e00699ff84b9e42dda1a3a618da43375, type: 2}
+        questCompleteNeeded: {fileID: 11400000, guid: 65b0805ac5fd8da84b0460af58918057, type: 2}
+      decisionText: Quest2
+      hidden: 0
+      decisionPath: {fileID: 11400000}
+      decisionPathIndex: 3
+      playInstantly: 0
+    - conditions:
+      - decisionCondition: 0
+        conditionNeeded: 1
+        conditionName: 
+        questGivenNeeded: {fileID: 11400000, guid: e00699ff84b9e42dda1a3a618da43375, type: 2}
+        questCompleteNeeded: {fileID: 11400000, guid: 65b0805ac5fd8da84b0460af58918057, type: 2}
+      - decisionCondition: 1
+        conditionNeeded: 0
+        conditionName: 
+        questGivenNeeded: {fileID: 11400000, guid: 65b0805ac5fd8da84b0460af58918057, type: 2}
+        questCompleteNeeded: {fileID: 11400000, guid: e00699ff84b9e42dda1a3a618da43375, type: 2}
+      - decisionCondition: 1
+        conditionNeeded: 1
+        conditionName: 
+        questGivenNeeded: {fileID: 11400000, guid: 65b0805ac5fd8da84b0460af58918057, type: 2}
+        questCompleteNeeded: {fileID: 11400000, guid: 65b0805ac5fd8da84b0460af58918057, type: 2}
+      decisionText: Quest2Still
+      hidden: 0
+      decisionPath: {fileID: 11400000}
+      decisionPathIndex: 4
+      playInstantly: 0
+    - conditions:
+      - decisionCondition: 1
+        conditionNeeded: 1
+        conditionName: 
+        questGivenNeeded: {fileID: 11400000, guid: 35b6c169b7108f9d8bc2d575209b3b0a, type: 2}
+        questCompleteNeeded: {fileID: 11400000, guid: e00699ff84b9e42dda1a3a618da43375, type: 2}
+      - decisionCondition: 0
+        conditionNeeded: 0
+        conditionName: 
+        questGivenNeeded: {fileID: 11400000, guid: 35b6c169b7108f9d8bc2d575209b3b0a, type: 2}
+        questCompleteNeeded: {fileID: 11400000, guid: 65b0805ac5fd8da84b0460af58918057, type: 2}
+      decisionText: Quest3
+      hidden: 0
+      decisionPath: {fileID: 11400000}
+      decisionPathIndex: 5
+      playInstantly: 0
+    - conditions:
+      - decisionCondition: 0
+        conditionNeeded: 1
+        conditionName: 
+        questGivenNeeded: {fileID: 11400000, guid: 35b6c169b7108f9d8bc2d575209b3b0a, type: 2}
+        questCompleteNeeded: {fileID: 11400000, guid: 65b0805ac5fd8da84b0460af58918057, type: 2}
+      - decisionCondition: 1
+        conditionNeeded: 0
+        conditionName: 
+        questGivenNeeded: {fileID: 11400000, guid: 65b0805ac5fd8da84b0460af58918057, type: 2}
+        questCompleteNeeded: {fileID: 11400000, guid: 35b6c169b7108f9d8bc2d575209b3b0a, type: 2}
+      - decisionCondition: 1
+        conditionNeeded: 1
+        conditionName: 
+        questGivenNeeded: {fileID: 11400000, guid: 65b0805ac5fd8da84b0460af58918057, type: 2}
+        questCompleteNeeded: {fileID: 11400000, guid: e00699ff84b9e42dda1a3a618da43375, type: 2}
+      decisionText: Quest3Still
+      hidden: 0
+      decisionPath: {fileID: 11400000}
+      decisionPathIndex: 6
+      playInstantly: 0
+    - conditions:
+      - decisionCondition: 1
+        conditionNeeded: 1
+        conditionName: 
+        questGivenNeeded: {fileID: 11400000, guid: 3cdfb519f2b7c76c491fb526d3055c1d, type: 2}
+        questCompleteNeeded: {fileID: 11400000, guid: 35b6c169b7108f9d8bc2d575209b3b0a, type: 2}
+      - decisionCondition: 0
+        conditionNeeded: 0
+        conditionName: 
+        questGivenNeeded: {fileID: 11400000, guid: 3cdfb519f2b7c76c491fb526d3055c1d, type: 2}
+        questCompleteNeeded: {fileID: 11400000, guid: 65b0805ac5fd8da84b0460af58918057, type: 2}
+      decisionText: Quest4
+      hidden: 0
+      decisionPath: {fileID: 11400000}
+      decisionPathIndex: 7
+      playInstantly: 0
+    - conditions:
+      - decisionCondition: 0
+        conditionNeeded: 1
+        conditionName: 
+        questGivenNeeded: {fileID: 11400000, guid: 3cdfb519f2b7c76c491fb526d3055c1d, type: 2}
+        questCompleteNeeded: {fileID: 11400000, guid: 65b0805ac5fd8da84b0460af58918057, type: 2}
+      - decisionCondition: 1
+        conditionNeeded: 0
+        conditionName: 
+        questGivenNeeded: {fileID: 11400000, guid: 65b0805ac5fd8da84b0460af58918057, type: 2}
+        questCompleteNeeded: {fileID: 11400000, guid: 3cdfb519f2b7c76c491fb526d3055c1d, type: 2}
+      - decisionCondition: 1
+        conditionNeeded: 1
+        conditionName: 
+        questGivenNeeded: {fileID: 11400000, guid: 65b0805ac5fd8da84b0460af58918057, type: 2}
+        questCompleteNeeded: {fileID: 11400000, guid: 35b6c169b7108f9d8bc2d575209b3b0a, type: 2}
+      decisionText: Quest4Still
+      hidden: 0
+      decisionPath: {fileID: 11400000}
+      decisionPathIndex: 8
+      playInstantly: 0
+    - conditions:
+      - decisionCondition: 1
+        conditionNeeded: 1
+        conditionName: 
+        questGivenNeeded: {fileID: 11400000, guid: a0888e44a2291c899a6b3763ac87c8ba, type: 2}
+        questCompleteNeeded: {fileID: 11400000, guid: 3cdfb519f2b7c76c491fb526d3055c1d, type: 2}
+      - decisionCondition: 0
+        conditionNeeded: 0
+        conditionName: 
+        questGivenNeeded: {fileID: 11400000, guid: a0888e44a2291c899a6b3763ac87c8ba, type: 2}
+        questCompleteNeeded: {fileID: 11400000, guid: 65b0805ac5fd8da84b0460af58918057, type: 2}
+      decisionText: Quest5
+      hidden: 0
+      decisionPath: {fileID: 11400000}
+      decisionPathIndex: 9
+      playInstantly: 0
+    - conditions:
+      - decisionCondition: 0
+        conditionNeeded: 1
+        conditionName: 
+        questGivenNeeded: {fileID: 11400000, guid: a0888e44a2291c899a6b3763ac87c8ba, type: 2}
+        questCompleteNeeded: {fileID: 11400000, guid: a0888e44a2291c899a6b3763ac87c8ba, type: 2}
+      - decisionCondition: 1
+        conditionNeeded: 0
+        conditionName: 
+        questGivenNeeded: {fileID: 11400000, guid: 65b0805ac5fd8da84b0460af58918057, type: 2}
+        questCompleteNeeded: {fileID: 11400000, guid: a0888e44a2291c899a6b3763ac87c8ba, type: 2}
+      - decisionCondition: 1
+        conditionNeeded: 1
+        conditionName: 
+        questGivenNeeded: {fileID: 11400000, guid: 65b0805ac5fd8da84b0460af58918057, type: 2}
+        questCompleteNeeded: {fileID: 11400000, guid: 3cdfb519f2b7c76c491fb526d3055c1d, type: 2}
+      decisionText: Quest5Still
+      hidden: 0
+      decisionPath: {fileID: 11400000}
+      decisionPathIndex: 10
+      playInstantly: 0
+    - conditions:
+      - decisionCondition: 1
+        conditionNeeded: 1
+        conditionName: 
+        questGivenNeeded: {fileID: 11400000, guid: 65b0805ac5fd8da84b0460af58918057, type: 2}
+        questCompleteNeeded: {fileID: 11400000, guid: a0888e44a2291c899a6b3763ac87c8ba, type: 2}
+      decisionText: QuestsFinished
+      hidden: 0
+      decisionPath: {fileID: 11400000}
+      decisionPathIndex: 11
+      playInstantly: 0
+    triggers: []
+  - description: (1)GiveQuest1
+    speech:
+    - Hey! I need your help, them damn Desert Stalkers been stalking the desert again,
+      go check em out for me yeah?
+    - Come back once you've found them
+    autoDecision: 0
+    decisionSpeech: 
+    decisions: []
+    triggers:
+    - triggerType: 1
+      questTarget: {fileID: 11400000, guid: 65b0805ac5fd8da84b0460af58918057, type: 2}
+      dialogueObject: {fileID: 0}
+      dialogueIndex: 0
+      menuPrefab: {fileID: 0}
+      areaTarget: 
+      conditionName: 
+      conditionState: 0
+      targetQuest: {fileID: 0}
+  - description: (2)Quest1NotDone
+    speech:
+    - You not been up there yet? What are you waiting for?
+    autoDecision: 0
+    decisionSpeech: 
+    decisions: []
+    triggers: []
+  - description: (3)GiveQuest2
+    speech:
+    - Nice job, take this sword and go and defeat one, they are pretty hardy so they
+      will take a few hits!
+    autoDecision: 0
+    decisionSpeech: 
+    decisions: []
+    triggers:
+    - triggerType: 1
+      questTarget: {fileID: 11400000, guid: e00699ff84b9e42dda1a3a618da43375, type: 2}
+      dialogueObject: {fileID: 0}
+      dialogueIndex: 0
+      menuPrefab: {fileID: 0}
+      areaTarget: 
+      conditionName: 
+      conditionState: 0
+      targetQuest: {fileID: 0}
+  - description: (4)Quest2NotDone
+    speech:
+    - Go kill one!
+    autoDecision: 0
+    decisionSpeech: 
+    decisions: []
+    triggers: []
+  - description: (5)GiveQuest3
+    speech:
+    - Nice kill! We have a slight situation on our hands, theres been a new type
+      of Desert Stalker spotted just east of the other ones, it throws rocks! Go
+      take one out.
+    autoDecision: 0
+    decisionSpeech: 
+    decisions: []
+    triggers:
+    - triggerType: 1
+      questTarget: {fileID: 11400000, guid: 35b6c169b7108f9d8bc2d575209b3b0a, type: 2}
+      dialogueObject: {fileID: 0}
+      dialogueIndex: 0
+      menuPrefab: {fileID: 0}
+      areaTarget: 
+      conditionName: 
+      conditionState: 0
+      targetQuest: {fileID: 0}
+  - description: (6)Quest3NotDone
+    speech:
+    - Those things are gonna be all over the place soon, go show them whos boss!
+    autoDecision: 0
+    decisionSpeech: 
+    decisions: []
+    triggers: []
+  - description: (7)GiveQuest4
+    speech:
+    - Nice job! Now you know where they arae, go kill a few for me, make sure you
+      grab the claws they drop, i wanna show you to someone.
+    autoDecision: 0
+    decisionSpeech: 
+    decisions: []
+    triggers:
+    - triggerType: 1
+      questTarget: {fileID: 11400000, guid: 3cdfb519f2b7c76c491fb526d3055c1d, type: 2}
+      dialogueObject: {fileID: 0}
+      dialogueIndex: 0
+      menuPrefab: {fileID: 0}
+      areaTarget: 
+      conditionName: 
+      conditionState: 0
+      targetQuest: {fileID: 0}
+  - description: (8)Quest4NotDone
+    speech:
+    - Go get some claws and come back to me.
+    autoDecision: 0
+    decisionSpeech: 
+    decisions: []
+    triggers: []
+  - description: (9)GiveQuest5
+    speech:
+    - Alright, now you got the claws take them to the guy behind this building, he
+      will take them off your hands and in return upgrade your weapon's damage!
+    - Go try him out, he could be very useful to you
+    autoDecision: 0
+    decisionSpeech: 
+    decisions: []
+    triggers:
+    - triggerType: 1
+      questTarget: {fileID: 11400000, guid: a0888e44a2291c899a6b3763ac87c8ba, type: 2}
+      dialogueObject: {fileID: 0}
+      dialogueIndex: 0
+      menuPrefab: {fileID: 0}
+      areaTarget: 
+      conditionName: 
+      conditionState: 0
+      targetQuest: {fileID: 0}
+  - description: (10)Quest5NotDone
+    speech:
+    - What are you waiting for? Dont you like upgrades?
+    autoDecision: 0
+    decisionSpeech: 
+    decisions: []
+    triggers: []
+  - description: (11)ThankPlayer
+    speech:
+    - Good job on those stalkers! Keep it goin so they dont overrun the damn place.
+    autoDecision: 0
+    decisionSpeech: 
+    decisions: []
+    triggers: []

@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f648dafe6eb6ed00b47c9a171814d4b, type: 3}
+  m_Name: (1)Stalker Survey
+  m_EditorClassIdentifier: 
+  QuestName: Stalker Recon
+  QuestCategory: The Stalkers
+  QuestDescription: Go and take a look at where the stalkers are!
+  questLocked: 0
+  questIcon: {fileID: 0}
+  objList:
+  - type: 3
+    publicName: Visit The Desert
+    description: You can walk out of town to the north
+    hidden: 0
+    killStatus: 0
+    killTarget: 0
+    enemyTypeTarget: {fileID: 0}
+    npcReference: 
+    targetItem: {fileID: 0}
+    targetArea: AlphaDesert
+    objectiveComplete: 0
+    logObjective: {fileID: 0}
+    nextObjectives:
+    - type: 0
+      publicName: Talk to Stalker Guy again
+      description: He wants to give you something
+      hidden: 0
+      killStatus: 0
+      killTarget: 0
+      enemyTypeTarget: {fileID: 0}
+      npcReference: StalkerGuy
+      targetItem: {fileID: 0}
+      targetArea: 
+      objectiveComplete: 0
+      logObjective: {fileID: 0}
+      nextObjectives: []
+  rewardList:
+  - type: 1
+    rewardName: Sword Reward
+    rewardAmount: 1
+    targetItem: {fileID: 11400000, guid: c3cbcd9269653fa8398485b8918dda89, type: 2}
+    targetArea: 
+    questTarget: {fileID: 0}
+    hidden: 0
+  - type: 0
+    rewardName: XP Reward
+    rewardAmount: 50
+    targetItem: {fileID: 11400000, guid: c3cbcd9269653fa8398485b8918dda89, type: 2}
+    targetArea: 
+    questTarget: {fileID: 0}
+    hidden: 0
+  - type: 3
+    rewardName: 
+    rewardAmount: 1
+    targetItem: {fileID: 11400000, guid: c3cbcd9269653fa8398485b8918dda89, type: 2}
+    targetArea: 
+    questTarget: {fileID: 11400000, guid: e00699ff84b9e42dda1a3a618da43375, type: 2}
+    hidden: 1
+  questGiver: {fileID: 0}
+  logQuest: {fileID: 0}

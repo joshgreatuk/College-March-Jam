@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Areas
 {
@@ -11,6 +12,11 @@ namespace Areas
         public bool unlocked = true;
         public string lockedText;
 
-        protected void Awake() { lockedText = $"{areaName} is locked"; }
+        protected void Awake() { if (lockedText == "") lockedText = $"{areaName} is locked"; }
+        
+        public Scene GetScene()
+        {
+            return gameObject.scene;
+        }
     }
 }

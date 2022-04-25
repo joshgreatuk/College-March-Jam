@@ -9,10 +9,5 @@ namespace Areas
     {
         public GameScene targetArea;
         public Vector3 spawnPoint;
-
-        public Scene GetScene()
-        {
-            return SceneManager.GetActiveScene();
-        }
     }
 }

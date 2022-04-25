@@ -26,6 +26,9 @@ namespace AI
         private Image healthBarValue;
         private TMP_Text healthBarText;
 
+        private GameObject nameBar;
+        private TMP_Text nameText;
+
         private void Start() 
         {
             if (enemyType != null)
@@ -39,12 +42,19 @@ namespace AI
             healthBarValue = healthBar.transform.Find("HealthValue").GetComponent<Image>();
             healthBarText = healthBar.transform.Find("HealthText").GetComponent<TMP_Text>();
             HealthBarUpdate();
+
+            nameBar = Instantiate(Prefabs.instance.nameBar);
+            nameBar.transform.position = UIPoint.position + (Vector3.up/2);
+            nameBar.transform.SetParent(Prefabs.instance.worldCanvas.transform);
+            nameText = nameBar.transform.Find("NameText").GetComponent<TMP_Text>();
+            nameText.text = enemyType.publicName;
         }
 
         new protected void FixedUpdate()
         {
             base.FixedUpdate();
             healthBar.transform.position = UIPoint.position;
+            nameBar.transform.position = UIPoint.position + (Vector3.up/2);
         }
 
         public void EnemyHit(int damage, float stunLevel, bool crit)

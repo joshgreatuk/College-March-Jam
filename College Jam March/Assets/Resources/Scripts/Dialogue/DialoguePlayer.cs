@@ -296,12 +296,12 @@ namespace Dialogue
                 switch (conditionClass.decisionCondition)
                 {
                     case DecisionCondition.QuestGiven:
-                        decision = dialogueHandler.questLog.QuestListCheck(conditionClass.questGivenNeeded.name);
+                        decision = dialogueHandler.questLog.QuestListCheck(conditionClass.questGivenNeeded.name.Split('(')[0]);
                         if (!decision)
-                        { decision = dialogueHandler.questLog.FinishedQuestListCheck(conditionClass.questGivenNeeded.name); }
+                        { decision = dialogueHandler.questLog.FinishedQuestListCheck(conditionClass.questGivenNeeded.name.Split('(')[0]); }
                         break;
                     case DecisionCondition.QuestCompleted:
-                        decision = dialogueHandler.questLog.FinishedQuestListCheck(conditionClass.questCompleteNeeded.name);
+                        decision = dialogueHandler.questLog.FinishedQuestListCheck(conditionClass.questCompleteNeeded.name.Split('(')[0]);
                         break;
                     case DecisionCondition.ConditionMet:
                         decision = dialogueHandler.dialogueConditions.GetConditionState(conditionClass.conditionName);

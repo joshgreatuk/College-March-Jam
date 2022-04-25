@@ -12,5 +12,11 @@ namespace Player
         [Space(10)]
         public WeaponItem leftHandItem;
         public WeaponItem rightHandItem;
+
+        private void Awake() 
+        {
+            if (leftHandItem == null) leftHandItem = defaultHandItem;
+            if (rightHandItem == null) rightHandItem = defaultHandItem;    
+        }
     }
 }

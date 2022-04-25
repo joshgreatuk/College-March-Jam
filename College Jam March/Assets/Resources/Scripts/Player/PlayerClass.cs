@@ -45,6 +45,7 @@ namespace Player
         public PlayerPanel playerPanel;
         public PlayerAssignment playerAssignment;
         public PlayerInteraction playerInteraction;
+        public GameObject pauseMenu;
 
         private Rigidbody playerRb;
         private Camera cameraComp;
@@ -113,14 +114,37 @@ namespace Player
             }    
         }
 
+        public void PauseButton()
+        {
+            if (pauseMenu.activeSelf)
+            {
+                pauseMenu.SetActive(false);
+                Time.timeScale = 1;
+            }
+            else
+            {
+                pauseMenu.SetActive(true);
+                Time.timeScale = 0;
+            }
+        }
+
         public void FreezePlayer()
         {
             playerRb.constraints = RigidbodyConstraints.FreezeAll;
         }
 
+        public Vector3 spawnPointReference;
+
         public void SpawnPlayer()
         {
-            Vector3 position = Areas.AreaController.instance.spawnPoint.position;
+            Vector3 position = Areas.AreaController.instance.spawnPoints[0].position;
+            foreach (Transform spawn in Areas.AreaController.instance.spawnPoints)
+            {
+                if (Vector3.Distance(spawnPointReference, spawn.position) < Vector3.Distance(spawnPointReference, position))
+                {
+                    position = spawn.position;
+                }
+            }
             transform.position = position;
             position.y = playerCamera.transform.position.y;
             playerCamera.transform.position = position;
