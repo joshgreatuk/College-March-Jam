@@ -27,7 +27,7 @@ MonoBehaviour:
     enemyTypeTarget: {fileID: 0}
     npcReference: 
     targetItem: {fileID: 0}
-    targetArea: AlphaDesert
+    targetArea: Desert
     objectiveComplete: 0
     logObjective: {fileID: 0}
     nextObjectives:

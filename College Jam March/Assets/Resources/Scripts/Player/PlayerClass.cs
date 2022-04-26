@@ -118,11 +118,13 @@ namespace Player
         {
             if (pauseMenu.activeSelf)
             {
+                UnlockMovement();
                 pauseMenu.SetActive(false);
                 Time.timeScale = 1;
             }
             else
             {
+                LockMovement();
                 pauseMenu.SetActive(true);
                 Time.timeScale = 0;
             }

@@ -185,6 +185,10 @@ namespace Player
                             {
                                 Destroy(child.gameObject);
                             }
+                            foreach (Transform child in UIRefs.instance.WorldCanvas.transform)
+                            {
+                                Destroy(child.gameObject);
+                            }
                         }
                         interactionCollider = null;
                         interactionState = InteractionStates.Idle;
